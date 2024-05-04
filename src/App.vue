@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <topBar/>
+    <bottomBar/>
+    <router-view/>
   </div>
 </template>
 
 <script>
+import topBar from "./components/topBar.vue"
+import bottomBar from "./components/bottomBar.vue"
 export default {
+  name: 'App',
+  components: {
+    topBar,
+    bottomBar
+  }
 }
 </script>
-
-<style>
-</style>
