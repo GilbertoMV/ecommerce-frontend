@@ -9,6 +9,7 @@
     "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
