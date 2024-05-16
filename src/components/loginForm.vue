@@ -61,7 +61,6 @@ export default {
                     correo: this.formData.email,
                     contrasena: this.formData.password
                 });
-                // console.log(response)
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
                     this.$store.dispatch('updateAuthenticationStatus', true);
@@ -85,7 +84,6 @@ export default {
             }
         },
         async fetchUserData() {
-            const token = localStorage.getItem('token');
             try {
                 const response = await axios.get('https://back-end-production-c8eb.up.railway.app/user/me/', {
                     headers: {
