@@ -1,5 +1,7 @@
 <template>
-  <h1>Hola desde NEWITEMS</h1>
+  <main>
+    <h1>New Items</h1>
+  </main>
 </template>
 
 <script>

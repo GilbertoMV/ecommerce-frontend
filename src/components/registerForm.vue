@@ -1,23 +1,23 @@
 <template>
-    <form @submit.prevent="registrarUsuario">
+    <form @submit.prevent="signUp">
         <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label" :name="field.name"
             v-model="formData[field.name]" />
         <div class="error" v-if="!$v.formData.name.required && $v.formData.name.$dirty">Name is required</div>
         <div class="error" v-if="!$v.formData.name.minLength && $v.formData.name.$dirty">Name must be at least 3
             characters</div>
-        <div class="error" v-if="!$v.formData.name.alpha && $v.formData.name.$dirty">Name must only contain letters
+        <div class="error" v-if="!$v.formData.name.hasSpace && $v.formData.name.$dirty">Name must only contain letters
         </div>
         <div class="error" v-if="!$v.formData.paternalLastName.required && $v.formData.paternalLastName.$dirty">Paternal
             Last Name is required</div>
         <div class="error" v-if="!$v.formData.paternalLastName.minLength && $v.formData.paternalLastName.$dirty">
             Paternal Last Name must be at least 3 characters</div>
-        <div class="error" v-if="!$v.formData.paternalLastName.alpha && $v.formData.paternalLastName.$dirty">Paternal
+        <div class="error" v-if="!$v.formData.paternalLastName.hasSpace && $v.formData.paternalLastName.$dirty">Paternal
             Last Name must only contain letters</div>
         <div class="error" v-if="!$v.formData.maternalLastName.required && $v.formData.maternalLastName.$dirty">Maternal
             Last Name is required</div>
         <div class="error" v-if="!$v.formData.maternalLastName.minLength && $v.formData.maternalLastName.$dirty">
             Maternal Last Name must be at least 3 characters</div>
-        <div class="error" v-if="!$v.formData.maternalLastName.alpha && $v.formData.maternalLastName.$dirty">Maternal
+        <div class="error" v-if="!$v.formData.maternalLastName.hasSpace && $v.formData.maternalLastName.$dirty">Maternal
             Last Name must only contain letters</div>
         <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">Email is required</div>
         <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">Invalid email</div>
@@ -39,13 +39,16 @@
             least one uppercase letter</div>
         <div class="error" v-if="!$v.formData.password.hasSpecialChar && $v.formData.password.$dirty">Password must
             contain at least one special character</div>
-
-        <button type="submit">Register</button>
+        <div class="error" v-if="!$v.formData.passwordConfirm.sameAsPassword && $v.formData.passwordConfirm.$dirty">
+            Passwords do not match</div>
+        <div class="error" v-if="!$v.formData.passwordConfirm.required && $v.formData.passwordConfirm.$dirty">
+            Confirmation password is required</div>
+        <button type="submit">Sign Up</button>
     </form>
 </template>
 
 <script>
-import { required, email, minLength, alpha } from 'vuelidate/lib/validators';
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 import { helpers } from 'vuelidate/lib/validators'
 import formInput from './formInput.vue';
 import Swal from 'sweetalert2';
@@ -63,9 +66,10 @@ const validDate = helpers.withParams(
 const hasNumber = helpers.regex('hasNumber', /\d/);
 const hasUpper = helpers.regex('hasUpper', /[A-Z]/);
 const hasSpecialChar = helpers.regex('hasSpecialChar', /[^a-zA-Z0-9]/);
+const hasSpace = helpers.regex('hasSpace', /^[A-Za-z\s]*$/)
 
 export default {
-    name: 'RegisterForm',
+    name: 'SignUpForm',
     components: {
         formInput
     },
@@ -77,6 +81,7 @@ export default {
                 maternalLastName: '',
                 email: '',
                 password: '',
+                passwordConfirm: '',
                 birthdate: '',
             },
             fields: [
@@ -85,22 +90,24 @@ export default {
                 { name: 'maternalLastName', type: 'text', label: 'Maternal Last Name' },
                 { name: 'email', type: 'email', label: 'Email' },
                 { name: 'password', type: 'password', label: 'Password' },
+                { name: 'passwordConfirm', type: 'password', label: 'Confirm Password' },
                 { name: 'birthdate', type: 'date', label: 'Birthdate' }
             ]
         };
     },
     validations: {
         formData: {
-            name: { required, minLength: minLength(3), alpha },
-            paternalLastName: { required, minLength: minLength(3), alpha },
-            maternalLastName: { required, minLength: minLength(3), alpha },
+            name: { required, minLength: minLength(3), hasSpace },
+            paternalLastName: { required, minLength: minLength(3), hasSpace },
+            maternalLastName: { required, minLength: minLength(3), hasSpace },
             email: { required, email },
             password: { required, minLength: minLength(8), hasNumber, hasUpper, hasSpecialChar },
+            passwordConfirm: { required, sameAsPassword: sameAs('password') },
             birthdate: { required, validDate }
         }
     },
     methods: {
-        async registrarUsuario() {
+        async signUp() {
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
@@ -116,7 +123,7 @@ export default {
                     return;
                 }
 
-                await Axios.post('https://back-end-production-c8eb.up.railway.app/user/register', {
+                await Axios.post('https://back-end-production-c8eb.up.railway.app/register', {
                     nombre: this.formData.name,
                     apellido_paterno: this.formData.paternalLastName,
                     apellido_materno: this.formData.maternalLastName,
@@ -135,32 +142,21 @@ export default {
                     timer: 3000,
                     timerProgressBar: true,
                 });
-                console.log(JSON.stringify(this.formData, null, 2));
 
             } catch (error) {
-                console.log(error);
-                if (error.response && error.response.data && error.response.data.error === 'El correo ya está registrado') {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Error when registering",
-                        text: "The email is already registered",
-                        toast: true,
-                        position: "bottom-right",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                    });
-                } else {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Error when registering",
-                        toast: true,
-                        position: "bottom-right",
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                    });
+                let errorMessage = 'Error when registering'
+                if (error.response && error.response.data && error.response.data.message) {
+                    errorMessage += ': ' + error.response.data.message
                 }
+                Swal.fire({
+                    icon: "warning",
+                    title: errorMessage,
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
             }
         }
     }
