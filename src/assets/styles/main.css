@@ -1,1 +1,10 @@
 @import url("formatStyles.css");
+
+main {
+  margin: 10px auto;
+  max-width: 80vw;
+  min-width: 100vh;
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+}

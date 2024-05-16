@@ -1,5 +1,7 @@
 <template>
-  <h1>Hola desde BESTSELLERS</h1>
+  <main>
+    <h1>Best Sellers</h1>
+  </main>
 </template>
 
 <script>

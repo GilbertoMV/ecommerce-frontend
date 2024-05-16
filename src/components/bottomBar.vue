@@ -5,7 +5,7 @@
         <li><a href="#">All Categories</a></li>
         <li><router-link to="/best-sellers" active-class="active">Best Sellers</router-link></li>
         <li><router-link to="/new-items" active-class="active">New Items</router-link></li>
-        <li><router-link to="/more-eco-friendly" active-class="active">More eco-friendly</router-link></li>
+        <li><router-link to="/more-ecofriendly" active-class="active">More eco-friendly</router-link></li>
       </ul>
     </div>
   </header>
@@ -25,7 +25,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .navbarDown a {
@@ -36,7 +36,7 @@ export default {
 
 
 .navbarDown a {
-  font-size: 20px;
+  font-size: 15px;
   transition: color 0.5s;
 }
 

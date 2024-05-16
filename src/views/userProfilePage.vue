@@ -1,11 +1,10 @@
 <template>
     <main>
-        <h1>404 Not Found</h1>
+        <h1>User Profile</h1>
     </main>
 </template>
-
 <script>
 export default {
-    name: 'notFound'
+    name: 'userProfile'
 }
 </script>
