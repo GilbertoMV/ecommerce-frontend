@@ -1,15 +1,6 @@
 /*importacion de las fuentes*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-/*VARIABLES*/
-:root {
-  /* COLORES */
-  --primary-color: #fff;
-  --secondary-color: #fff;
-  --background-color: #fff;
-  --background-input-color: #c7e9b0d6;
-}
-
 /* Reset CSS */
 html,
 body,
@@ -149,7 +140,23 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  background-color: #f0f0f0;
+  background: rgb(255, 255, 255);
+  background: -moz-radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(199, 199, 199, 1) 100%
+  );
+  background: -webkit-radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(199, 199, 199, 1) 100%
+  );
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(199, 199, 199, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#c7c7c7",GradientType=1);
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */

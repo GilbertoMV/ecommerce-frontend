@@ -117,7 +117,7 @@ export default {
                         toast: true,
                         position: "bottom-right",
                         showConfirmButton: false,
-                        timer: 3000,
+                        timer: 1000,
                         timerProgressBar: true,
                     });
                     return;
@@ -139,9 +139,12 @@ export default {
                     toast: true,
                     position: "bottom-right",
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: true,
                 });
+                setTimeout(() => {
+                    this.$router.push('/sign-in');
+                }, 3000);
 
             } catch (error) {
                 let errorMessage = 'Error when registering'

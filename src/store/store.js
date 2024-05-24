@@ -56,7 +56,17 @@ export default new Vuex.Store({
       return state.isAuthenticated;
     },
     username(state) {
-      return state.user ? state.user.nombre : '';  // Retorna el nombre del usuario o una cadena vacía si no hay usuario.
+      return state.user ? state.user.nombre : '';  
+    },
+    paternalLastName(state) {
+      return state.user ? state.user.apellido_paterno : ''
+    },
+    maternalLastName(state) {
+      return state.user ? state.user.apellido_materno : ''
+    },
+    email(state) {
+      return state.user ? state.user.correo : ''
     }
+    
   }
 });
