@@ -1,18 +1,19 @@
 <template>
     <div class="register-view">
-        <h1 class="h1">SIGN IN</h1>
-        <loginForm />
+        <h1 class="h1">SIGN UP</h1>
+        <RegisterForm />
     </div>
 </template>
 
 <script>
-import loginForm from '../components/loginForm.vue';
+import RegisterForm from '../../components/registerForm.vue';
+
 export default {
-    name: 'LoginPage',
+    name: 'RegisterView',
     components: {
-        loginForm
+        RegisterForm
     }
-}
+};
 </script>
 
 <style scoped>

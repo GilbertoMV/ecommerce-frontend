@@ -1,10 +1,15 @@
 @import url("formatStyles.css");
 
 main {
-  margin: 10px auto;
-  max-width: 80vw;
-  min-width: 100vh;
-  background-color: white;
+  margin: 10px auto 30px;
+  width: 80vw;
+  height: 100vh;
   padding: 20px;
   text-align: center;
+  border-radius: 20px;
+  background-color: white;
+}
+.userProfile {
+  display: grid;
+  grid-template-columns: 30% 70%;
 }

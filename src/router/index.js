@@ -2,15 +2,15 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "../store/store.js"
 
-import NotFoundPage from "../views/notFoundPage.vue";
-import homePage from "../views/homePage.vue";
-import bestSellers from "../views/bestSellersPage.vue";
-import newItems from "../views/newItemsPage.vue";
-import moreEcofriendly from "../views/moreEcofriendlyPage.vue";
-import shoppingCar from "../views/shoppingCarPage.vue"
-import userProfile from "../views/userProfilePage.vue";
-import signIn from "../views/signInPage.vue"
-import signUp from "../views/signUpPage.vue"
+import NotFoundPage from "../views/mainViews/notFoundPage.vue";
+import homePage from "../views/mainViews/homePage.vue";
+import bestSellers from "../views/mainViews/bestSellersPage.vue";
+import newItems from "../views/mainViews/newItemsPage.vue";
+import moreEcofriendly from "../views/mainViews/moreEcofriendlyPage.vue";
+import shoppingCar from "../views/userViews/shoppingCarPage.vue"
+import userProfile from "../views/userViews/userProfilePage.vue";
+import signIn from "../views/LoginViews/signInPage.vue"
+import signUp from "../views/LoginViews/signUpPage.vue"
 
 Vue.use(Router);
 
