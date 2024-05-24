@@ -14,15 +14,17 @@
         <a to="/userProfile" class="dropdown-button link">{{ username }}</a>
         <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
           @mouseleave="scheduleHideMenu">
+          <router-link to="/userProfile" class="dropdown-item">
+            <i class="bi bi-person-square"></i> Profile</router-link>
           <router-link to="/userProfile/my-orders" class="dropdown-item">
             <i class="bi bi-bag"></i> My Orders</router-link>
           <router-link to="/userProfile/sold-items" class="dropdown-item">
             <i class="bi bi-shop"></i> Sold Items</router-link>
-          <a @click="logout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+          <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a>
         </div>
       </div>
       <router-link to="/shopping-car" class="link"><i class="bi bi-bag-heart-fill"></i> Shopping Car</router-link>
-      <router-link to="/" class="link"><i class="bi bi-heart-fill"></i> Favorites</router-link>
+      <a to="/" class="link"><i class="bi bi-heart-fill"></i> Favorites</a>
     </template>
     <template v-else>
       <div class="search-container search">
@@ -63,16 +65,24 @@ export default {
     scheduleHideMenu() {
       this.hideMenuTimeout = setTimeout(() => {
         this.isMenuVisible = false;
-      }, 1000);
+      }, 500);
     },
     cancelHideMenu() {
       if (this.hideMenuTimeout) {
         clearTimeout(this.hideMenuTimeout);
         this.hideMenuTimeout = null;
       }
+    },
+    handleLogout() {
+      this.isMenuVisible = false;
+      this.logout();
     }
   }
-};
+  ,
+  mounted() {
+    this.isMenuVisible = false;
+  }
+}
 </script>
 
 
