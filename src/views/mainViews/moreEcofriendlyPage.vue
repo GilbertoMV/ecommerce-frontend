@@ -9,5 +9,3 @@ export default {
   name: "More-Eco-Friendly",
 };
 </script>
-
-<style scoped></style>

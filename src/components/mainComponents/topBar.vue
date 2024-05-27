@@ -36,6 +36,7 @@
       <router-link to="/sign-in" class="link signIn">Sign In</router-link>
       <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Sign Up</router-link>
     </template>
+
   </div>
 </template>
 

@@ -1,9 +1,11 @@
 <template>
-    <div class="userProfile">
-        <sidebarUser />
-        <infoUser />
+    <main>
+        <div class="userProfile">
+            <sidebarUser />
+            <infoUser />
 
-    </div>
+        </div>
+    </main>
 </template>
 <script>
 import { mapGetters } from 'vuex';
