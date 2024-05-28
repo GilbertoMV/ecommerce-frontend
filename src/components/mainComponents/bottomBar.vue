@@ -7,29 +7,8 @@
           <div class="dropdown-menu-wrapper" :class="{ visible: isMenuVisible }">
             <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
               @mouseleave="scheduleHideMenu">
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
-              <router-link to="" class="dropdown-item">categoria</router-link>
+              <router-link to="" v-for="name in nameCategories" :key="name" class="dropdown-item">{{ name
+                }}</router-link>
             </div>
           </div>
         </div>
@@ -41,13 +20,15 @@
   </header>
 </template>
 <script>
-
+import axios from 'axios';
 export default {
   name: 'NavBar',
   data() {
     return {
       isMenuVisible: false,
-      hideMenuTimeout: null
+      hideMenuTimeout: null,
+      categories: [],
+      nameCategories: []
     }
   },
   methods: {
@@ -69,9 +50,20 @@ export default {
         this.hideMenuTimeout = null;
       }
     },
+    async fetchCategories() {
+      try {
+        const response = await axios.get('https://back-end-production-c8eb.up.railway.app/categorys/')
+        this.categories = response.data
+        this.nameCategories = this.categories.map(category => category.nombre);
+        console.log(this.nameCategories)
+      } catch (err) {
+        console.error(err)
+      }
+    }
   },
   mounted() {
     this.isMenuVisible = false;
+    this.fetchCategories()
   }
 };
 </script>

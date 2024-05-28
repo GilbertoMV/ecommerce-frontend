@@ -69,6 +69,14 @@ export default {
         }
     },
     methods: {
+        resetForm() {
+            this.formData = {
+                name: '',
+                descripcion: '',
+                url_photo: ''
+            }
+            this.$v.$reset()
+        },
         async loadCategory() {
             try {
                 this.$v.$touch();
@@ -89,19 +97,21 @@ export default {
                     descripcion: this.formData.description,
                     url_imagen: this.formData.url_photo
                 })
+                let successMessage = 'Category ' + this.formData.name + ' successfully created'
                 Swal.fire({
                     icon: "success",
-                    title: "Successful Create Category",
+                    title: successMessage,
                     toast: true,
                     position: "bottom-right",
                     showConfirmButton: false,
                     timer: 1000,
                     timerProgressBar: true,
                 });
+                this.resetForm()
             } catch (error) {
                 let errorMessage = 'Error when create category'
-                if (error.response && error.response.data && error.response.data.message) {
-                    errorMessage += ': ' + error.response.data.message
+                if (error.response && error.response.data && error.response.data.error) {
+                    errorMessage += ': ' + error.response.data.error
                 }
                 Swal.fire({
                     icon: "warning",
