@@ -155,9 +155,10 @@ export default {
 .info {
     display: grid;
     grid-template-rows: 10% auto;
-    width: 80%;
+    width: 85%;
     justify-items: center;
     margin-top: 30px;
+    min-height: 10%;
 }
 
 .userMainData {
@@ -181,7 +182,7 @@ export default {
     padding: 10px 20px;
     column-gap: 10px;
     border-radius: 10px;
-    height: 460px;
+    max-height: 460px;
 }
 
 .data {

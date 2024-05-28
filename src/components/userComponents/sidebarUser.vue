@@ -2,9 +2,9 @@
     <div class="sidebar">
         <h2>My account</h2>
         <ul class="options">
-            <li class="option">My Orders</li>
-            <li class="option">Sold Items</li>
-            <li class="option">Product Catalog</li>
+            <li><router-link to="/" class="option"> My Orders</router-link></li>
+            <li><router-link to="/" class="option">Items</router-link></li>
+            <li><router-link to="/" class="option">Product Catalog</router-link></li>
             <li class="option"><a @click="Logout" class="logout">Log Out</a></li>
         </ul>
     </div>
@@ -25,7 +25,7 @@ export default {
 </script>
 <style scoped>
 .sidebar {
-    width: 20%;
+    width: 15%;
     padding: 20px 0px;
     background: #fff;
 }
@@ -55,6 +55,7 @@ h2 {
     cursor: pointer;
     color: black;
     transition: all 0.3s;
+    text-decoration: none;
 }
 
 .option:hover {
@@ -68,11 +69,8 @@ h2 {
     top: 0;
     bottom: 0;
     width: 5px;
-    /* Ajusta el ancho de la línea según necesites */
     background-color: transparent;
-    /* Inicialmente hacemos la línea transparente */
     transition: background-color 0.3s;
-    /* Suaviza la transición de color */
 }
 
 .option:hover::before {
