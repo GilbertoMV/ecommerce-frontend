@@ -36,6 +36,7 @@
       <router-link to="/sign-in" class="link signIn">Sign In</router-link>
       <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Sign Up</router-link>
     </template>
+    <!-- <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a> -->
 
   </div>
 </template>
@@ -91,9 +92,10 @@ export default {
 .navbarTop {
   background-color: #fff;
   display: grid;
-  grid-template-columns: 15% 55% 10% 10% 10%;
+  grid-template-columns: 15% 55% auto auto auto;
   justify-items: center;
   align-items: center;
+  column-gap: 10px;
 }
 
 .navbarTop .link {
