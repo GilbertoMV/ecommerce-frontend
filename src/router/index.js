@@ -11,7 +11,7 @@ import shoppingCar from "../views/userViews/shoppingCarPage.vue"
 import userProfile from "../views/userViews/userProfilePage.vue";
 import signIn from "../views/LoginViews/signInPage.vue"
 import signUp from "../views/LoginViews/signUpPage.vue"
-
+// ROUTES ADMIN
 import indexAdmin from "../views/adminViews/index.vue"
 
 Vue.use(Router);

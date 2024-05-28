@@ -2,6 +2,7 @@
     <form @submit.prevent="signUp">
         <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label" :name="field.name"
             v-model="formData[field.name]" />
+        <button type="submit">Sign Up</button>
         <div class="error" v-if="!$v.formData.name.required && $v.formData.name.$dirty">Name is required</div>
         <div class="error" v-if="!$v.formData.name.minLength && $v.formData.name.$dirty">Name must be at least 3
             characters</div>
@@ -43,7 +44,6 @@
             Passwords do not match</div>
         <div class="error" v-if="!$v.formData.passwordConfirm.required && $v.formData.passwordConfirm.$dirty">
             Confirmation password is required</div>
-        <button type="submit">Sign Up</button>
     </form>
 </template>
 
