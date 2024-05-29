@@ -140,23 +140,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  background: rgb(255, 255, 255);
-  background: -moz-radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(199, 199, 199, 1) 100%
-  );
-  background: -webkit-radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(199, 199, 199, 1) 100%
-  );
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(199, 199, 199, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#c7c7c7",GradientType=1);
+  background: rgb(234, 234, 234) 100%;
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */

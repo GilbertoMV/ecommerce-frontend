@@ -3,13 +3,29 @@
 main {
   margin: 10px auto 30px;
   width: 80vw;
-  height: 100vh;
+  height: 80vh;
   padding: 20px;
-  text-align: center;
   border-radius: 20px;
-  background-color: white;
 }
 .userProfile {
-  display: grid;
-  grid-template-columns: 30% 70%;
+  display: flex;
+  width: 100%;
+  height: 90vh;
+}
+
+/*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
+.login-register-view {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.h1 {
+  color: #62ab18;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }

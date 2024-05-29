@@ -10,8 +10,9 @@
           <i class="bi bi-search"></i>
         </button>
       </div>
+      <router-link to="/shopping-car" class="link"><i class="bi bi-bag-heart-fill"></i> Shopping Car</router-link>
       <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
-        <a to="/userProfile" class="dropdown-button link">{{ username }}</a>
+        <a to="/userProfile" class="dropdown-button link"><i class="bi bi-person-circle"></i> {{ username }}</a>
         <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
           @mouseleave="scheduleHideMenu">
           <router-link to="/userProfile" class="dropdown-item">
@@ -23,7 +24,6 @@
           <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a>
         </div>
       </div>
-      <router-link to="/shopping-car" class="link"><i class="bi bi-bag-heart-fill"></i> Shopping Car</router-link>
       <a to="/" class="link"><i class="bi bi-heart-fill"></i> Favorites</a>
     </template>
     <template v-else>
@@ -36,6 +36,8 @@
       <router-link to="/sign-in" class="link signIn">Sign In</router-link>
       <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Sign Up</router-link>
     </template>
+    <!-- <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a> -->
+
   </div>
 </template>
 
@@ -88,11 +90,18 @@ export default {
 
 <style scoped>
 .navbarTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
   background-color: #fff;
   display: grid;
-  grid-template-columns: 15% 55% 10% 10% 10%;
+  grid-template-columns: 15% 55% auto auto auto;
   justify-items: center;
   align-items: center;
+  column-gap: 10px;
+  border-bottom: 5px solid #62ab18;
 }
 
 .navbarTop .link {

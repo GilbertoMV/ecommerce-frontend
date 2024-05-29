@@ -9,5 +9,3 @@ export default {
   name: "New-Items",
 };
 </script>
-
-<style scoped></style>

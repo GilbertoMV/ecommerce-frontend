@@ -11,6 +11,8 @@ import shoppingCar from "../views/userViews/shoppingCarPage.vue"
 import userProfile from "../views/userViews/userProfilePage.vue";
 import signIn from "../views/LoginViews/signInPage.vue"
 import signUp from "../views/LoginViews/signUpPage.vue"
+// ROUTES ADMIN
+import indexAdmin from "../views/adminViews/index.vue"
 
 Vue.use(Router);
 
@@ -25,6 +27,7 @@ const router = new Router({
     {path: '/userProfile', name: 'userProfile', component: userProfile, meta: {requiresAuth:true}},
     {path: '/sign-in',name: 'signIn', component: signIn, meta:{requiresGuest: true}},
     {path: '/sign-up',name: 'signUn', component: signUp, meta:{requiresGuest: true}},
+    {path: '/admin/index', name: 'indexAdmin', component: indexAdmin, meta: {requiresAuth:false}},
     {path: '*', name: '404NotFound',component: NotFoundPage},
 ]
 })
