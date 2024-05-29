@@ -55,7 +55,6 @@ export default {
         const response = await axios.get('https://back-end-production-c8eb.up.railway.app/categorys/')
         this.categories = response.data
         this.nameCategories = this.categories.map(category => category.nombre);
-        console.log(this.nameCategories)
       } catch (err) {
         console.error(err)
       }
