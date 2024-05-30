@@ -155,7 +155,7 @@ export default {
 .info {
     display: grid;
     grid-template-rows: 10% auto;
-    width: 85%;
+    width: 100%;
     justify-items: center;
     margin-top: 30px;
     min-height: 10%;
@@ -196,10 +196,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.icon {
     margin: 0 auto;
+
 }
 
 .name {
