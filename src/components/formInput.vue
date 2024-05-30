@@ -35,26 +35,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: solid 1px;
-}
-
-input:focus {
-    border-color: #62ab18;
-    box-shadow: 0 0 5px rgba(98, 171, 24, 0.5);
-    outline: none;
-}
-</style>
+<style scoped></style>
