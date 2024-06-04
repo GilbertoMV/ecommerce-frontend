@@ -168,16 +168,17 @@ export default {
 
 <style scoped>
 form {
-    margin-top: 10px;
+    margin-top: 1rem;
+    font-size: 1.6rem;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 1rem 1.5rem;
     background-color: #62ab18;
     border: none;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: .5rem;
 }
 
 button:hover {
@@ -186,6 +187,6 @@ button:hover {
 
 .error {
     color: red;
-    padding: 5px 0;
+    padding: .5rem 0;
 }
 </style>

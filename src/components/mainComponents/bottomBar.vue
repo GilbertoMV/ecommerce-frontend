@@ -70,14 +70,14 @@ export default {
 <style scoped>
 .navbarDown {
   background-color: #62ab18;
-  margin-top: 80px;
+  margin-top: 8rem;
 }
 
 .navbarDown ul {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 15px 0;
+  padding: 1.5rem 0;
 }
 
 .navbarDown a {
@@ -87,7 +87,7 @@ export default {
 }
 
 .navbarDown a {
-  font-size: 15px;
+  font-size: 1.5rem;
   transition: color 0.5s;
 }
 
@@ -114,19 +114,19 @@ export default {
   visibility: hidden;
   position: absolute;
   background-color: #62AB18;
-  min-width: 250px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  min-width: 25rem;
+  box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
   z-index: 1;
   left: 50%;
-  transform: translateX(-50%) translateY(-10px);
+  transform: translateX(-50%) translateY(-1rem);
   top: 100%;
-  margin-top: 25px;
-  padding: 5px;
+  margin-top: 2.5rem;
+  padding: .5rem;
   opacity: 0;
   transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
-  border-radius: 5px;
+  border-radius: .5rem;
   overflow: auto;
-  max-height: 600px;
+  max-height: 60rem;
 }
 
 .dropdown-menu.visible {
@@ -138,10 +138,10 @@ export default {
 .dropdown-menu-wrapper::before {
   content: '';
   position: absolute;
-  top: 15px;
+  top: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 0 10px 10px 10px;
+  border-width: 0 1rem 1rem 1rem;
   border-style: solid;
   border-color: transparent transparent #62AB18 transparent;
   z-index: 2;
@@ -156,9 +156,9 @@ export default {
 }
 
 .dropdown-item {
-  font-size: 16px;
+  font-size: 1.6rem;
   color: #000;
-  padding: 12px 16px;
+  padding: 1.2rem 1.6rem;
   text-decoration: none;
   display: block;
   cursor: pointer;
