@@ -100,12 +100,12 @@ export default {
   grid-template-columns: 15% 55% auto auto auto;
   justify-items: center;
   align-items: center;
-  column-gap: 10px;
-  border-bottom: 5px solid #62ab18;
+  column-gap: 1rem;
+  border-bottom: .5rem solid #62ab18;
 }
 
 .navbarTop .link {
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 500;
   text-decoration: none;
   color: #000;
@@ -123,7 +123,7 @@ export default {
   display: flex;
   width: 90%;
   justify-content: space-between;
-  border-radius: 10px;
+  border-radius: 1rem;
   transition: box-shadow 0.3s;
 }
 
@@ -131,9 +131,9 @@ export default {
   border: none;
   background-color: rgba(199, 233, 176, 0.7);
   outline: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 10px 0 0 10px;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 1rem 0 0 1rem;
   flex: 1;
 }
 
@@ -145,30 +145,30 @@ export default {
   background-color: #d8f0c8;
   border: none;
   outline: none;
-  padding: 0px 20px;
+  padding: 0rem 2rem;
   cursor: pointer;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .search-container:hover {
-  box-shadow: 0 0 10px #a9bc9c;
+  box-shadow: 0 0 1rem #a9bc9c;
 }
 
 .search-icon {
-  width: 24px;
+  width: 2.4rem;
   height: auto;
 }
 
 img {
   margin: 0 auto;
   width: 20%;
-  padding: 10px 0;
+  padding: 1rem 0;
 }
 
 .sign-up {
-  border: 2px solid #62ab18;
-  border-radius: 10px;
-  padding: 10px;
+  border: .2rem solid #62ab18;
+  border-radius: 1rem;
+  padding: 1rem;
   color: #000;
   background: transparent;
   transition: background-color 0.3s, color 0.3s;
@@ -192,40 +192,44 @@ img {
   visibility: hidden;
   position: absolute;
   background-color: white;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  min-width: 20rem;
+  box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
   z-index: 1;
   left: 50%;
-  transform: translateX(-50%) translateY(-10px);
+  transform: translateX(-50%) translateY(-1rem);
   top: 100%;
-  margin-top: 40px;
+  margin-top: 4rem;
   opacity: 0;
   transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  border-radius: .7rem;
+
 }
 
 .dropdown-menu.visible {
   visibility: visible;
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+
 }
 
 .dropdown-menu::before {
   content: '';
   position: absolute;
-  top: -10px;
+  top: -1rem;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 0 10px 10px 10px;
+  border-width: 0 1rem 1rem 1rem;
   border-style: solid;
   border-color: transparent transparent white transparent;
 }
 
 .dropdown-item {
-  font-size: 16px;
+  font-size: 1.6rem;
   color: #000;
-  padding: 12px 16px;
+  padding: 1.2rem 1.6rem;
   text-decoration: none;
   display: block;
+  border-radius: .7rem;
   cursor: pointer;
 }
 

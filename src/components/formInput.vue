@@ -37,24 +37,24 @@ export default {
 
 <style scoped>
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: .5rem;
 }
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: .8rem;
     box-sizing: border-box;
-    border: solid 1px;
+    border: solid .1rem;
 }
 
 input:focus {
     border-color: #62ab18;
-    box-shadow: 0 0 5px rgba(98, 171, 24, 0.5);
+    box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
     outline: none;
 }
 </style>

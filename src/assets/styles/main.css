@@ -1,11 +1,13 @@
 @import url("formatStyles.css");
-
+html {
+  font-size: 10px;
+}
 main {
-  margin: 10px auto 30px;
+  margin: 1rem auto 3rem;
   width: 80vw;
   height: 80vh;
-  padding: 20px;
-  border-radius: 20px;
+  padding: 2rem;
+  border-radius: 2rem;
 }
 .userProfile {
   display: flex;
@@ -21,16 +23,16 @@ main {
 /*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
 .login-register-view {
   max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
+  margin: 5rem auto;
+  padding: 2rem;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .h1 {
   color: #62ab18;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
 }

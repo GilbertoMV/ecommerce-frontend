@@ -47,7 +47,7 @@ export default {
     background-color: #62ab18;
     color: #000;
     text-align: center;
-    padding: 20px 0px 10px;
+    padding: 2rem 0rem 1rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -58,7 +58,7 @@ export default {
     display: flex;
     justify-content: center;
     position: absolute;
-    top: -20px;
+    top: -2rem;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -68,8 +68,8 @@ export default {
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    padding: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.2rem;
+    box-shadow: 0rem .4rem .8rem rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,7 +80,7 @@ export default {
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
     justify-content: center;
-    column-gap: 20px;
+    column-gap: 2rem;
 }
 
 .footer-nav {
@@ -91,19 +91,19 @@ export default {
 
 .footer-link {
     color: #000;
-    font-size: 16px;
+    font-size: 1.6rem;
     text-decoration: none;
     transition: color .5s;
 }
 
 .footer-logo {
-    margin: 5px 0;
+    margin: .5rem 0;
     display: flex;
     justify-content: center;
 }
 
 .footer-logo img {
-    max-width: 50px;
+    max-width: 5rem;
 }
 
 .footer-link:hover {
@@ -111,9 +111,9 @@ export default {
 }
 
 .footer-copy {
-    margin-top: 5px;
+    margin-top: .5rem;
     grid-column: span 4;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #000;
 }
 </style>

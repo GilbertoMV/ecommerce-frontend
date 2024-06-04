@@ -75,22 +75,22 @@ export default {
 <style scoped>
 .sidebar {
     width: 15%;
-    padding: 20px 0px;
+    padding: 1rem 0rem;
     background: #fff;
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 600;
     text-align: center;
 }
 
 .options {
     display: grid;
-    grid-template-rows: repeat(6, 40px);
-    margin-top: 40px;
-    font-size: 16px;
-    row-gap: 15px;
+    grid-template-rows: repeat(6, 4rem);
+    margin-top: 4rem;
+    font-size: 1.6rem;
+    row-gap: 1.5rem;
     align-items: center;
 
 
@@ -101,9 +101,9 @@ h2 {
     align-content: center;
     position: relative;
     list-style: none;
-    padding: 20px;
-    padding-left: 20px;
-    column-gap: 10px;
+    padding: 2rem;
+    padding-left: 2rem;
+    column-gap: 1rem;
     cursor: pointer;
     color: black;
     transition: all 0.3s;
@@ -124,7 +124,7 @@ h2 {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 5px;
+    width: .5rem;
     background-color: transparent;
     transition: background-color 0.3s;
 }
