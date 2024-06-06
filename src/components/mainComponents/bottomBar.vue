@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .navbarDown {
   background-color: #62ab18;
-  margin-top: 8rem;
+  margin-top: 7rem;
 }
 
 .navbarDown ul {
