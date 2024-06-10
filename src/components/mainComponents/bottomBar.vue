@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .navbarDown {
   background-color: #62ab18;
-  margin-top: 8rem;
+  margin-top: 7rem;
 }
 
 .navbarDown ul {
@@ -162,5 +162,11 @@ export default {
   text-decoration: none;
   display: block;
   cursor: pointer;
+}
+
+@media (width <=780px) {
+  .navbarDown {
+    display: none;
+  }
 }
 </style>

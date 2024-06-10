@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router/index.js'
 import store from './store/store.js'
 import './assets/styles/main.css'
+import './assets/styles/hamburgers.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
