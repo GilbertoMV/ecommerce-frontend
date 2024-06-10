@@ -163,4 +163,10 @@ export default {
   display: block;
   cursor: pointer;
 }
+
+@media (width <=780px) {
+  .navbarDown {
+    display: none;
+  }
+}
 </style>

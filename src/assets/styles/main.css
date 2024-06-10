@@ -9,6 +9,7 @@ main {
   padding: 2rem;
   border-radius: 2rem;
 }
+
 .userProfile {
   display: flex;
   width: 100%;
@@ -18,7 +19,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 85%;
 }
 /*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
 .login-register-view {
@@ -35,4 +36,26 @@ main {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+}
+@media (width <= 768px) {
+  main {
+    margin: 8rem auto 3rem;
+  }
+  .userProfile {
+    margin-top: 7rem;
+  }
+  .loadComponent {
+    width: 75%;
+  }
+}
+@media (width <= 390px) {
+  main {
+    margin: 6rem auto 3rem;
+  }
+  .userProfile {
+    margin-top: 5rem;
+  }
+  .loadComponent {
+    width: 85%;
+  }
 }

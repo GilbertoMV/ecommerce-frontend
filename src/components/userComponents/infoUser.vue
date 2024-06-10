@@ -1,14 +1,12 @@
 <template>
     <div class="info">
         <div class="userMainData">
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" fill="#62ab18"
-                    class="bi bi-person-circle" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                    <path fill-rule="evenodd"
-                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                </svg>
-            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-person-circle profilePhoto"
+                viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+            </svg>
             <div class="data">
                 <p class="name"> {{ username }} {{ paternalLastName }} {{ maternalLastName }} </p>
                 <p class="email"> {{ email }} </p>
@@ -16,9 +14,9 @@
         </div>
         <div class="userData">
             <!-- PRIMERA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-person-lines-fill icon"
+                    viewBox="0 0 16 16">
                     <path
                         d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
                 </svg>
@@ -27,17 +25,17 @@
                 <p class="title">Personal Information</p>
                 <p class="text">Identification information</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
             <!-- SEGUNDA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-person-bounding-box icon"
+                    viewBox="0 0 16 16">
                     <path
                         d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -47,17 +45,17 @@
                 <p class="title">Account Data</p>
                 <p class="text">Data representing your account</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
             <!-- TERCERA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-fingerprint" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-fingerprint icon"
+                    viewBox="0 0 16 16">
                     <path
                         d="M8.06 6.5a.5.5 0 0 1 .5.5v.776a11.5 11.5 0 0 1-.552 3.519l-1.331 4.14a.5.5 0 0 1-.952-.305l1.33-4.141a10.5 10.5 0 0 0 .504-3.213V7a.5.5 0 0 1 .5-.5Z" />
                     <path
@@ -74,17 +72,17 @@
                 <p class="title">Security</p>
                 <p class="text">Set up your account security</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
             <!-- CUARTA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-geo-alt-fill icon"
+                    viewBox="0 0 16 16">
                     <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                 </svg>
             </div>
@@ -92,17 +90,17 @@
                 <p class="title">Address</p>
                 <p class="text">update or add delivery addresses</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
             <!-- QUINTA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-shield-fill-check" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-shield-fill-check icon"
+                    viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m2.146 5.146a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793z" />
                 </svg>
@@ -111,17 +109,17 @@
                 <p class="title">Privacy</p>
                 <p class="text">Privacy policy</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
             <!-- SEXTA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="#62ab18"
-                    class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-info-circle-fill icon"
+                    viewBox="0 0 16 16">
                     <path
                         d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
                 </svg>
@@ -130,14 +128,15 @@
                 <p class="title">TERMS AND CONDITIONS</p>
                 <p class="text">TERMS AND CONDITIONS OF SERVICE / USE</p>
             </div>
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#62ab18"
-                    class="bi bi-caret-right-fill" viewBox="0 0 20 20">
+            <div class="iconContainer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-caret-right-fill more"
+                    viewBox="0 0 20 20">
                     <path
                         d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                 </svg>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -154,11 +153,10 @@ export default {
 <style scoped>
 .info {
     display: grid;
-    grid-template-rows: 10% auto;
+    grid-template-rows: 7rem auto;
     width: 100%;
     justify-items: center;
-    margin-top: 2rem;
-    min-height: 10%;
+    padding-top: 2rem;
 }
 
 .userMainData {
@@ -169,6 +167,21 @@ export default {
     padding: 1rem 2rem;
     background: white;
     column-gap: 1rem;
+}
+
+.profilePhoto {
+    width: 5rem;
+    height: 5rem;
+}
+
+.more {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
 }
 
 .userData {
@@ -191,7 +204,7 @@ export default {
     justify-content: center;
 }
 
-.icon {
+.iconContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -217,10 +230,59 @@ export default {
 }
 
 .text {
-
-    font-size: 1.4;
+    font-size: 1.4rem;
     font-weight: 400;
     margin-top: .5rem;
 
+}
+
+@media (width <=768px) {
+    .userMainData {
+        width: 75%;
+        grid-template-columns: 5rem auto;
+        padding: 1rem;
+
+    }
+
+    .userData {
+        width: 75%;
+        row-gap: 0;
+        grid-template-columns: 3rem auto 2rem;
+        padding: 1rem;
+    }
+}
+
+@media (width <=390px) {
+
+    .profilePhoto {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .info {
+        grid-template-rows: 5rem;
+    }
+
+    .name {
+        font-size: 1rem;
+    }
+
+    .email {
+        font-size: .8rem;
+    }
+
+    .userData {
+        margin-top: 2rem;
+        grid-template-rows: repeat(6, 4rem);
+    }
+
+    .title {
+        font-size: 1rem;
+    }
+
+    .text {
+        font-size: .8rem;
+
+    }
 }
 </style>

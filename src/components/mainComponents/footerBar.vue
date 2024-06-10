@@ -2,7 +2,10 @@
     <footer class="footer">
         <div class="footer-top">
             <button @click="scrollToTop" class="scroll-to-top">
-                <i class="bi bi-arrow-up"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-up svg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                </svg>
             </button>
         </div>
         <div class="footer-content">
@@ -43,6 +46,12 @@ export default {
 </script>
 
 <style scoped>
+.svg {
+    fill: #62ab18;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
 .footer {
     background-color: #62ab18;
     color: #000;
@@ -115,5 +124,29 @@ export default {
     grid-column: span 4;
     font-size: 1rem;
     color: #000;
+}
+
+@media (width <=390px) {
+    .footer-logo img {
+        max-width: 3rem;
+    }
+
+    .footer-link {
+        font-size: 1rem;
+    }
+
+    .footer-copy {
+        margin-top: 0;
+        font-size: .7rem;
+    }
+
+    .svg {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    .footer-nav {
+        margin-top: .5rem;
+    }
 }
 </style>

@@ -188,3 +188,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
