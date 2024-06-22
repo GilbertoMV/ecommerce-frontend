@@ -1,50 +1,74 @@
 <template>
-    <form @submit.prevent="signUp">
-        <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label" :name="field.name"
-            v-model="formData[field.name]" />
-        <button type="submit">Sign Up</button>
-        <div class="error" v-if="!$v.formData.name.required && $v.formData.name.$dirty">Name is required</div>
-        <div class="error" v-if="!$v.formData.name.minLength && $v.formData.name.$dirty">Name must be at least 3
-            characters</div>
-        <div class="error" v-if="!$v.formData.name.hasSpace && $v.formData.name.$dirty">Name must only contain letters
+    <div>
+        <form @submit.prevent="signUp">
+            <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label"
+                :name="field.name" v-model="formData[field.name]" />
+            <div class="error" v-if="!$v.formData.name.required && $v.formData.name.$dirty">Name is required</div>
+            <div class="error" v-if="!$v.formData.name.minLength && $v.formData.name.$dirty">Name must be at least 3
+                characters</div>
+            <div class="error" v-if="!$v.formData.name.hasSpace && $v.formData.name.$dirty">Name must only contain
+                letters
+            </div>
+            <div class="error" v-if="!$v.formData.paternalLastName.required && $v.formData.paternalLastName.$dirty">
+                Paternal
+                Last Name is required</div>
+            <div class="error" v-if="!$v.formData.paternalLastName.minLength && $v.formData.paternalLastName.$dirty">
+                Paternal Last Name must be at least 3 characters</div>
+            <div class="error" v-if="!$v.formData.paternalLastName.hasSpace && $v.formData.paternalLastName.$dirty">
+                Paternal
+                Last Name must only contain letters</div>
+            <div class="error" v-if="!$v.formData.maternalLastName.required && $v.formData.maternalLastName.$dirty">
+                Maternal
+                Last Name is required</div>
+            <div class="error" v-if="!$v.formData.maternalLastName.minLength && $v.formData.maternalLastName.$dirty">
+                Maternal Last Name must be at least 3 characters</div>
+            <div class="error" v-if="!$v.formData.maternalLastName.hasSpace && $v.formData.maternalLastName.$dirty">
+                Maternal
+                Last Name must only contain letters</div>
+            <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">Email is required</div>
+            <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">Invalid email</div>
+            <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">Password is required
+            </div>
+            <div class="error" v-if="!$v.formData.password.minLength && $v.formData.password.$dirty">Password must be at
+                least 6 characters</div>
+            <div class="error" v-if="!$v.formData.birthdate.required && $v.formData.birthdate.$dirty">Birthdate is
+                required
+            </div>
+            <div class="error" v-if="!$v.formData.birthdate.validDate && $v.formData.birthdate.$dirty">Birthdate must be
+                before January 2005</div>
+            <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">Password is required
+            </div>
+            <div class="error" v-if="!$v.formData.password.minLength && $v.formData.password.$dirty">Password must be at
+                least 8 characters</div>
+            <div class="error" v-if="!$v.formData.password.hasNumber && $v.formData.password.$dirty">Password must
+                contain
+                at least one number</div>
+            <div class="error" v-if="!$v.formData.password.hasUpper && $v.formData.password.$dirty">Password must
+                contain at
+                least one uppercase letter</div>
+            <div class="error" v-if="!$v.formData.password.hasSpecialChar && $v.formData.password.$dirty">Password must
+                contain at least one special character</div>
+            <div class="error" v-if="!$v.formData.passwordConfirm.sameAsPassword && $v.formData.passwordConfirm.$dirty">
+                Passwords do not match</div>
+            <div class="error" v-if="!$v.formData.passwordConfirm.required && $v.formData.passwordConfirm.$dirty">
+                Confirmation password is required</div>
+            <button type="submit" class="signup">Sign Up</button>
+            <span class="login">Already have an account? <router-link to="/sign-in">Login</router-link></span>
+        </form>
+        <div class="divider">
+            <div class="line"></div>
+            <div><span class="text">Or</span></div>
+            <div class="line"></div>
         </div>
-        <div class="error" v-if="!$v.formData.paternalLastName.required && $v.formData.paternalLastName.$dirty">Paternal
-            Last Name is required</div>
-        <div class="error" v-if="!$v.formData.paternalLastName.minLength && $v.formData.paternalLastName.$dirty">
-            Paternal Last Name must be at least 3 characters</div>
-        <div class="error" v-if="!$v.formData.paternalLastName.hasSpace && $v.formData.paternalLastName.$dirty">Paternal
-            Last Name must only contain letters</div>
-        <div class="error" v-if="!$v.formData.maternalLastName.required && $v.formData.maternalLastName.$dirty">Maternal
-            Last Name is required</div>
-        <div class="error" v-if="!$v.formData.maternalLastName.minLength && $v.formData.maternalLastName.$dirty">
-            Maternal Last Name must be at least 3 characters</div>
-        <div class="error" v-if="!$v.formData.maternalLastName.hasSpace && $v.formData.maternalLastName.$dirty">Maternal
-            Last Name must only contain letters</div>
-        <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">Email is required</div>
-        <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">Invalid email</div>
-        <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">Password is required
+        <div class="login-container">
+            <button class="login-btn facebook">
+                <i class="bi bi-facebook"></i> Login with Facebook
+            </button>
+            <button class="login-btn google">
+                <i class="bi bi-google"></i> Login with Google
+            </button>
         </div>
-        <div class="error" v-if="!$v.formData.password.minLength && $v.formData.password.$dirty">Password must be at
-            least 6 characters</div>
-        <div class="error" v-if="!$v.formData.birthdate.required && $v.formData.birthdate.$dirty">Birthdate is required
-        </div>
-        <div class="error" v-if="!$v.formData.birthdate.validDate && $v.formData.birthdate.$dirty">Birthdate must be
-            before January 2005</div>
-        <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">Password is required
-        </div>
-        <div class="error" v-if="!$v.formData.password.minLength && $v.formData.password.$dirty">Password must be at
-            least 8 characters</div>
-        <div class="error" v-if="!$v.formData.password.hasNumber && $v.formData.password.$dirty">Password must contain
-            at least one number</div>
-        <div class="error" v-if="!$v.formData.password.hasUpper && $v.formData.password.$dirty">Password must contain at
-            least one uppercase letter</div>
-        <div class="error" v-if="!$v.formData.password.hasSpecialChar && $v.formData.password.$dirty">Password must
-            contain at least one special character</div>
-        <div class="error" v-if="!$v.formData.passwordConfirm.sameAsPassword && $v.formData.passwordConfirm.$dirty">
-            Passwords do not match</div>
-        <div class="error" v-if="!$v.formData.passwordConfirm.required && $v.formData.passwordConfirm.$dirty">
-            Confirmation password is required</div>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -172,21 +196,89 @@ form {
     font-size: 1.6rem;
 }
 
-button {
-    padding: 1rem 1.5rem;
+.signup {
+    width: 100%;
+    padding: 1.3rem;
     background-color: #62ab18;
     border: none;
     color: white;
     cursor: pointer;
     border-radius: .5rem;
+    margin-top: 1rem;
 }
 
-button:hover {
+.signup:hover {
     background-color: #4a8b14;
 }
 
 .error {
-    color: red;
-    padding: .5rem 0;
+    color: rgba(255, 0, 0, 0.5);
+    padding: .3rem 0;
+    font-size: 1.5rem;
+}
+
+.login {
+    display: block;
+    padding: 1rem;
+    margin: 1rem 0rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #4a8b14;
+    text-decoration: none;
+}
+
+.login a {
+    color: #4a8b14;
+    text-decoration: none;
+
+}
+
+.login {
+    color: initial;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.text {
+    padding: 0 1rem;
+    color: #666;
+    font-size: 1.4rem;
+}
+
+.login-container {
+    font-size: 1.4rem;
+
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1.3rem;
+    border: none;
+    color: white;
+    border-radius: .5rem;
+    cursor: pointer;
+    margin: .5rem 0;
+}
+
+.facebook {
+    background-color: #3B5998;
+}
+
+.google {
+    background-color: transparent;
+    border: solid .1rem #666;
+    color: #666;
 }
 </style>

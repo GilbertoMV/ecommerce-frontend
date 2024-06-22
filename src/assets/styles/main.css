@@ -5,7 +5,7 @@ html {
 main {
   margin: 1rem auto 3rem;
   width: 80vw;
-  height: 80vh;
+  min-height: 80vh;
   padding: 2rem;
   border-radius: 2rem;
 }
@@ -50,7 +50,7 @@ main {
 }
 @media (width <= 390px) {
   main {
-    margin: 6rem auto 3rem;
+    margin: 3rem auto 3rem;
   }
   .userProfile {
     margin-top: 5rem;

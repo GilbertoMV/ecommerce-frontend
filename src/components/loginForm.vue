@@ -1,14 +1,31 @@
 <template>
-    <form @submit.prevent="signIn">
-        <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label" :name="field.name"
-            v-model="formData[field.name]" />
-        <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">email is required</div>
-        <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">email is invalid</div>
-        <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">password is required
+    <div>
+        <form @submit.prevent="signIn">
+            <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label"
+                :name="field.name" v-model="formData[field.name]" />
+            <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">email is required</div>
+            <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">email is invalid</div>
+            <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">password is required
+            </div>
+            <router-link to="/userConfig/forgetPassword" class="forgetPass">Do you forget your password?</router-link>
+            <button class="login">Login</button>
+            <span class="register">Don't have an account? <router-link to="/sign-up">Signup</router-link></span>
+        </form>
+        <div class="divider">
+            <div class="line"></div>
+            <div><span class="text">Or</span></div>
+            <div class="line"></div>
         </div>
+        <div class="login-container">
+            <button class="login-btn facebook">
+                <i class="bi bi-facebook"></i> Login with Facebook
+            </button>
+            <button class="login-btn google">
+                <i class="bi bi-google"></i> Login with Google
+            </button>
+        </div>
+    </div>
 
-        <button type="submit">Sign In</button>
-    </form>
 </template>
 
 <script>
@@ -29,8 +46,8 @@ export default {
                 password: '',
             },
             fields: [
-                { name: 'email', type: 'email', label: 'email' },
-                { name: 'password', type: 'password', label: 'password' }
+                { name: 'email', type: 'email', label: 'Email' },
+                { name: 'password', type: 'password', label: 'Password' }
             ]
         }
     },
@@ -47,7 +64,7 @@ export default {
                 if (this.$v.$invalid) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Error when loggin in, invalid data",
+                        title: "Error when login in, invalid data",
                         toast: true,
                         position: "bottom-right",
                         showConfirmButton: false,
@@ -119,8 +136,9 @@ form {
     font-size: 1.6rem;
 }
 
-button {
-    padding: 1rem 1.5rem;
+.login {
+    width: 100%;
+    padding: 1.3rem;
     background-color: #62ab18;
     border: none;
     color: white;
@@ -128,12 +146,104 @@ button {
     border-radius: .5rem;
 }
 
-button:hover {
+.login:hover {
     background-color: #4a8b14;
 }
 
 .error {
-    color: red;
-    padding: .5rem 0;
+    color: rgba(255, 0, 0, 0.5);
+    padding: .3rem 0;
+    font-size: 1.5rem;
+}
+
+.forgetPass,
+.register {
+    display: block;
+    padding: .5rem 0 2.5rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #4a8b14;
+    text-decoration: none;
+}
+
+.register {
+    padding: 2rem;
+    color: initial;
+}
+
+.register a {
+    color: #4a8b14;
+    text-decoration: none;
+
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.text {
+    padding: 0 1rem;
+    color: #666;
+    font-size: 1.4rem;
+}
+
+.login-container {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.login-btn {
+    font-size: 1.4rem;
+
+    width: 100%;
+    padding: 1.3rem;
+    border: none;
+    color: white;
+    border-radius: .5rem;
+    cursor: pointer;
+    margin: .5rem 0;
+}
+
+.facebook {
+    background-color: #3B5998;
+}
+
+.google {
+    background-color: transparent;
+    border: solid .1rem #666;
+    color: #666;
+}
+
+@media (width <=390px) {
+    button {
+
+        padding: 1rem;
+    }
+
+    .forgetPass,
+    .register {
+        padding: .5rem 0rem 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .register {
+        padding: 1rem;
+    }
+
+    .error {
+        text-align: center;
+        color: red;
+        font-size: 1rem;
+        padding: .3rem 0;
+    }
+
 }
 </style>
