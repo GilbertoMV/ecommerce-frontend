@@ -50,11 +50,25 @@ input {
     padding: .8rem;
     box-sizing: border-box;
     border: solid .1rem;
+    border-radius: .5rem;
 }
 
 input:focus {
     border-color: #62ab18;
     box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
     outline: none;
+}
+
+@media (width <=390px) {
+    label {
+        font-size: 1.4rem;
+    }
+
+    input {
+        padding: .5rem;
+        box-sizing: border-box;
+        border: solid .1rem;
+        font-size: 1.3rem;
+    }
 }
 </style>

@@ -95,8 +95,8 @@
         </button>
       </div>
       <div class="sesionContainer">
-        <router-link to="/sign-in" class="link signIn">Sign In</router-link>
-        <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Sign Up</router-link>
+        <router-link to="/sign-in" class="link signIn">Login</router-link>
+        <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Signup</router-link>
       </div>
     </template>
   </header>
@@ -439,7 +439,7 @@ export default {
   }
 
   .navbarTop .link {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     padding: .7rem .7rem;
   }
 
