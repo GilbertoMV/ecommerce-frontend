@@ -83,6 +83,7 @@ export default {
                     this.$store.dispatch('updateAuthenticationStatus', true);
                     await this.$store.dispatch('fetchAndSetUserData');
                     this.$router.push('/');
+                    console.log('token ' + response.data.token)
                 }
             } catch (error) {
                 let errorMessage = "Login failed";
@@ -202,7 +203,6 @@ form {
 
 .login-btn {
     font-size: 1.4rem;
-
     width: 100%;
     padding: 1.3rem;
     border: none;
