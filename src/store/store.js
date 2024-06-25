@@ -1,21 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';  // Asegúrate de importar axios si lo estás usando
 import router from '../router';
+import apiClient from './auth-vuex.js';  // Asegúrate de que la ruta sea correcta
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isAuthenticated: false,  // Estado de autenticación del usuario, inicialmente no autenticado.
-    user: null               // Datos del usuario, inicialmente no hay usuario autenticado.
+    isAuthenticated: false,
+    user: null
   },
   mutations: {
     setAuthentication(state, status) {
-      state.isAuthenticated = status;  // Cambia el estado de autenticación basado en el parámetro 'status'.
+      state.isAuthenticated = status;
     },
     setUser(state, user) {
-      state.user = user;  // Guarda los datos del usuario en el estado.
+      state.user = user;
     }
   },
   actions: {
@@ -23,50 +23,52 @@ export default new Vuex.Store({
       commit('setAuthentication', status);
     },
     fetchAndSetUserData({ commit }) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        axios.get('https://back-end-production-c8eb.up.railway.app/user/me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then(response => {
-            commit('setUser', response.data);  // Guarda los datos del usuario obtenidos
-        }).catch(error => {
-            console.error('Error fetching user data:', error);
+      apiClient.get('/users/me')
+        .then(response => {
+          commit('setUser', response.data);
+          commit('setAuthentication', true);  // Set authentication true upon successful fetch
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+          if (error.response && error.response.status === 401) {
+            this.dispatch('logout');  // Logout if the token is invalid
+          }
         });
-      }
     },
     initializeStore({ commit }) {
       let token = localStorage.getItem('token');
       if (token) {
         commit('setAuthentication', true);
-        this.dispatch('fetchAndSetUserData');  // Fetch user data on initialization
+        this.dispatch('fetchAndSetUserData');  // Fetch user data on initialization if token exists
       } else {
         commit('setAuthentication', false);
       }
     },
     logout({ commit }) {
-      localStorage.removeItem('token');  // Elimina el token de localStorage.
-      commit('setAuthentication', false);  // Actualiza el estado de autenticación a false.
-      router.push('/sign-in');  // Redirige al usuario a la página de inicio de sesión.
+      localStorage.removeItem('token');  // Remove the token from localStorage
+      commit('setUser', null);  // Clear user data
+      commit('setAuthentication', false);  // Set authentication to false
+      router.push('/sign-in');  // Redirect to the sign-in page
     }
   },
   getters: {
     isAuthenticated(state) {
       return state.isAuthenticated;
     },
+    user(state) {
+      return state.user;
+    },
     username(state) {
-      return state.user ? state.user.nombre : '';  
+      return state.user ? state.user.nombre : '';
     },
     paternalLastName(state) {
-      return state.user ? state.user.apellido_paterno : ''
+      return state.user ? state.user.apellido_paterno : '';
     },
     maternalLastName(state) {
-      return state.user ? state.user.apellido_materno : ''
+      return state.user ? state.user.apellido_materno : '';
     },
     email(state) {
-      return state.user ? state.user.correo : ''
+      return state.user ? state.user.correo : '';
     }
-    
   }
 });

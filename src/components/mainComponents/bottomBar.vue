@@ -52,7 +52,7 @@ export default {
     },
     async fetchCategories() {
       try {
-        const response = await axios.get('https://back-end-production-c8eb.up.railway.app/categorys/')
+        const response = await axios.get('https://back-end-production-c8eb.up.railway.app/categories/')
         this.categories = response.data
         this.nameCategories = this.categories.map(category => category.nombre);
       } catch (err) {
