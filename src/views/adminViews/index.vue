@@ -14,7 +14,7 @@
                 <div class="error" v-if="$v.formData.name.$dirty && !$v.formData.name.minLength">Category Name
                     must be at least 5 characters long</div>
                 <div class="error" v-if="$v.formData.name.$dirty && !$v.formData.name.maxLength">Category Name
-                    must be less than 20 characters long</div>
+                    must be less than 50 characters long</div>
 
                 <!-- Validations for description -->
                 <div class="error" v-if="!$v.formData.description.required && $v.formData.description.$dirty">
@@ -22,15 +22,16 @@
                 <div class="error" v-if="$v.formData.description.$dirty && !$v.formData.description.minLength">
                     Description must be at least 15 characters long</div>
                 <div class="error" v-if="$v.formData.description.$dirty && !$v.formData.description.maxLength">
-                    Description must be less than 30 characters long</div>
+                    Description must be less than 70 characters long</div>
 
-                <!-- Validations for url_photo -->
+                <!-- Validations for url_photo
                 <div class="error" v-if="!$v.formData.url_photo.required && $v.formData.url_photo.$dirty">URL Photo is
                     required</div>
                 <div class="error" v-if="$v.formData.url_photo.$dirty && !$v.formData.url_photo.minLength">URL
                     Photo must be at least 20 characters long</div>
                 <div class="error" v-if="$v.formData.url_photo.$dirty && !$v.formData.url_photo.url">URL Photo
                     must be a valid URL</div>
+                -->
 
             </form>
         </div>
@@ -57,15 +58,15 @@ export default {
             fields: [
                 { name: 'name', type: 'text', label: 'Category Name' },
                 { name: 'description', type: 'text', label: 'Category Description' },
-                { name: 'url_photo', type: 'url', label: 'Url description' }
+                { name: 'url_photo', type: 'url', label: 'Url photo' }
             ]
         };
     },
     validations: {
         formData: {
-            name: { required, minLength: minLength(5), maxLength: maxLength(20) },
-            description: { required, minLength: minLength(15), maxLength: maxLength(30) },
-            url_photo: { required, minLength: minLength(20), url }
+            name: { required, minLength: minLength(5), maxLength: maxLength(50) },
+            description: { required, minLength: minLength(15), maxLength: maxLength(70) },
+            url_photo: { minLength: minLength(20), url }
         }
     },
     methods: {
@@ -92,7 +93,7 @@ export default {
                     });
                     return;
                 }
-                await axios.post('https://back-end-production-c8eb.up.railway.app/categorys/create', {
+                await axios.post('https://back-end-production-c8eb.up.railway.app/categories/create', {
                     nombre: this.formData.name,
                     descripcion: this.formData.description,
                     url_imagen: this.formData.url_photo

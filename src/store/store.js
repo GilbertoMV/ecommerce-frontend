@@ -26,12 +26,12 @@ export default new Vuex.Store({
       apiClient.get('/users/me')
         .then(response => {
           commit('setUser', response.data);
-          commit('setAuthentication', true);  // Set authentication true upon successful fetch
+          commit('setAuthentication', true);
         })
         .catch(error => {
           console.error('Error fetching user data:', error);
           if (error.response && error.response.status === 401) {
-            this.dispatch('logout');  // Logout if the token is invalid
+            this.dispatch('logout');
           }
         });
     },
@@ -39,16 +39,16 @@ export default new Vuex.Store({
       let token = localStorage.getItem('token');
       if (token) {
         commit('setAuthentication', true);
-        this.dispatch('fetchAndSetUserData');  // Fetch user data on initialization if token exists
+        this.dispatch('fetchAndSetUserData');
       } else {
         commit('setAuthentication', false);
       }
     },
     logout({ commit }) {
-      localStorage.removeItem('token');  // Remove the token from localStorage
-      commit('setUser', null);  // Clear user data
-      commit('setAuthentication', false);  // Set authentication to false
-      router.push('/sign-in');  // Redirect to the sign-in page
+      localStorage.removeItem('token');
+      commit('setUser', null);
+      commit('setAuthentication', false);
+      router.push('/sign-in');
     }
   },
   getters: {
@@ -59,7 +59,7 @@ export default new Vuex.Store({
       return state.user;
     },
     username(state) {
-      return state.user ? state.user.nombre : '';
+      return state.user ? state.user.nombre: '';
     },
     paternalLastName(state) {
       return state.user ? state.user.apellido_paterno : '';

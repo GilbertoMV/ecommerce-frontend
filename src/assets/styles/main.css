@@ -1,7 +1,9 @@
 @import url("formatStyles.css");
+
 html {
   font-size: 10px;
 }
+
 main {
   margin: 1rem auto 3rem;
   width: 80vw;
@@ -15,12 +17,14 @@ main {
   width: 100%;
   height: 90vh;
 }
+
 .loadComponent {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 85%;
 }
+
 /*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
 .login-register-view {
   max-width: 600px;
@@ -37,24 +41,30 @@ main {
   font-weight: bold;
   text-align: center;
 }
-@media (width <= 768px) {
+
+@media (width <=768px) {
   main {
     margin: 8rem auto 3rem;
   }
+
   .userProfile {
     margin-top: 7rem;
   }
+
   .loadComponent {
     width: 75%;
   }
 }
-@media (width <= 390px) {
+
+@media (width <=390px) {
   main {
-    margin: 3rem auto 3rem;
+    margin: 5rem auto 3rem;
   }
+
   .userProfile {
     margin-top: 5rem;
   }
+
   .loadComponent {
     width: 85%;
   }

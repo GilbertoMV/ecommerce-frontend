@@ -76,7 +76,7 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 import { helpers } from 'vuelidate/lib/validators'
 import formInput from './formInput.vue';
 import Swal from 'sweetalert2';
-import Axios from 'axios';
+import apiClient from '../store/auth-vuex'
 
 //VALIDACIONES
 const validDate = helpers.withParams(
@@ -146,16 +146,15 @@ export default {
                     });
                     return;
                 }
-
-                await Axios.post('https://back-end-production-c8eb.up.railway.app/register', {
-                    nombre: this.formData.name,
-                    apellido_paterno: this.formData.paternalLastName,
-                    apellido_materno: this.formData.maternalLastName,
-                    correo: this.formData.email,
+                await apiClient.post("/register", {
+                    nombre: this.formData.name.toUpperCase(),
+                    apellido_paterno: this.formData.paternalLastName.toUpperCase(),
+                    apellido_materno: this.formData.maternalLastName.toUpperCase(),
+                    correo: this.formData.email.toLowerCase(),
                     contrasena: this.formData.password,
                     fecha_nacimiento: this.formData.birthdate,
                     estado_cuenta: '1'
-                });
+                })
 
                 Swal.fire({
                     icon: "success",
@@ -168,7 +167,7 @@ export default {
                 });
                 setTimeout(() => {
                     this.$router.push('/sign-in');
-                }, 3000);
+                }, 1500);
 
             } catch (error) {
                 let errorMessage = 'Error when registering'

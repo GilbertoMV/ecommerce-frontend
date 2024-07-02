@@ -32,7 +32,7 @@
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import formInput from './formInput.vue';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import apiClient from '../store/auth-vuex';
 
 export default {
     name: 'SignInForm',
@@ -74,7 +74,7 @@ export default {
                     return;
 
                 }
-                const response = await axios.post('https://back-end-production-c8eb.up.railway.app/login', {
+                const response = await apiClient.post("/login", {
                     correo: this.formData.email,
                     contrasena: this.formData.password
                 });
@@ -83,7 +83,6 @@ export default {
                     this.$store.dispatch('updateAuthenticationStatus', true);
                     await this.$store.dispatch('fetchAndSetUserData');
                     this.$router.push('/');
-                    console.log('token ' + response.data.token)
                 }
             } catch (error) {
                 let errorMessage = "Login failed";
@@ -103,12 +102,8 @@ export default {
         },
         async fetchUserData() {
             try {
-                const response = await axios.get('https://back-end-production-c8eb.up.railway.app/user/me/', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                this.$store.dispatch('fetchUserData', response.data);
+                const response = await apiClient.get("/user/me"); //se llama al endpoint de la api utilizando la instancia definida
+                this.$store.dispatch('fetchUserData', response.data); //se llama al metodo 'fetchUserData' definido en el store
             } catch (error) {
                 let errorMessage = "error";
                 if (error.response && error.response.data && error.response.data.error) {

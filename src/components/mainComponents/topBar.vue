@@ -31,6 +31,7 @@
               <path
                 d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
             </svg> {{ username }}</router-link></li>
+        <li><a @click="categoriesMenu">All Categories</a></li>
         <li @click="removeMenu"><router-link to="/shopping-car">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart svgs" viewBox="0 0 16 16">
               <path
@@ -49,6 +50,10 @@
               <path fill-rule="evenodd"
                 d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
             </svg> Log Out</a></li>
+      </ul>
+      <ul class="categoriesMenu">
+        <li v-for="name in nameCategories" :key="name"><router-link :to="`/${name.replace(/\s+/g, '-')}`"> {{ name
+            }}</router-link></li>
       </ul>
 
       <!-- se muestran los links en computadoras -->
@@ -104,13 +109,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import apiClient from '../../store/auth-vuex';
 
 export default {
   name: 'NavBarTop',
   data() {
     return {
       isMenuVisible: false,
-      hideMenuTimeout: null
+      hideMenuTimeout: null,
+      categories: [],
+      nameCategories: [],
     };
   },
   computed: {
@@ -143,15 +151,29 @@ export default {
     hamburgerMenu() {
       document.querySelector('.hamburger').classList.toggle('is-active')
       document.querySelector('.menuResponsive').classList.toggle('is-active')
+      document.querySelector('.categoriesMenu').classList.remove('is-active')
     },
     removeMenu() {
       document.querySelector('.hamburger').classList.remove('is-active')
       document.querySelector('.menuResponsive').classList.remove('is-active')
-    }
-  }
-  ,
+      document.querySelector('.categoriesMenu').classList.remove('is-active')
+    },
+    categoriesMenu() {
+      document.querySelector('.categoriesMenu').classList.toggle('is-active')
+    },
+    async fetchCategories() {
+      try {
+        const response = await apiClient.get("/categories");
+        this.categories = response.data;
+        this.nameCategories = this.categories.map(category => category.nombre);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+  },
   mounted() {
     this.isMenuVisible = false;
+    this.fetchCategories()
   }
 }
 </script>
@@ -166,7 +188,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 999;
   background-color: #fff;
   border-bottom: .5rem solid #62ab18;
   height: 6rem;
@@ -238,7 +260,8 @@ export default {
   display: none;
 }
 
-.menuResponsive {
+.menuResponsive,
+.categoriesMenu {
   display: none;
   flex-direction: column;
   justify-content: space-around;
@@ -254,7 +277,12 @@ export default {
   transition: all .3s ease;
 }
 
-.menuResponsive li a {
+.categoriesMenu {
+  transform: translateX(-100%);
+}
+
+.menuResponsive li a,
+.categoriesMenu li a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -294,6 +322,7 @@ export default {
   font-weight: 500;
   text-decoration: none;
   color: #000;
+  text-transform: lowercase;
 }
 
 .sign-up {
@@ -369,12 +398,15 @@ export default {
 }
 
 @media (width <=768px) {
-  .menuResponsive {
+
+  .menuResponsive,
+  .categoriesMenu {
     display: flex;
     top: 7rem;
   }
 
-  .menuResponsive li {
+  .menuResponsive li,
+  .categoriesMenu li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -455,13 +487,15 @@ export default {
     height: .3rem;
   }
 
-  .menuResponsive {
+  .menuResponsive,
+  .categoriesMenu {
     display: flex;
     top: 5rem;
     left: 0;
   }
 
-  .menuResponsive li {
+  .menuResponsive li,
+  .categoriesMenu li {
     display: flex;
     justify-content: center;
     align-items: center;

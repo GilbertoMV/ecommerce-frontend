@@ -24,7 +24,7 @@ const router = new Router({
     {path:'/new-items', name: 'newItems', component: newItems},
     {path:'/more-ecofriendly', name: 'moreEcofriendly', component: moreEcofriendly},
     {path: '/shopping-car',name: 'shoppingCar',component: shoppingCar, meta: {requiresAuth:true}},
-    {path: '/userProfile', name: 'userProfile', component: userProfile, meta: {requiresAuth:false}},
+    {path: '/userProfile', name: 'userProfile', component: userProfile, meta: {requiresAuth:true}},
     {path: '/sign-in',name: 'signIn', component: signIn, meta:{requiresGuest: true}},
     {path: '/sign-up',name: 'signUn', component: signUp, meta:{requiresGuest: true}},
     {path: '/admin/index', name: 'indexAdmin', component: indexAdmin, meta: {requiresAuth:false}},
