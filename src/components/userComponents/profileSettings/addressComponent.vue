@@ -1,9 +1,7 @@
 <template>
-    <div class="info">
-        <h1>
-            Hola
-        </h1>
-    </div>
+    <h1>
+        Address
+    </h1>
 </template>
 <script>
 export default {

@@ -8,8 +8,9 @@
           <div class="dropdown-menu-wrapper" :class="{ visible: isMenuVisible }">
             <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
               @mouseleave="scheduleHideMenu">
-              <router-link to="" v-for="name in nameCategories" :key="name" class="dropdown-item">{{ name
-                }}</router-link>
+              <router-link v-for="category in categories" :key="category.id_categoria"
+                :to="{ name: 'categoryPage', params: { categoryId: category.id_categoria } }" class="dropdown-item">{{
+                  category.nombre }}</router-link>
             </div>
           </div>
         </div>
@@ -17,7 +18,6 @@
         <li><router-link to="/best-sellers" active-class="active">Best Sellers</router-link></li>
         <li><router-link to="/new-items" active-class="active">New Items</router-link></li>
         <li><router-link to="/more-ecofriendly" active-class="active">More eco-friendly</router-link></li>
-        <li><router-link to="/help-center" active-class="active">Help</router-link></li>
       </ul>
     </div>
   </header>
@@ -31,7 +31,6 @@ export default {
       isMenuVisible: false,
       hideMenuTimeout: null,
       categories: [],
-      nameCategories: []
     }
   },
   methods: {
@@ -57,15 +56,20 @@ export default {
       try {
         const response = await apiClient.get("/categories");
         this.categories = response.data;
-        this.nameCategories = this.categories.map(category => category.nombre);
       } catch (err) {
         console.error(err);
       }
     }
   },
-  mounted() {
+  created() {
     this.isMenuVisible = false;
     this.fetchCategories();
+  },
+  beforeDestroy() {
+    if (this.hideMenuTimeout) {
+      clearTimeout(this.hideMenuTimeout);
+      this.hideMenuTimeout = null;
+    }
   }
 };
 </script>

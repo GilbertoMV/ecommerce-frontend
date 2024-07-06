@@ -8,7 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isAuthenticated: false,
-    user: null
+    user: null,
+    loading: false
   },
   mutations: {
     setAuthentication(state, status) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     setUser(state, user) {
       state.user = user;
+    },
+    SET_LOADING(state, payload) {
+      state.loading = payload;
     }
   },
   actions: {
