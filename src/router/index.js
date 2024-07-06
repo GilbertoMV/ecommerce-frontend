@@ -13,20 +13,22 @@ const signUpPage = () => import('../views/LoginViews/signUpPage.vue')
 const bestSellersPage = () => import('../views/mainViews/bestSellersPage.vue')
 const newItemsPage = () => import('../views/mainViews/newItemsPage.vue')
 const moreEcofriendlyPage = () => import('../views/mainViews/moreEcofriendlyPage.vue')
-const shoppingCarPage = () => import('../views/userViews/shoppingCarPage.vue')
 const outletPage = () => import('../views/mainViews/outletPage.vue')
 const promosPage = () => import('../views/mainViews/promosPage.vue')
+const categoryPage = () => import('../views/mainViews/categoriesPage.vue')
 
 // USER VIEWS
 const userProfilePage = () => import('../views/userViews/userProfilePage.vue')
 const profileComponent = () => import('../components/userComponents/profileSettings/profileComponent.vue')
 const myOrdersComponent = () => import('../components/userComponents/profileSettings/myOrdersComponent.vue')
-const rewardsComponent = () => import('../components/userComponents/profileSettings/rewardsComponent.vue')
+const rewardsComponent = () => import('../components/userComponents/rewardsComponent.vue')
 const addressComponent = () => import('../components/userComponents/profileSettings/addressComponent.vue')
 const securityComponent = () => import('../components/userComponents/profileSettings/securityComponent.vue')
 const accessibilityComponent = () => import('../components/userComponents/profileSettings/accessibilityComponent.vue')
 const privacyComponent = () => import('../components/userComponents/profileSettings/privacyComponent.vue')
 const supportComponent = () => import('../components/userComponents/profileSettings/supportComponent.vue')
+const favoritesComponent = () => import('../views/userViews/favoritesPage.vue')
+const shoppingCarPage = () => import('../views/userViews/shoppingCarPage.vue')
 
 Vue.use(Router);
 
@@ -37,11 +39,13 @@ const router = new Router({
     {path: '/sign-in',name: 'signInPage', component: signInPage, meta:{requiresGuest: true, title: 'Login'}},
     {path: '/sign-up',name: 'signUpPage', component: signUpPage, meta:{requiresGuest: true, title: 'Signup'}},
     {path: '/outlet', name: 'outletPage', component: outletPage, meta: {title: 'Outlet'}},
+    {path: '/category/:categoryId', name: 'categoryPage', component: categoryPage, meta: {title: 'Categories'}, props: true},
     {path: '/promotions', name: 'promosPage',component: promosPage, meta: {title: 'Promotions'}},
     {path: '/best-sellers', name: 'bestSellersPage', component: bestSellersPage, meta: {title: 'Best Sellers'}},
     {path: '/new-items', name: 'newItemPages', component: newItemsPage, meta: {title: 'New Items'}},
     {path: '/more-ecofriendly', name: 'moreEcofriendlyPage', component: moreEcofriendlyPage, meta: {title: 'More Eco-Friendly'}},
-    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresAuth: true}},
+    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {title: 'Shopping Car'}},
+    {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {title: 'Favorites productos'}},
     {path: '/user', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
         {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}}, // /user/profile
@@ -58,13 +62,25 @@ const router = new Router({
 ]
 })
 router.beforeEach((to, from, next) => {
+  //loader 
+  store.commit('SET_LOADING', true);
+  next();
+
   const isAuthenticated = store.getters.isAuthenticated;
+
   (to.matched.some(record => record.meta.requiresGuest) && isAuthenticated) ? next('/') : next();
   (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) ? next('/') : next();
 
   //establecer titulos de la pagina dinamicamente
   document.title = to.meta.title || 'Mapache E-commerce'
+
+  
 });
+
+router.afterEach(()=> {
+  //loader
+  store.commit('SET_LOADING', false)
+})
 
 
 export default router
