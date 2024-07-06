@@ -23,8 +23,9 @@
           </span>
         </button>
       </div>
+      <!-- se muestran los links en telefonos -->
       <ul class="menuResponsive">
-        <li @click="removeMenu"><router-link to="/userProfile">
+        <li @click="removeMenu"><router-link to="/user/profile">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-square svgs"
               viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -52,14 +53,15 @@
             </svg> Log Out</a></li>
       </ul>
       <ul class="categoriesMenu">
-        <li v-for="name in nameCategories" :key="name"><router-link :to="`/${name.replace(/\s+/g, '-')}`"> {{ name
-            }}</router-link></li>
+        <li @click="removeMenu" v-for="category in categories" :key="category.id_categoria"><router-link
+            :to="{ name: 'categoryPage', params: { categoryId: category.id_categoria } }">{{
+              category.nombre }}</router-link></li>
       </ul>
 
       <!-- se muestran los links en computadoras -->
       <ul class="linksContainer">
         <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
-          <a to="/user" class="dropdown-button link">
+          <a to="/user/profile" class="dropdown-button link">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-square svgs"
               viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -68,13 +70,13 @@
             </svg> {{ username }}</a>
           <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
             @mouseleave="scheduleHideMenu">
-            <router-link to="/user" class="dropdown-item">
+            <router-link to="/user/profile" class="dropdown-item">
               <i class="bi bi-person-square"></i> Profile</router-link>
-            <router-link to="/user" class="dropdown-item">
+            <router-link to="/user/my-orders" class="dropdown-item">
               <i class="bi bi-bag"></i> My Orders</router-link>
-            <router-link to="/user" class="dropdown-item">
+            <router-link to="/user/rewards" class="dropdown-item">
               <i class="bi bi-trophy"></i> Rewards</router-link>
-            <router-link to="/user" class="dropdown-item">
+            <router-link to="/user/accessibility" class="dropdown-item">
               <i class="bi bi-universal-access-circle"></i> Accessibility</router-link>
             <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a>
           </div>
@@ -103,8 +105,22 @@
         </button>
       </div>
       <div class="sesionContainer">
-        <router-link to="/sign-in" class="link signIn">Login</router-link>
-        <router-link to="/sign-up" class="sign-up link signUp"><i class="bi bi-person-circle"></i> Signup</router-link>
+        <router-link to="/shopping-car" class="link">
+          <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-cart svgs" viewBox="0 0 16 16">
+            <path
+              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+          </svg>
+          <p class="handleText">Shopping car</p>
+        </router-link>
+        <router-link to="/favorites" class="link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star svgs" viewBox="0 0 16 16">
+            <path
+              d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+          </svg>
+          <p class="handleText">Favorites</p>
+        </router-link>
+        <router-link to="/sign-in" class="link">Login</router-link>
+        <router-link to="/sign-up" class="link sign-up"><i class="bi bi-person-circle"></i> Signup</router-link>
       </div>
     </template>
   </header>
@@ -121,7 +137,6 @@ export default {
       isMenuVisible: false,
       hideMenuTimeout: null,
       categories: [],
-      nameCategories: [],
     };
   },
   computed: {
@@ -168,13 +183,12 @@ export default {
       try {
         const response = await apiClient.get("/categories");
         this.categories = response.data;
-        this.nameCategories = this.categories.map(category => category.nombre);
       } catch (err) {
         console.error(err);
       }
     },
   },
-  mounted() {
+  created() {
     this.isMenuVisible = false;
     this.fetchCategories()
   }
@@ -309,6 +323,10 @@ export default {
   height: 100%;
 }
 
+.handleText {
+  display: initial;
+}
+
 .sesionContainer {
   display: flex;
   justify-content: center;
@@ -316,6 +334,7 @@ export default {
   column-gap: 2rem;
   width: auto;
 }
+
 
 .navbarTop .link {
   display: flex;
@@ -329,6 +348,7 @@ export default {
 }
 
 .sign-up {
+  display: flex;
   border: .2rem solid #62ab18;
   border-radius: 1rem;
   padding: 1rem;
@@ -479,8 +499,8 @@ export default {
   }
 
   .svgs {
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 
   .hamburger-inner,
@@ -506,6 +526,18 @@ export default {
     height: 100%;
     font-size: 1.8rem;
     cursor: pointer;
+  }
+
+  .handleText {
+    display: none;
+  }
+
+  .sign-up {
+    display: none !important;
+  }
+
+  .sesionContainer {
+    column-gap: 0rem;
   }
 }
 </style>

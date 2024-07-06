@@ -16,6 +16,7 @@ const moreEcofriendlyPage = () => import('../views/mainViews/moreEcofriendlyPage
 const outletPage = () => import('../views/mainViews/outletPage.vue')
 const promosPage = () => import('../views/mainViews/promosPage.vue')
 const categoryPage = () => import('../views/mainViews/categoriesPage.vue')
+const rewardsShopComponent = () => import('../views/mainViews/rewardsShopPage.vue')
 
 // USER VIEWS
 const userProfilePage = () => import('../views/userViews/userProfilePage.vue')
@@ -44,8 +45,9 @@ const router = new Router({
     {path: '/best-sellers', name: 'bestSellersPage', component: bestSellersPage, meta: {title: 'Best Sellers'}},
     {path: '/new-items', name: 'newItemPages', component: newItemsPage, meta: {title: 'New Items'}},
     {path: '/more-ecofriendly', name: 'moreEcofriendlyPage', component: moreEcofriendlyPage, meta: {title: 'More Eco-Friendly'}},
-    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {title: 'Shopping Car'}},
-    {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {title: 'Favorites productos'}},
+    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresSesionActive: true, title: 'Shopping Car'}},
+    {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresSesionActive: true, title: 'Favorites productos'}},
+    {path: '/rewards-shop', name: 'RewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
     {path: '/user', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
         {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}}, // /user/profile
@@ -70,6 +72,7 @@ router.beforeEach((to, from, next) => {
 
   (to.matched.some(record => record.meta.requiresGuest) && isAuthenticated) ? next('/') : next();
   (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) ? next('/') : next();
+  (to.matched.some(record => record.meta.requiresSesionActive) && !isAuthenticated) ? next('/sign-in') : next();
 
   //establecer titulos de la pagina dinamicamente
   document.title = to.meta.title || 'Mapache E-commerce'
