@@ -17,7 +17,8 @@
         <li><router-link to="/best-sellers" active-class="active">Best Sellers</router-link></li>
         <li><router-link to="/new-items" active-class="active">New Items</router-link></li>
         <li><router-link to="/more-ecofriendly" active-class="active">More eco-friendly</router-link></li>
-        <li><router-link to="/help-center" active-class="active">Help</router-link></li>
+        <li><router-link to="/user/support" active-class="active">Help</router-link></li>
+        <!--Soluciona un bug de que el usuario no logueado-->
       </ul>
     </div>
   </header>

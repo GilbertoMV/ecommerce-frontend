@@ -19,7 +19,7 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-    name: 'infoUserComponent',
+    name: 'profileComponent',
     computed: {
         ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email'])
     }

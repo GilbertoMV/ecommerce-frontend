@@ -2,7 +2,7 @@
     <div class="sidebar">
         <h2>My account</h2>
         <ul class="options">
-            <li><a class="option" @click="activeComponent('infoUser')">
+            <li><router-link to="/user/profile" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle svg"
                         viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -10,24 +10,24 @@
                             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                     </svg>
                     <span>Profile</span>
-                </a></li>
-            <li><a class="option">
+                </router-link></li>
+            <li><router-link to="/user/my-orders" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bag svg"
                         viewBox="0 0 16 16">
                         <path
                             d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
                     </svg>
                     <span>My Orders</span>
-                </a></li>
-            <li><a class="option">
+                </router-link></li>
+            <li><router-link to="/user/rewards" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trophy svg"
                         viewBox="0 0 16 16">
                         <path
                             d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5q0 .807-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33 33 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935m10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935M3.504 1q.01.775.056 1.469c.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.5.5 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667q.045-.694.056-1.469z" />
                     </svg>
                     <span>Rewards</span>
-                </a></li>
-            <li><a class="option">
+                </router-link></li>
+            <li><router-link to="/user/address" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt  svg"
                         viewBox="0 0 16 16">
                         <path
@@ -35,8 +35,8 @@
                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                     </svg>
                     <span>Address</span>
-                </a></li>
-            <li><a class="option">
+                </router-link></li>
+            <li><router-link to="/user/security" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-fingerprint svg"
                         viewBox="0 0 16 16">
                         <path
@@ -51,16 +51,16 @@
                             d="M4.81 1.37A6.5 6.5 0 0 1 14.56 7a.5.5 0 1 1-1 0 5.5 5.5 0 0 0-8.25-4.765.5.5 0 0 1-.5-.865m-.89 1.257a.5.5 0 0 1 .04.706A5.48 5.48 0 0 0 2.56 7a.5.5 0 0 1-1 0c0-1.664.626-3.184 1.655-4.333a.5.5 0 0 1 .706-.04ZM1.915 8.02a.5.5 0 0 1 .346.616l-.779 2.767a.5.5 0 1 1-.962-.27l.778-2.767a.5.5 0 0 1 .617-.346m12.15.481a.5.5 0 0 1 .49.51c-.03 1.499-.161 3.025-.727 4.533l-.07.187a.5.5 0 0 1-.936-.351l.07-.187c.506-1.35.634-2.74.663-4.202a.5.5 0 0 1 .51-.49" />
                     </svg>
                     <span>Security</span>
-                </a></li>
-            <li><a class="option" @click="activeComponent('accesibilityComponent')">
+                </router-link></li>
+            <li><router-link to="/user/accessibility" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         class="bi bi-universal-access-circle svg" viewBox="0 0 16 16">
                         <path
                             d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z" />
                         <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8" />
                     </svg>
-                    <span>Accesibility</span></a></li>
-            <li><a class="option">
+                    <span>Accessibility</span></router-link></li>
+            <li><router-link to="/user/privacy" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-shield-exclamation svg"
                         viewBox="0 0 16 16">
                         <path
@@ -69,8 +69,8 @@
                             d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z" />
                     </svg>
                     <span>Privacy</span>
-                </a></li>
-            <li><a class="option" @click="activeComponent('addressComponent')">
+                </router-link></li>
+            <li><router-link to="/user/support" class="option" active-class="is-active">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-shield-plus svg"
                         viewBox="0 0 16 16">
                         <path
@@ -78,7 +78,7 @@
                         <path
                             d="M8 4.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V9a.5.5 0 0 1-1 0V7.5H6a.5.5 0 0 1 0-1h1.5V5a.5.5 0 0 1 .5-.5" />
                     </svg>
-                    <span>Support</span></a></li>
+                    <span>Support</span></router-link></li>
             <li><a @click="Logout" class="logout option">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-box-arrow-right svg"
                         viewBox="0 0 16 16">
@@ -99,9 +99,6 @@ import { mapActions } from 'vuex';
 export default {
     name: 'SideBar',
     methods: {
-        activeComponent(component) {
-            this.$emit('change-component', component)
-        },
         ...mapActions(['logout']),
         Logout() {
             this.logout();
@@ -147,6 +144,10 @@ h2 {
     color: #62ab18;
 }
 
+.is-active {
+    color: #62ab18;
+}
+
 .logout {
     color: #c10f0f
 }
@@ -161,7 +162,8 @@ h2 {
 }
 
 
-.option::before {
+.option::before,
+.is-active::before {
     content: '';
     position: absolute;
     left: 0;
@@ -172,9 +174,12 @@ h2 {
     transition: background-color 0.3s;
 }
 
+.is-active::before {
+    background-color: #62ab18;
+}
+
 .option:hover::before {
     background-color: #62ab18;
-    /* Cambia a cualquier color que necesites */
 }
 
 @media (width <=768px) {
