@@ -102,7 +102,7 @@ export default {
         ...mapActions(['logout']),
         Logout() {
             this.logout();
-        },
+        }
     }
 }
 </script>
@@ -113,7 +113,7 @@ export default {
 }
 
 h2 {
-    margin-top: 2rem;
+    margin: 2rem 0rem;
     font-size: 1.8rem;
     font-weight: 600;
     text-align: center;
@@ -122,7 +122,6 @@ h2 {
 .options {
     display: grid;
     grid-template-rows: repeat(9, 4rem);
-    margin-top: 4rem;
     font-size: 1.6rem;
     row-gap: 1.5rem;
     align-items: center;

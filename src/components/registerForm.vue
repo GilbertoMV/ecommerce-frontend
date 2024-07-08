@@ -132,6 +132,7 @@ export default {
     },
     methods: {
         async signUp() {
+            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
@@ -183,6 +184,8 @@ export default {
                     timer: 3000,
                     timerProgressBar: true,
                 });
+            } finally {
+                this.$store.dispatch('setLoading', false); //desactiva el loader independientemente del resultado
             }
         }
     }

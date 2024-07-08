@@ -1,5 +1,5 @@
 <template>
-    <div class="loader" v-if="loading">
+    <div class="loader">
         <div class="truckWrapper">
             <div class="truckBody">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 198 93" class="trucksvg">
@@ -51,19 +51,21 @@
 
 </template>
 <script>
-import { mapState } from 'vuex';
 export default {
     name: 'loaderComponent',
-    computed: mapState(['loading'])
 }
 </script>
 <style scoped>
 .loader {
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #00000053;
+    position: fixed;
+    top: 0;
+    z-index: 999;
 }
 
 .truckWrapper {

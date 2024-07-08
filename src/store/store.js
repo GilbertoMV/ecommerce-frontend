@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
-import apiClient from './auth-vuex.js';  // Asegúrate de que la ruta sea correcta
+import apiClient from './auth-vuex.js';
 
 Vue.use(Vuex);
-
+let loadingTimer = null;
 export default new Vuex.Store({
   state: {
     isAuthenticated: false,
     user: null,
-    loading: false
+    loading: false,
   },
   mutations: {
     setAuthentication(state, status) {
@@ -23,6 +23,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setLoading({commit}, status) {
+      //se establece un retardo de 3 milisegundos para evitar el parpadeo del loader en tareas muy rapidas
+      clearTimeout(loadingTimer);
+      loadingTimer = setTimeout(() => {
+        commit('SET_LOADING', status)
+      }, 500)
+    },
     updateAuthenticationStatus({ commit }, status) {
       commit('setAuthentication', status);
     },

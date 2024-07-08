@@ -54,11 +54,14 @@ export default {
       }
     },
     async fetchCategories() {
+      this.$store.dispatch('setLoading', true)
       try {
         const response = await apiClient.get("/categories");
         this.categories = response.data;
       } catch (err) {
         console.error(err);
+      } finally {
+        this.$store.dispatch('setLoading', false)
       }
     }
   },
@@ -83,6 +86,7 @@ export default {
   right: 0;
   background-color: #62ab18;
   margin-top: 7rem;
+  z-index: 997;
 }
 
 .navbarDown ul {
