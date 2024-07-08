@@ -205,7 +205,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 998;
   background-color: #fff;
   border-bottom: .5rem solid #62ab18;
   height: 6rem;
@@ -377,7 +377,7 @@ export default {
   background-color: white;
   min-width: 20rem;
   box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 998;
   left: 50%;
   transform: translateX(-50%) translateY(-1rem);
   top: 100%;

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
+    <loaderComponent v-if="isLoading" /> <!--Solo si esta en estado de carga se muestra-->
     <topBar />
     <bottomBar />
-    <loaderComponent />
     <router-view />
     <footerBar />
   </div>
@@ -16,6 +16,11 @@ import loaderComponent from "./components/loaderComponent.vue";
 
 export default {
   name: 'App',
+  computed: {
+    isLoading() {
+      return this.$store.state.loading;
+    }
+  },
   components: {
     topBar,
     bottomBar,

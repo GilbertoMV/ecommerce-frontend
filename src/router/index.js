@@ -64,8 +64,6 @@ const router = new Router({
 ]
 })
 router.beforeEach((to, from, next) => {
-  //loader 
-  store.commit('SET_LOADING', true);
   next();
 
   const isAuthenticated = store.getters.isAuthenticated;
@@ -77,13 +75,8 @@ router.beforeEach((to, from, next) => {
   //establecer titulos de la pagina dinamicamente
   document.title = to.meta.title || 'Mapache E-commerce'
 
-  
 });
 
-router.afterEach(()=> {
-  //loader
-  store.commit('SET_LOADING', false)
-})
 
 
 export default router

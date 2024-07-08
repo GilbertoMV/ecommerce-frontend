@@ -4,4 +4,7 @@
     </main>
 </template>
 <script>
+export default {
+    name: 'shoppingCar'
+}
 </script>

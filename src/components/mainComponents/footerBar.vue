@@ -61,6 +61,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 998;
 }
 
 .footer-top {

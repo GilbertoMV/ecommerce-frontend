@@ -59,20 +59,20 @@ export default {
     },
     methods: {
         async signIn() {
+            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
-                this.$v.$touch();
+                this.$v.$touch();  // Valida los campos del formulario
                 if (this.$v.$invalid) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Error when login in, invalid data",
+                        title: "Error when logging in, invalid data",
                         toast: true,
                         position: "bottom-right",
                         showConfirmButton: false,
                         timer: 3000,
                         timerProgressBar: true,
                     });
-                    return;
-
+                    return;  // Sale temprano si la validación falla
                 }
                 const response = await apiClient.post("/login", {
                     correo: this.formData.email,
@@ -98,30 +98,10 @@ export default {
                     timer: 3000,
                     timerProgressBar: true,
                 });
-            }
-        },
-        async fetchUserData() {
-            try {
-                const response = await apiClient.get("/user/me"); //se llama al endpoint de la api utilizando la instancia definida
-                this.$store.dispatch('fetchUserData', response.data); //se llama al metodo 'fetchUserData' definido en el store
-            } catch (error) {
-                let errorMessage = "error";
-                if (error.response && error.response.data && error.response.data.error) {
-                    errorMessage += ": " + error.response.data.error;
-                }
-                Swal.fire({
-                    icon: "error",
-                    title: errorMessage,
-                    toast: true,
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
+            } finally {
+                this.$store.dispatch('setLoading', false);  // Desactivar loader al final, independientemente del resultado
             }
         }
-
-
     }
 }
 </script>
