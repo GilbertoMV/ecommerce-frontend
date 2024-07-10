@@ -1,41 +1,50 @@
 <template>
-    <div class="info">
-        <div class="userData">
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" viewBox="0 0 24 24">
-                    <path fill="#62ab18"
-                        d="M9.8 14.2h4.4l.8 2.225q.1.275.325.425t.5.15q.475 0 .738-.387t.087-.813l-3.425-9.2q-.1-.275-.337-.437T12.35 6h-.7q-.3 0-.537.163t-.338.437L7.35 15.825q-.175.425.088.8t.737.375q.275 0 .5-.162T9 16.4zm.55-1.6l1.6-4.55h.1l1.6 4.55zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.325 0 5.663-2.337T20 12t-2.337-5.663T12 4T6.337 6.338T4 12t2.338 5.663T12 20" />
-                </svg>
+    <div class="container">
+        <div class="gridOptions">
+            <div class="row">
+                <div class="iconOption">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-moon-fill icon" viewBox="0 0 16 16">
+                        <path
+                            d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278" />
+                    </svg>
+                </div>
+                <div class="infoOption">
+                    <h2>Dark Mode</h2>
+                    <p>This setting improves readability and reduces eye fatigue during nighttime or prolonged use.
+                    </p>
+                </div>
+                <div class="optionsButton">
+                    <toggleComponent />
+                </div>
             </div>
-            <div class="data">
-                <p class="title">High Contrast</p>
-                <p class="text">Change the colors of the page to high contrast colors to improve visibility</p>
-            </div>
-            <div class="icon">
-                <!-- toggle -->
-            </div>
-            <!-- SEGUNDA FILA -->
-            <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" viewBox="0 0 256 256">
-                    <path fill="#62ab18"
-                        d="M87.24 52.59a8 8 0 0 0-14.48 0l-64 136a8 8 0 1 0 14.48 6.81L39.9 160h80.2l16.66 35.4a8 8 0 1 0 14.48-6.81ZM47.43 144L80 74.79L112.57 144ZM200 96c-12.76 0-22.73 3.47-29.63 10.32a8 8 0 0 0 11.26 11.36c3.8-3.77 10-5.68 18.37-5.68c13.23 0 24 9 24 20v3.22a42.76 42.76 0 0 0-24-7.22c-22.06 0-40 16.15-40 36s17.94 36 40 36a42.73 42.73 0 0 0 24-7.25a8 8 0 0 0 16-.75v-60c0-19.85-17.94-36-40-36m0 88c-13.23 0-24-9-24-20s10.77-20 24-20s24 9 24 20s-10.77 20-24 20" />
-                </svg>
-            </div>
-            <div class="data">
-                <p class="title">Text Size</p>
-                <p class="text">Change the text size to improve readability</p>
-            </div>
-            <div class="icon">
-                <!-- toggle -->
+            <div class="row">
+                <div class="iconOption">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-type icon" viewBox="0 0 16 16">
+                        <path
+                            d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081zm2.7-7.923L6.34 9.314H3.51l1.4-4.156zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525" />
+                    </svg>
+                </div>
+                <div class="infoOption">
+                    <h2>Text Size</h2>
+                    <p>This option is especially useful for visually impaired users.
+                    </p>
+                </div>
+                <div class="optionsButton">
+                </div>
             </div>
         </div>
+
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import toggleComponent from '../../mainComponents/toggleComponent.vue';
 export default {
     name: 'infoUserComponent',
+    components: {
+        toggleComponent
+    },
     computed: {
         ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email'])
     },
@@ -43,52 +52,105 @@ export default {
 </script>
 
 <style scoped>
-.info {
-    display: grid;
-    grid-template-rows: 10% auto;
-    width: 100%;
-    justify-items: center;
-    margin-top: 3rem;
-    min-height: 10%;
-}
-
-.userData {
-    display: grid;
-    margin-top: 1rem;
-    grid-template-columns: 5% auto 3%;
-    grid-template-rows: repeat(2, 6rem);
-    row-gap: 2rem;
-    width: 60%;
-    background: white;
-    padding: 1rem 2rem;
-    column-gap: 1rem;
-    border-radius: 1rem;
-    max-height: 20rem;
-}
-
-.data {
+.container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 5rem;
 }
 
-.icon {
+.gridOptions {
+    display: grid;
+    grid-template-rows: repeat(2, 7rem);
+    width: 60%;
+    height: fit-content;
+    background-color: #fff;
+    border-radius: 2rem;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 7% auto 10%;
+    padding: 1rem;
+    column-gap: 1rem;
+    border-bottom: solid .1rem #f2f2f2;
+}
+
+.row:last-of-type {
+    border-bottom: none;
+}
+
+.iconOption {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
 }
 
-.title {
-    font-size: 1.6rem;
+.optionsButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.icon {
+    width: 3rem;
+    height: 3rem;
+    fill: #62ab18;
+}
+
+.infoOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+h2 {
+    font-size: 1.8rem;
     font-weight: 500;
 }
 
-.text {
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-top: .5rem;
+p {
+    font-size: 1.6rem;
+}
+
+@media (width <=768px) {
+    .row {
+        grid-template-columns: 10% auto 10%;
+    }
+
+    .gridOptions {
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    p {
+        font-size: 1.3rem;
+    }
+
+    .switch {
+        font-size: unset;
+    }
+
+}
+
+@media (width <=390px) {
+    .row {
+        grid-template-columns: 8% auto 13%;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
 
 }
 </style>

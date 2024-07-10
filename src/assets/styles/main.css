@@ -46,7 +46,7 @@ main {
 
 @media (width <=768px) {
   main {
-    margin: 8rem auto 3rem;
+    margin: 7.5rem auto 3rem;
   }
 
   .userProfile {
@@ -70,4 +70,11 @@ main {
   .loadComponent {
     width: 85%;
   }
+}
+
+
+/* DARK MODE */
+
+.dark-mode {
+  background-color: #181F12;
 }

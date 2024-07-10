@@ -1,5 +1,5 @@
 <template>
-  <header class="navbarTop">
+  <header class="navbarTop" :class="{ 'dark-mode': isDarkMode }">
     <div class="logoContainer">
       <router-link to="/">
         <img src="@/assets/images/logo.webp" alt="logo">
@@ -98,7 +98,7 @@
       <div class="search-containerSesion">
         <input type="text" placeholder="Search..." class="search-input">
         <button class="search-button">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-search svgs" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#006400" class="bi bi-search svgs" viewBox="0 0 16 16">
             <path
               d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
           </svg>
@@ -106,7 +106,7 @@
       </div>
       <div class="sesionContainer">
         <router-link to="/shopping-car" class="link">
-          <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-cart svgs" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart svgs" viewBox="0 0 16 16">
             <path
               d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
           </svg>
@@ -140,7 +140,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'username'])
+    ...mapGetters(['isAuthenticated', 'username', 'isDarkMode'])
   },
   methods: {
     ...mapActions(['logout']),
@@ -180,6 +180,7 @@ export default {
       document.querySelector('.categoriesMenu').classList.toggle('is-active')
     },
     async fetchCategories() {
+
       try {
         const response = await apiClient.get("/categories");
         this.categories = response.data;
@@ -195,7 +196,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .navbarTop {
   display: flex;
@@ -210,6 +210,8 @@ export default {
   border-bottom: .5rem solid #62ab18;
   height: 6rem;
   padding: .5rem 0;
+  transition: all .5s ease;
+
 }
 
 .svgs {
@@ -233,8 +235,8 @@ export default {
   border-radius: 1rem;
   background-color: rgba(199, 233, 176, 0.7);
   align-items: center;
-  width: 60%;
-  height: 80%;
+  width: 40%;
+  height: 70%;
 }
 
 .search-containerSesion {
@@ -244,7 +246,7 @@ export default {
   background-color: rgba(199, 233, 176, 0.7);
   align-items: center;
   width: 40%;
-  height: 80%;
+  height: 70%;
 }
 
 .search-input {
@@ -343,7 +345,7 @@ export default {
   font-size: 1.6rem;
   font-weight: 500;
   text-decoration: none;
-  color: #000;
+  color: #000000;
   text-transform: lowercase;
 }
 
@@ -420,6 +422,54 @@ export default {
   background-color: #f1f1f1;
 }
 
+/*Dark Mode*/
+.dark-mode {
+  transition: all .5s ease;
+  border-bottom: .5rem solid #3A5816;
+}
+
+.dark-mode,
+.dark-mode .dropdown-menu {
+  background-color: #223012;
+}
+
+.dark-mode .dropdown-menu::before {
+  border-color: transparent transparent #223012 transparent;
+
+}
+
+.dark-mode .dropdown-item:hover {
+  background-color: #2D4115;
+}
+
+.dark-mode .link,
+.dark-mode .dropdown-item {
+  color: #ebead6;
+}
+
+.dark-mode .search-container,
+.dark-mode .search-containerSesion {
+  background-color: #ebead6;
+}
+
+.dark-mode .menuResponsive,
+.dark-mode .categoriesMenu {
+  background-color: #2D4115;
+}
+
+.dark-mode .menuResponsive li a,
+.dark-mode .categoriesMenu li a {
+  color: #ebead6;
+}
+
+.dark-mode .sign-up {
+  border: solid .2rem #3a5816;
+}
+
+.dark-mode .sign-up:hover {
+  background-color: #3a5816;
+}
+
 @media (width <=768px) {
 
   .menuResponsive,
@@ -440,6 +490,11 @@ export default {
 
   .linksContainer {
     display: none;
+  }
+
+  .search-containerSesion {
+    width: 30%;
+    height: 70%;
   }
 
   .search-container {
@@ -477,6 +532,10 @@ export default {
 
   .navbarTop .link {
     font-size: 1.3rem;
+  }
+
+  .dark-mode .sign-up {
+    background-color: #3a5816;
   }
 }
 

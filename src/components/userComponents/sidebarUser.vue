@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar">
+    <div class="sidebar" :class="{ 'dark-mode': isDarkMode }">
         <h2>My account</h2>
         <ul class="options">
             <li><router-link to="/user/profile" class="option" active-class="is-active">
@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'SideBar',
     methods: {
@@ -103,13 +103,16 @@ export default {
         Logout() {
             this.logout();
         }
+    },
+    computed: {
+        ...mapGetters(['isDarkMode'])
     }
 }
 </script>
 <style scoped>
 .sidebar {
     width: 15%;
-    background: #fff;
+    background-color: #fff;
 }
 
 h2 {
@@ -179,6 +182,7 @@ h2 {
 
 .option:hover::before {
     background-color: #62ab18;
+    ;
 }
 
 @media (width <=768px) {
@@ -188,7 +192,7 @@ h2 {
 
     .options {
         margin-top: 3rem;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         row-gap: 1.5rem;
         align-items: center;
     }
@@ -206,5 +210,36 @@ h2 {
     .option span {
         display: none;
     }
+}
+
+.dark-mode {
+    transition: all .5s ease;
+}
+
+.dark-mode {
+    background-color: #223012;
+}
+
+.dark-mode h2 {
+    color: #ebead6;
+}
+
+.dark-mode .option {
+    color: #B0CB7F;
+
+}
+
+.dark-mode .option:hover,
+.dark-mode .option.is-active {
+    color: #ebead6;
+}
+
+.dark-mode .option:hover::before,
+.dark-mode .is-active:before {
+    background-color: #ebead6;
+}
+
+.dark-mode .logout {
+    color: #c10f0f;
 }
 </style>

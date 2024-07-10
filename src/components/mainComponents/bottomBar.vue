@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="navbarDown">
+    <div class="navbarDown" :class="{ 'dark-mode': isDarkMode }">
       <ul>
         <li><router-link to="/outlet" active-class="active">Outlet</router-link></li>
         <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
@@ -25,6 +25,7 @@
 </template>
 <script>
 import apiClient from '../../store/auth-vuex';
+import { mapGetters } from 'vuex';
 export default {
   name: 'NavBar',
   data() {
@@ -33,6 +34,9 @@ export default {
       hideMenuTimeout: null,
       categories: [],
     }
+  },
+  computed: {
+    ...mapGetters(['isDarkMode'])
   },
   methods: {
     showMenu() {
@@ -132,7 +136,7 @@ export default {
   visibility: hidden;
   position: absolute;
   background-color: #ffffff;
-  min-width: 25rem;
+  min-width: 27rem;
   box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
   z-index: 1;
   left: 50%;
@@ -195,5 +199,39 @@ export default {
   .navbarDown {
     display: none;
   }
+}
+
+/* DARK MODE*/
+.dark-mode {
+  transition: all .5s ease;
+}
+
+.dark-mode {
+  background-color: #3A5816;
+}
+
+.dark-mode .navbarDown a {
+  color: #B0CB7F;
+}
+
+.dark-mode .navbarDown a:hover {
+  color: #ebead6;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: #3A5816;
+}
+
+.dark-mode .dropdown-menu-wrapper::before {
+  border-color: transparent transparent #3A5816 transparent;
+
+}
+
+.dark-mode .dropdown-menu a:hover {
+  background-color: #2D4115;
+}
+
+.dark-mode .navbarDown .active {
+  color: #ebead6;
 }
 </style>

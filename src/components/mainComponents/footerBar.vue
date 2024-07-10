@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer">
+    <footer class="footer" :class="{ 'dark-mode': isDarkMode }">
         <div class="footer-top">
             <button @click="scrollToTop" class="scroll-to-top">
                 <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-arrow-up svg" viewBox="0 0 16 16">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
     name: 'FooterBar',
     methods: {
@@ -40,7 +41,8 @@ export default {
     computed: {
         copy() {
             return new Date().getFullYear()
-        }
+        },
+        ...mapGetters(['isDarkMode'])
     }
 }
 </script>
@@ -61,7 +63,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: 998;
+    z-index: 997;
 }
 
 .footer-top {
@@ -127,6 +129,17 @@ export default {
     color: #000;
 }
 
+@media (width <=768px) {
+    .footer-nav {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-link {
+        font-size: 1.4rem;
+    }
+}
+
 @media (width <=390px) {
     .footer-logo img {
         max-width: 3rem;
@@ -149,5 +162,31 @@ export default {
     .footer-nav {
         margin-top: .5rem;
     }
+}
+
+/* DARK MODE*/
+.dark-mode {
+    transition: all .5s ease;
+}
+
+.dark-mode {
+    background-color: #3a5816;
+}
+
+.dark-mode .footer-link,
+.dark-mode .footer-copy {
+    color: #ebead6;
+}
+
+.dark-mode .footer-link:hover {
+    color: #fff;
+}
+
+.dark-mode .scroll-to-top {
+    background-color: #4B7617;
+}
+
+.dark-mode .svg {
+    fill: #ebead6;
 }
 </style>
