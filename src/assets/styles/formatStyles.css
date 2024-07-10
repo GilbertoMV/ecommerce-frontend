@@ -141,6 +141,8 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   background: rgb(234, 234, 234) 100%;
+  /* background-color: #E7EBDD; */
+
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
@@ -161,7 +163,7 @@ img {
 }
 
 /* Natural flow and rhythm in articles by default */
-article > * + * {
+article>*+* {
   margin-top: 1em;
 }
 
@@ -188,6 +190,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

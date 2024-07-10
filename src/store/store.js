@@ -7,20 +7,25 @@ Vue.use(Vuex);
 let loadingTimer = null;
 export default new Vuex.Store({
   state: {
-    isAuthenticated: false,
-    user: null,
-    loading: false,
+    isAuthenticated: false, //autentication
+    user: null, //user
+    loading: false, //loader
+    darkMode: localStorage.getItem('darkmode') === 'true' //dark mode
   },
   mutations: {
     setAuthentication(state, status) {
       state.isAuthenticated = status;
-    },
+    }, //autentication
     setUser(state, user) {
       state.user = user;
-    },
+    }, //user
     SET_LOADING(state, payload) {
       state.loading = payload;
-    }
+    }, //loader
+    setDarkMode(state, value) {
+      state.darkMode = value;
+      localStorage.setItem('darkmode', value);
+    } //dark mode
   },
   actions: {
     setLoading({commit}, status) {
@@ -60,6 +65,10 @@ export default new Vuex.Store({
       commit('setUser', null);
       commit('setAuthentication', false);
       router.push('/sign-in');
+    },
+    toggleDarkMode({ commit, state }) {
+      commit('setDarkMode', !state.darkMode);
+
     }
   },
   getters: {
@@ -80,6 +89,9 @@ export default new Vuex.Store({
     },
     email(state) {
       return state.user ? state.user.correo : '';
+    },
+    isDarkMode(state) {
+      return state.darkMode;
     }
   }
 });

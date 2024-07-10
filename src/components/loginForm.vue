@@ -61,7 +61,7 @@ export default {
         async signIn() {
             this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
-                this.$v.$touch();  // Valida los campos del formulario
+                this.$v.$touch();
                 if (this.$v.$invalid) {
                     Swal.fire({
                         icon: "warning",
@@ -72,7 +72,7 @@ export default {
                         timer: 3000,
                         timerProgressBar: true,
                     });
-                    return;  // Sale temprano si la validación falla
+                    return;
                 }
                 const response = await apiClient.post("/login", {
                     correo: this.formData.email,
