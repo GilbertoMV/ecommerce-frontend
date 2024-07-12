@@ -63,7 +63,7 @@ export default {
 .gridOptions {
     display: grid;
     grid-template-rows: repeat(2, 7rem);
-    width: 60%;
+    width: 70%;
     height: fit-content;
     background-color: #fff;
     border-radius: 2rem;
@@ -114,6 +114,30 @@ h2 {
 
 p {
     font-size: 1.6rem;
+}
+
+.dark-mode .gridOptions {
+    background-color: #3a5816;
+}
+
+.dark-mode .icon {
+    fill: #B0CB7F;
+}
+
+.dark-mode h2 {
+    color: #ebead6;
+}
+
+.dark-mode p {
+    color: #B0CB7F;
+}
+
+.dark-mode .row {
+    border-bottom: solid .1rem #7e7e7e;
+}
+
+.dark-mode .row:last-of-type {
+    border-bottom: unset;
 }
 
 @media (width <=768px) {

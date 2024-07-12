@@ -28,7 +28,8 @@ main {
 }
 
 /*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
-.login-register-view {
+.login-register-view,
+.config-address-view {
   max-width: 600px;
   margin: 5rem auto;
   padding: 2rem;
@@ -42,6 +43,15 @@ main {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+}
+
+/* dark mode  login/register*/
+.dark-mode .login-register-view {
+  background-color: #3a5816;
+}
+
+.dark-mode .h1 {
+  color: #ebead6;
 }
 
 @media (width <=768px) {

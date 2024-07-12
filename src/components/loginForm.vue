@@ -120,6 +120,7 @@ form {
     color: white;
     cursor: pointer;
     border-radius: .5rem;
+    transition: all .5s ease;
 }
 
 .login:hover {
@@ -195,6 +196,34 @@ form {
     background-color: transparent;
     border: solid .1rem #666;
     color: #666;
+}
+
+.dark-mode {
+    background-color: #3a5816;
+}
+
+.dark-mode .login {
+    background-color: #223012;
+    color: #ebead6;
+}
+
+.dark-mode .login:hover {
+    background-color: #4a8b14;
+}
+
+.dark-mode .forgetPass,
+.dark-mode .register a {
+    color: #B0CB7F;
+}
+
+.dark-mode .register,
+.dark-mode .text {
+    color: #ebead6;
+}
+
+.dark-mode .google {
+    border: solid .1rem #ebead6;
+    color: #ebead6;
 }
 
 @media (width <=390px) {

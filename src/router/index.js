@@ -30,6 +30,7 @@ const privacyComponent = () => import('../components/userComponents/profileSetti
 const supportComponent = () => import('../components/userComponents/profileSettings/supportComponent.vue')
 const favoritesComponent = () => import('../views/userViews/favoritesPage.vue')
 const shoppingCarPage = () => import('../views/userViews/shoppingCarPage.vue')
+const configAddressPage  = () => import('../views/userViews/configAddressPage.vue')
 
 Vue.use(Router);
 
@@ -48,6 +49,7 @@ const router = new Router({
     {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresSesionActive: true, title: 'Shopping Car'}},
     {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresSesionActive: true, title: 'Favorites productos'}},
     {path: '/rewards-shop', name: 'RewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
+    {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}},
     {path: '/user', redirect: '/user/profile', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
         {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}}, // /user/profile
@@ -57,7 +59,7 @@ const router = new Router({
         {path: 'security', name: 'securityComponent', component: securityComponent, meta: {title: 'Security Settings'}}, // /user/security
         {path: 'accessibility', name: 'accessibilityComponent', component: accessibilityComponent, meta: {title: 'Accessibility Settings'}}, // /user/accessibility
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} }, // /user/privacy
-        {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}} // /user/support
+        {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}}, // /user/support
       ]},
     // {path: '/admin/index', name: 'indexAdminPage', component: indexAdminPage, meta: {requiresAuth:false}},
     {path: '*', name: '404NotFound',component: NotFoundPage, meta: {title: 'Not Found Page'}},
