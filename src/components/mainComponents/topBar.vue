@@ -129,7 +129,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import apiClient from '../../store/auth-vuex';
-
 export default {
   name: 'NavBarTop',
   data() {
@@ -546,6 +545,10 @@ export default {
 
   .search-container {
     height: 80%;
+  }
+
+  .search-containerSesion {
+    width: 45%;
   }
 
   .search-input {

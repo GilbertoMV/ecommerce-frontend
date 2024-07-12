@@ -87,10 +87,10 @@ const validDate = helpers.withParams(
         return date < cutoffDate;
     }
 );
-const hasNumber = helpers.regex('hasNumber', /\d/);
-const hasUpper = helpers.regex('hasUpper', /[A-Z]/);
-const hasSpecialChar = helpers.regex('hasSpecialChar', /[^a-zA-Z0-9]/);
-const hasSpace = helpers.regex('hasSpace', /^[A-Za-z\s]*$/)
+const hasNumber = helpers.regex('hasNumber', /\d/); //valida que la cadena tenga un numero
+const hasUpper = helpers.regex('hasUpper', /[A-Z]/); //valida que la cadena tenga una mayuscula
+const hasSpecialChar = helpers.regex('hasSpecialChar', /[^a-zA-Z0-9]/); //valida que la cadena solo contenga letras y numeros
+const hasSpace = helpers.regex('hasSpace', /^[A-Za-z\s]*$/); //valida que la cadena solo contenga letras y espacios
 
 export default {
     name: 'SignUpForm',
@@ -202,10 +202,11 @@ form {
     width: 100%;
     padding: 1.3rem;
     background-color: #62ab18;
-    border: none;
+    border: unset;
     color: white;
     cursor: pointer;
     border-radius: .5rem;
+    transition: all .5s ease;
     margin-top: 1rem;
 }
 
@@ -282,5 +283,36 @@ form {
     background-color: transparent;
     border: solid .1rem #666;
     color: #666;
+}
+
+.dark-mode {
+    background-color: #3a5816;
+}
+
+.dark-mode .google {
+    border: solid .1rem #ebead6;
+    color: #ebead6;
+}
+
+.dark-mode .login,
+.dark-mode .text {
+    color: #ebead6;
+}
+
+.dark-mode .signup {
+    background-color: #223012;
+    color: #ebead6;
+}
+
+.dark-mode .signup:hover {
+    background-color: #4a8b14;
+}
+
+.dark-mode .error {
+    color: #ffd5d580;
+}
+
+.dark-mode .login a {
+    color: #B0CB7F;
 }
 </style>

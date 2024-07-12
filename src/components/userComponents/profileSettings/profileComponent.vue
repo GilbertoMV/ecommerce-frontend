@@ -1,18 +1,5 @@
 <template>
-    <!-- <div class="info">
-        <div class="userMainData">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-person-circle profilePhoto"
-                viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                <path fill-rule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-            </svg>
-            <div class="data">
-                <p class="name"> {{ username }} {{ paternalLastName }} {{ maternalLastName }} </p>
-                <p class="email"> {{ email }} </p>
-            </div>
-        </div> -->
-    <div class="container">
+    <div class="container" :class="{ 'dark-mode': isDarkMode }">
         <div class="gridOptions">
             <div class="row">
                 <div class="iconOption">
@@ -28,7 +15,6 @@
                     <p>{{ email }} </p>
                 </div>
                 <div class="optionsButton">
-                    <toggleComponent />
                 </div>
             </div>
         </div>
@@ -40,7 +26,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'profileComponent',
     computed: {
-        ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email'])
+        ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email', 'isDarkMode'])
     }
 }
 </script>
@@ -57,7 +43,7 @@ export default {
 .gridOptions {
     display: grid;
     grid-template-rows: repeat(1, 7rem);
-    width: 60%;
+    width: 70%;
     height: fit-content;
     background-color: #fff;
     border-radius: 2rem;
@@ -109,6 +95,22 @@ h2 {
 p {
     margin-top: .5rem;
     font-size: 1.6rem;
+}
+
+.dark-mode .gridOptions {
+    background-color: #3a5816;
+}
+
+.dark-mode .icon {
+    fill: #B0CB7F;
+}
+
+.dark-mode h2 {
+    color: #ebead6;
+}
+
+.dark-mode p {
+    color: #B0CB7F;
 }
 
 @media (width <=768px) {

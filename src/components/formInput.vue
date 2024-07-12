@@ -49,14 +49,23 @@ input {
     width: 100%;
     padding: .8rem;
     box-sizing: border-box;
-    border: solid .1rem;
+    border: solid .1rem #62ab18;
     border-radius: .5rem;
+    background-color: #d8f0c8;
 }
 
 input:focus {
     border-color: #62ab18;
     box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
     outline: none;
+}
+
+.dark-mode input {
+    background-color: #ebead6;
+}
+
+.dark-mode label {
+    color: #ebead6;
 }
 
 @media (width <=390px) {

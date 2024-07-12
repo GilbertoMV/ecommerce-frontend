@@ -18,7 +18,7 @@ export default {
 }
 </script>
 <style scoped>
-/* The switch - the box around the slider */
+/* The switch - the box around the slider    */
 .switch {
     font-size: 1.7rem;
     position: relative;
@@ -27,14 +27,14 @@ export default {
     height: 2em;
 }
 
-/* Hide default HTML checkbox */
+/* Hide default HTML checkbox    */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* The slider */
+/* The slider    */
 .slider {
     position: absolute;
     cursor: pointer;

@@ -12,6 +12,6 @@ export default {
     name: 'userProfile',
     components: {
         sidebarUser
-    }
+    },
 }
 </script>

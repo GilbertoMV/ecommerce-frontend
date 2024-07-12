@@ -81,6 +81,9 @@ export default new Vuex.Store({
     username(state) {
       return state.user ? state.user.nombre: '';
     },
+    idUser(state) {
+      return state.user ? state.user.id_usuario: ''
+    },
     paternalLastName(state) {
       return state.user ? state.user.apellido_paterno : '';
     },
