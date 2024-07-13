@@ -169,15 +169,16 @@ export default {
     },
     methods: {
         async updateAddress() {
-            this.$store.dispatch('setLoading', true);
+            this.$store.dispatch('setLoading', true); //activa el loading
             this.$v.$touch();
             this.addressTypeError = this.addressType === '';
             try {
                 if (this.$v.$invalid || this.addressTypeError) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Error when registering, invalid data",
+                        text: "Error when registering, invalid data",
                         toast: true,
+                        width: 'auto',
                         position: "bottom-right",
                         showConfirmButton: false,
                         timer: 1000,
@@ -185,7 +186,6 @@ export default {
                     });
                     return;
                 }
-                console.log({ ...this.formData }) //depuracion
                 await apiClient.post('/address/create/', {
                     id_usuario: this.idUser,
                     nombre_completo: this.formData.fullname,
@@ -205,13 +205,15 @@ export default {
 
                 Swal.fire({
                     icon: "success",
-                    title: "Successful address registration",
+                    text: "Successful address registration",
                     toast: true,
+                    width: 'auto',
                     position: "bottom-right",
                     showConfirmButton: false,
                     timer: 1000,
                     timerProgressBar: true,
                 });
+                this.$router.push('/user/address');
             } catch (error) {
                 console.log(error)
                 let errorMessage = 'Error when registering'
@@ -220,8 +222,9 @@ export default {
                 }
                 Swal.fire({
                     icon: "warning",
-                    title: errorMessage,
+                    text: errorMessage,
                     toast: true,
+                    width: 'auto',
                     position: "bottom-right",
                     showConfirmButton: false,
                     timer: 3000,

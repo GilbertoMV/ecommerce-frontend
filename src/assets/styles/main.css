@@ -45,6 +45,11 @@ main {
   text-align: center;
 }
 
+.swal2-container,
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
 /* dark mode  login/register*/
 .dark-mode .login-register-view {
   background-color: #3a5816;
