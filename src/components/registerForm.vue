@@ -160,6 +160,7 @@ export default {
                 Swal.fire({
                     icon: "success",
                     title: "Successful registration",
+                    width: 'auto',
                     toast: true,
                     position: "bottom-right",
                     showConfirmButton: false,
@@ -179,6 +180,7 @@ export default {
                     icon: "warning",
                     title: errorMessage,
                     toast: true,
+                    width: 'auto',
                     position: "bottom-right",
                     showConfirmButton: false,
                     timer: 3000,

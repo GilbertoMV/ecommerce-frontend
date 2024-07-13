@@ -66,6 +66,7 @@ export default {
                     Swal.fire({
                         icon: "warning",
                         title: "Error when logging in, invalid data",
+                        width: 'auto',
                         toast: true,
                         position: "bottom-right",
                         showConfirmButton: false,
@@ -92,6 +93,7 @@ export default {
                 Swal.fire({
                     icon: "error",
                     title: errorMessage,
+                    width: 'auto',
                     toast: true,
                     position: "bottom-right",
                     showConfirmButton: false,
