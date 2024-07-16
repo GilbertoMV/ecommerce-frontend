@@ -10,7 +10,7 @@ export default new Vuex.Store({
     isAuthenticated: false, //autentication
     user: null, //user
     loading: false, //loader
-    darkMode: localStorage.getItem('darkmode') === 'true' //dark mode
+    darkMode: localStorage.getItem('darkmode') === 'true', //dark mode
   },
   mutations: {
     setAuthentication(state, status) {
@@ -25,11 +25,11 @@ export default new Vuex.Store({
     setDarkMode(state, value) {
       state.darkMode = value;
       localStorage.setItem('darkmode', value);
-    } //dark mode
+    },//dark mode
   },
   actions: {
     setLoading({commit}, status) {
-      //se establece un retardo de 3 milisegundos para evitar el parpadeo del loader en tareas muy rapidas
+      //se establece un retardo de 5 milisegundos para evitar el parpadeo del loader en tareas muy rapidas
       clearTimeout(loadingTimer);
       loadingTimer = setTimeout(() => {
         commit('SET_LOADING', status)
@@ -38,18 +38,17 @@ export default new Vuex.Store({
     updateAuthenticationStatus({ commit }, status) {
       commit('setAuthentication', status);
     },
-    fetchAndSetUserData({ commit }) {
-      apiClient.get('/users/me')
-        .then(response => {
+    async fetchAndSetUserData({ commit }) {
+      try {
+        const response = await apiClient.get('/users/me');
           commit('setUser', response.data);
           commit('setAuthentication', true);
-        })
-        .catch(error => {
+      } catch(error) {
           console.error('Error fetching user data:', error);
           if (error.response && error.response.status === 401) {
             this.dispatch('logout');
           }
-        });
+      } 
     },
     initializeStore({ commit }) {
       let token = localStorage.getItem('token');

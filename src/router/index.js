@@ -65,9 +65,8 @@ const router = new Router({
     {path: '*', name: '404NotFound',component: NotFoundPage, meta: {title: 'Not Found Page'}},
 ]
 })
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   next();
-
   const isAuthenticated = store.getters.isAuthenticated;
 
   (to.matched.some(record => record.meta.requiresGuest) && isAuthenticated) ? next('/') : next();
