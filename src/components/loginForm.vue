@@ -65,7 +65,7 @@ export default {
                 if (this.$v.$invalid) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Error when logging in, invalid data",
+                        text: "Error when logging in, invalid data",
                         width: 'auto',
                         toast: true,
                         position: "bottom-right",
@@ -92,7 +92,7 @@ export default {
                 }
                 Swal.fire({
                     icon: "error",
-                    title: errorMessage,
+                    text: errorMessage,
                     width: 'auto',
                     toast: true,
                     position: "bottom-right",
