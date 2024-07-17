@@ -4,7 +4,9 @@
             <div>
                 <span>{{ addresses.length }} of 3 address</span>
             </div>
-            <router-link to="/config-address" class="addAddressBtn"> + Address</router-link>
+            <router-link to="/config-address" class="addAddressBtn" v-if="addresses.length < 3 && addresses.length > 0">
+                New
+                Address</router-link>
         </div>
         <div v-if="addresses.length === 0">
             <p>no addresses available</p>
@@ -23,7 +25,7 @@
                     </h2>
                     <p>
                         {{ address.tipo_direccion }} - {{ address.codigo_postal }} - {{ address.calle }} # {{
-                        address.num_exterior }}
+                            address.num_exterior }}
                         - {{ address.nombre_completo }} - {{ address.telefono_contacto }}
                     </p>
                 </div>
@@ -38,7 +40,8 @@
                         </span>
                         <div v-if="address.id_direccion === openMenuId" class="menu-options">
                             <ul>
-                                <router-link to="/" @click="editAddress(address.id_direccion)">
+                                <router-link
+                                    :to="{ name: 'editAddressPage', params: { addressId: address.id_direccion } }">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path
@@ -81,7 +84,6 @@ export default {
     created() {
         document.addEventListener('click', this.handleOutsideClick);
         setTimeout(() => {
-
             this.fetchUserAddress();
         }, 500);
     },

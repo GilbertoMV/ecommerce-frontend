@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="updateAddress">
         <div>
             <label for="fullname">Full Name: <span class="required">*</span> </label>
             <input type="text" name="fullname" id="fullname" placeholder="Enter here your full name"
@@ -136,21 +136,21 @@
         <div>
             <label for="indications">Indications: <span class="required">*</span> </label>
             <input type="text" name="indications" id="indications" placeholder="Enter here the indications"
-                v-model="formData.indicaciones">
-            <div class="error" v-if="!$v.formData.indicaciones.required && $v.formData.indicaciones.$dirty">Indications
+                v-model="formData.indications">
+            <div class="error" v-if="!$v.formData.indications.required && $v.formData.indications.$dirty">Indications
                 is required</div>
             <div class="error"
-                v-if="!$v.formData.indicaciones.hasLettersNumbersSpaces && $v.formData.indicaciones.$dirty">
+                v-if="!$v.formData.indications.hasLettersNumbersSpaces && $v.formData.indications.$dirty">
                 Indications should only have letters, spaces and/or numbers</div>
             <div class="error"
-                v-if="!($v.formData.indicaciones.minLength && $v.formData.indicaciones.maxLength) && $v.formData.indicaciones.$dirty">
+                v-if="!($v.formData.indications.minLength && $v.formData.indications.maxLength) && $v.formData.indications.$dirty">
                 Indications must be 10 to 255 characters long</div>
         </div>
         <div>
             <label for="contact_phone">Contact Phone: <span class="required">*</span> </label>
             <input type="text" name="contact_phone" id="contact_phone" placeholder="Enter here your contact phone"
                 v-model="formData.telefono_contacto">
-            <div class="error" v-if="!$v.formData.telefono_contacto.required && $v.formData.telefono_contacto.$dirty">
+            <div class="error" v-if="!$v.formData.telefono_contacto.required && $v.formData.entre_calle2.$dirty">
                 Contact
                 Phone is required</div>
             <div class="error"
@@ -167,16 +167,17 @@
                 <option value="Laboral">Laboral</option>
                 <option value="Residencial">Residencial</option>
             </select>
-            <div class="error" v-if="!$v.formData.tipo_direccion.required && $v.formData.tipo_direccion.$dirty">Address
-                Type is required</div>
+            <div class="error" v-if="addressTypeError">Address Type is required</div>
         </div>
-        <button class="btn">{{ isEditMode ? 'Update Address' : 'Add Address' }}</button>
+        <button class="btn">+ Add Address</button>
 
     </form>
+
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+// import formInput from '../../formInput.vue';
 import Swal from 'sweetalert2';
 import apiClient from '../../../store/auth-vuex';
 import { helpers } from 'vuelidate/lib/validators'
@@ -202,113 +203,48 @@ export default {
                 entre_calle1: '', //entre calle 1
                 entre_calle2: '', //entre calle 2
                 indicaciones: '', //indicaciones
-                telefono_contacto: '', //telefono de contacto
+                indicaciones: '', //telefono de contacto
                 tipo_direccion: '',
             },
-            isEditMode: false,
-        }
-    },
-    created() {
-        const addressId = this.$route.params.addressId;
-
-        if (addressId) {
-            this.isEditMode = true;
-            this.fetchAddress(addressId);
+            addressTypeError: false,
         }
     },
     validations: {
         formData: {
-            nombre_completo: { required, minLength: minLength(10), maxLength: maxLength(255), hasLettersSpaces },
-            codigo_postal: { required, minLength: minLength(5), maxLength: maxLength(5), hasNumbersOnly },
-            estado: { required, minLength: minLength(3), maxLength: maxLength(30), hasLettersSpaces },
-            municipio: { required, minLength: minLength(3), maxLength: maxLength(20), hasLettersSpaces },
-            colonia: { required, minLength: minLength(5), maxLength: maxLength(50), hasLettersNumbersSpaces },
-            calle: { required, minLength: minLength(5), maxLength: maxLength(30), hasLettersNumbersSpaces },
-            num_exterior: { required, minLength: minLength(1), maxLength: maxLength(4), hasLettersNumbersSpaces },
-            num_interior: { minLength: minLength(1), maxLength: maxLength(4), hasLettersNumbersSpaces },
-            entre_calle1: { required, minLength: minLength(1), maxLength: maxLength(100), hasLettersNumbersSpaces },
-            entre_calle2: { required, minLength: minLength(1), maxLength: maxLength(100), hasLettersNumbersSpaces },
-            indicaciones: { required, minLength: minLength(10), maxLength: maxLength(255), hasLettersNumbersSpaces },
-            telefono_contacto: { required, minLength: minLength(10), maxLength: maxLength(10), hasNumbersOnly },
-            tipo_direccion: { required }
+            fullname: { required, minLength: minLength(10), maxLength: maxLength(255), hasLettersSpaces },
+            cp: { required, minLength: minLength(5), maxLength: maxLength(5), hasNumbersOnly },
+            state: { required, minLength: minLength(3), maxLength: maxLength(30), hasLettersSpaces },
+            municipality: { required, minLength: minLength(3), maxLength: maxLength(20), hasLettersSpaces },
+            colony: { required, minLength: minLength(5), maxLength: maxLength(50), hasLettersNumbersSpaces },
+            street: { required, minLength: minLength(5), maxLength: maxLength(30), hasLettersNumbersSpaces },
+            external_number: { required, minLength: minLength(1), maxLength: maxLength(4), hasLettersNumbersSpaces },
+            internal_number: { minLength: minLength(1), maxLength: maxLength(4), hasLettersNumbersSpaces },
+            beetwen_street1: { required, minLength: minLength(1), maxLength: maxLength(100), hasLettersNumbersSpaces },
+            beetwen_street2: { required, minLength: minLength(1), maxLength: maxLength(100), hasLettersNumbersSpaces },
+            indications: { required, minLength: minLength(10), maxLength: maxLength(255), hasLettersNumbersSpaces },
+            contact_phone: { required, minLength: minLength(10), maxLength: maxLength(10), hasNumbersOnly },
         }
     },
     methods: {
-        async handleSubmit() {
-            this.$v.$touch();
-            if (this.$v.$invalid) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "Error when registering, invalid data",
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-                return;
-            }
-            if (this.isEditMode) {
-                this.updateAddress();
-            } else {
-                this.createAddress();
-            }
-        },
         async updateAddress() {
-            this.$store.dispatch('setLoading', true);
-            try {
-                const idAddress = this.formData.id_direccion;
-                await apiClient.put(`address/configurate/${idAddress}`, {
-                    id_usuario: this.idUser,
-                    nombre_completo: this.formData.nombre_completo,
-                    codigo_postal: this.formData.codigo_postal,
-                    estado: this.formData.estado,
-                    municipio: this.formData.municipio,
-                    colonia: this.formData.colonia,
-                    calle: this.formData.calle,
-                    num_exterior: this.formData.num_exterior,
-                    num_interior: this.formData.num_interior,
-                    entre_calle1: this.formData.entre_calle1,
-                    entre_calle2: this.formData.entre_calle2,
-                    tipo_direccion: this.formData.tipo_direccion,
-                    indicaciones: this.formData.indicaciones,
-                    telefono_contacto: this.formData.telefono_contacto
-                })
-
-                Swal.fire({
-                    icon: "success",
-                    text: "Successful address registration",
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-                this.$router.push('/user/address');
-            } catch (error) {
-                let errorMessage = 'Error when registering'
-                if (error.response && error.response.data && error.response.data.message) {
-                    errorMessage += ': ' + error.response.data.message
-                }
-                Swal.fire({
-                    icon: "warning",
-                    text: errorMessage,
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-            } finally {
-                this.$store.dispatch('setLoading', false);
-            }
-        },
-        async createAddress() {
+            console.log(this.formData)
             this.$store.dispatch('setLoading', true); //activa el loading
+            this.$v.$touch();
+            this.addressTypeError = this.tipo_direccion === '';
             try {
+                if (this.$v.$invalid || this.addressTypeError) {
+                    Swal.fire({
+                        icon: "warning",
+                        text: "Error when registering, invalid data",
+                        toast: true,
+                        width: 'auto',
+                        position: "bottom-right",
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                    });
+                    return;
+                }
                 await apiClient.post('/address/create/', {
                     id_usuario: this.idUser,
                     nombre_completo: this.formData.nombre_completo,
@@ -322,7 +258,7 @@ export default {
                     entre_calle1: this.formData.entre_calle1,
                     entre_calle2: this.formData.entre_calle2,
                     tipo_direccion: this.formData.tipo_direccion,
-                    indicaciones: this.formData.indicaciones,
+                    indicaciones: this.formData.indications,
                     telefono_contacto: this.formData.telefono_contacto
                 });
 
@@ -338,6 +274,7 @@ export default {
                 });
                 this.$router.push('/user/address');
             } catch (error) {
+                console.log(error)
                 let errorMessage = 'Error when registering'
                 if (error.response && error.response.data && error.response.data.message) {
                     errorMessage += ': ' + error.response.data.message
@@ -353,31 +290,9 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);
+                this.$store.dispatch('setLoading', false)
             }
-
         },
-        async fetchAddress(idAddress) {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
-            try {
-                const response = await apiClient(`/address/${idAddress}`);
-                this.formData = response.data;
-            } catch (error) {
-                let errorMessage = 'Error loading address' + error
-                Swal.fire({
-                    icon: "warning",
-                    text: errorMessage,
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-            } finally {
-                this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
-            }
-        }
     }
 }
 </script>
