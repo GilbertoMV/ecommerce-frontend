@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="config-address-view">
-            <h1 class="h1">Address Configuration</h1>
+            <h1 class="h1">Address Form</h1>
             <addressForm />
         </div>
     </main>

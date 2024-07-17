@@ -200,9 +200,6 @@ form {
     color: #666;
 }
 
-.dark-mode {
-    background-color: #3a5816;
-}
 
 .dark-mode .login {
     background-color: #223012;

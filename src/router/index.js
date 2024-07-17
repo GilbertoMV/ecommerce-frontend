@@ -50,6 +50,7 @@ const router = new Router({
     {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresSesionActive: true, title: 'Favorites productos'}},
     {path: '/rewards-shop', name: 'RewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
     {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}},
+    {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}, props:true},
     {path: '/user', redirect: '/user/profile', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
         {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}}, // /user/profile

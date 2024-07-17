@@ -50,8 +50,9 @@ main {
   font-size: 1.6rem !important;
 }
 
-/* dark mode  login/register*/
-.dark-mode .login-register-view {
+/* dark mode  login/register/addressconfig */
+.dark-mode .login-register-view,
+.dark-mode .config-address-view {
   background-color: #3a5816;
 }
 
