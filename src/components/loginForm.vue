@@ -202,8 +202,8 @@ form {
 
 
 .dark-mode .login {
-    background-color: #223012;
-    color: #ebead6;
+    background-color: var(--bg-darkmode-4);
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .login:hover {
@@ -217,12 +217,12 @@ form {
 
 .dark-mode .register,
 .dark-mode .text {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .google {
-    border: solid .1rem #ebead6;
-    color: #ebead6;
+    border: solid .1rem var(--txtc-darkmode-1);
+    color: var(--txtc-darkmode-1);
 }
 
 @media (width <=390px) {

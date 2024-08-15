@@ -117,19 +117,19 @@ p {
 }
 
 .dark-mode .gridOptions {
-    background-color: #3a5816;
+    background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .icon {
-    fill: #B0CB7F;
+    fill: var(--txtc-darkmode-2);
 }
 
 .dark-mode h2 {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode p {
-    color: #B0CB7F;
+    color: var(--txtc-darkmode-2);
 }
 
 .dark-mode .row {

@@ -418,55 +418,54 @@ export default {
 }
 
 .dropdown-item:hover {
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 /*Dark Mode*/
 .dark-mode {
-  transition: all .5s ease;
-  border-bottom: .5rem solid #3A5816;
+  transition: all .3s ease;
+  border-bottom: .5rem solid var(--bg-darkmode-3)
 }
 
 .dark-mode,
 .dark-mode .dropdown-menu {
-  background-color: #223012;
+  background-color: var(--bg-darkmode-2);
 }
 
 .dark-mode .dropdown-menu::before {
-  border-color: transparent transparent #223012 transparent;
-
+  border-color: transparent transparent var(--bg-darkmode-2) transparent;
 }
 
 .dark-mode .dropdown-item:hover {
-  background-color: #2D4115;
+  background-color: var(--bg-darkmode-4);
 }
 
 .dark-mode .link,
 .dark-mode .dropdown-item {
-  color: #ebead6;
+  color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .search-container,
 .dark-mode .search-containerSesion {
-  background-color: #ebead6;
+  background-color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .menuResponsive,
 .dark-mode .categoriesMenu {
-  background-color: #2D4115;
+  background-color: var(--bg-darkmode-4);
 }
 
 .dark-mode .menuResponsive li a,
 .dark-mode .categoriesMenu li a {
-  color: #ebead6;
+  color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .sign-up {
-  border: solid .2rem #3a5816;
+  border: solid .2rem var(--bg-darkmode-3);
 }
 
 .dark-mode .sign-up:hover {
-  background-color: #3a5816;
+  background-color: var(--bg-darkmode-3);
 }
 
 @media (width <=768px) {
@@ -534,7 +533,7 @@ export default {
   }
 
   .dark-mode .sign-up {
-    background-color: #3a5816;
+    background-color: var(--bg-darkmode-3);
   }
 }
 

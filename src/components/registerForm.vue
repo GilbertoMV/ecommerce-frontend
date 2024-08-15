@@ -288,22 +288,22 @@ form {
 }
 
 .dark-mode {
-    background-color: #3a5816;
+    background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .google {
-    border: solid .1rem #ebead6;
-    color: #ebead6;
+    border: solid .1rem var(--txtc-darkmode-1);
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .login,
 .dark-mode .text {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .signup {
     background-color: #223012;
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .signup:hover {

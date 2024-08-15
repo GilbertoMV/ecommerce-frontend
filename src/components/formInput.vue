@@ -61,11 +61,11 @@ input:focus {
 }
 
 .dark-mode input {
-    background-color: #ebead6;
+    background-color: var(--txtc-darkmode-1);
 }
 
 .dark-mode label {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 @media (width <=390px) {

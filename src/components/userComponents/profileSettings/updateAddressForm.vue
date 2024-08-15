@@ -358,10 +358,19 @@ input:focus {
 
 .dark-mode input,
 .dark-mode select {
-    background-color: #ebead6;
+    background-color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .btn {
+    background-color: var(--bg-darkmode-4);
+    color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .btn:hover {
+    background-color: #4a8b14;
 }
 
 .dark-mode label {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 </style>

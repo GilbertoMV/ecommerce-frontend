@@ -288,7 +288,7 @@ export default {
                 });
                 this.$router.push('/user/address');
             } catch (error) {
-                let errorMessage = 'Error when registering'
+                let errorMessage = 'Error updating address'
                 if (error.response && error.response.data && error.response.data.message) {
                     errorMessage += ': ' + error.response.data.message
                 }
@@ -338,7 +338,7 @@ export default {
                 });
                 this.$router.push('/user/address');
             } catch (error) {
-                let errorMessage = 'Error when registering'
+                let errorMessage = 'Error creating address '
                 if (error.response && error.response.data && error.response.data.message) {
                     errorMessage += ': ' + error.response.data.message
                 }
@@ -443,10 +443,26 @@ input:focus {
 
 .dark-mode input,
 .dark-mode select {
-    background-color: #ebead6;
+    background-color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .btn {
+    background-color: var(--bg-darkmode-4);
+    color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .btn:hover {
+    background-color: #4a8b14;
 }
 
 .dark-mode label {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
+}
+
+@media (width <=390px) {
+    .colums {
+        display: grid;
+        grid-template-columns: initial;
+    }
 }
 </style>

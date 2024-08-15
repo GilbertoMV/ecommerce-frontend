@@ -10,7 +10,7 @@ export default new Vuex.Store({
     isAuthenticated: false, //autentication
     user: null, //user
     loading: false, //loader
-    darkMode: localStorage.getItem('darkmode') === 'true', //dark mode
+    darkMode: localStorage.getItem('darkm ode') === 'true', //dark mode
   },
   mutations: {
     setAuthentication(state, status) {

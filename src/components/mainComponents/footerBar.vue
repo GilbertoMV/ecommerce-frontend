@@ -166,20 +166,21 @@ export default {
 
 /* DARK MODE*/
 .dark-mode {
-    transition: all .5s ease;
+    transition: all .3s ease;
 }
 
+
 .dark-mode {
-    background-color: #3a5816;
+    background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .footer-link,
 .dark-mode .footer-copy {
-    color: #ebead6;
+    color: var(--txtc-darkmode-2);
 }
 
 .dark-mode .footer-link:hover {
-    color: #fff;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .scroll-to-top {
@@ -187,6 +188,6 @@ export default {
 }
 
 .dark-mode .svg {
-    fill: #ebead6;
+    fill: var(--txtc-darkmode-1);
 }
 </style>
