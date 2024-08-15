@@ -203,35 +203,35 @@ export default {
 
 /* DARK MODE*/
 .dark-mode {
-  transition: all .5s ease;
+  transition: all .3s ease;
 }
 
 .dark-mode {
-  background-color: #3A5816;
+  background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .navbarDown a {
-  color: #B0CB7F;
+  color: var(--txtc-darkmode-2);
 }
 
 .dark-mode .navbarDown a:hover {
-  color: #ebead6;
+  color: var(--txtc-darkmode-1);
 }
 
 .dark-mode .dropdown-menu {
-  background-color: #3A5816;
+  background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .dropdown-menu-wrapper::before {
-  border-color: transparent transparent #3A5816 transparent;
+  border-color: transparent transparent var(--bg-darkmode-3) transparent;
 
 }
 
 .dark-mode .dropdown-menu a:hover {
-  background-color: #2D4115;
+  background-color: var(--bg-darkmode-4);
 }
 
 .dark-mode .navbarDown .active {
-  color: #ebead6;
+  color: var(--txtc-darkmode-1);
 }
 </style>

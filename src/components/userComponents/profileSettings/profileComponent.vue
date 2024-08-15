@@ -90,6 +90,7 @@ export default {
 h2 {
     font-size: 1.8rem;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
 p {
@@ -102,15 +103,15 @@ p {
 }
 
 .dark-mode .icon {
-    fill: #B0CB7F;
+    fill: var(--txtc-darkmode-2);
 }
 
 .dark-mode h2 {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode p {
-    color: #B0CB7F;
+    color: var(--txtc-darkmode-2);
 }
 
 @media (width <=768px) {

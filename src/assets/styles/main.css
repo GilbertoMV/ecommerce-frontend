@@ -1,5 +1,18 @@
 @import url("formatStyles.css");
 
+:root {
+  /*  Background Color */
+  --bg-darkmode-1: #181F12;
+  --bg-darkmode-2: #223012;
+  --bg-darkmode-3: #3A5816;
+  --bg-darkmode-4: #2D4115;
+  /*  Text Color */
+  --txtc-darkmode-1: #ebead6;
+  --txtc-darkmode-2: #B0CB7F;
+  --txtc-error: #c10f0f;
+
+}
+
 html {
   font-size: 10px;
   overflow-y: scroll;
@@ -92,5 +105,5 @@ main {
 /* DARK MODE */
 
 .dark-mode {
-  background-color: #181F12;
+  background-color: var(--bg-darkmode-1);
 }

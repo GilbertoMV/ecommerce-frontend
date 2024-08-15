@@ -79,15 +79,17 @@ export default {
         return {
             addresses: [],
             openMenuId: null,
+            retardo: null
         }
     },
     created() {
         document.addEventListener('click', this.handleOutsideClick);
-        setTimeout(() => {
+        this.retardo = setTimeout(() => {
             this.fetchUserAddress();
         }, 500);
     },
     beforeDestroy() {
+        clearTimeout(this.retardo);
         document.removeEventListener('click', this.handleOutsideClick);
     },
     methods: {
@@ -200,7 +202,7 @@ export default {
 .menu-options {
     position: absolute;
     background-color: white;
-    box-shadow: 0 .2rem .5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0rem .2rem .5rem rgba(0, 0, 0, 0.5);
     width: 20rem;
     top: 4rem;
     right: 0;
@@ -334,19 +336,19 @@ p {
 }
 
 .dark-mode .gridOptions {
-    background-color: #3a5816;
+    background-color: var(--bg-darkmode-3);
 }
 
 .dark-mode .icon {
-    fill: #B0CB7F;
+    fill: var(--txtc-darkmode-2);
 }
 
 .dark-mode h2 {
-    color: #ebead6;
+    color: var(--txtc-darkmode-1);
 }
 
 .dark-mode p {
-    color: #B0CB7F;
+    color: var(--txtc-darkmode-2);
 }
 
 .dark-mode .row {
@@ -358,9 +360,22 @@ p {
 }
 
 .dark-mode span {
-    color: #B0CB7F;
+    color: var(--txtc-darkmode-2);
 }
 
+.dark-mode .menu-options {
+    background-color: var(--bg-darkmode-3);
+}
+
+.dark-mode .menu-options li:hover,
+.dark-mode .menu-options a:hover {
+    background-color: var(--bg-darkmode-4);
+}
+
+.dark-mode .menu-options li,
+.dark-mode .menu-options a {
+    color: var(--txtc-darkmode-1);
+}
 
 @media (width <=768px) {
     .row {
@@ -385,6 +400,11 @@ p {
         margin-top: .5rem;
     }
 
+    .dark-mode .menu-options li,
+    .menu-options li {
+        color: var(--txtc-error);
+    }
+
     .switch {
         font-size: unset;
     }
@@ -393,11 +413,16 @@ p {
 
 @media (width <=390px) {
     .row {
-        grid-template-columns: 8% auto 13%;
+        grid-template-columns: 8% auto 10%;
+    }
+
+    .gridOptions {
+        display: grid;
+        grid-template-rows: repeat(1, 8rem);
     }
 
     h2 {
-        font-size: 1.3rem;
+        display: none;
     }
 
     p {
@@ -408,5 +433,18 @@ p {
         font-size: 1.3rem;
         padding: .7rem;
     }
+
+    .menu-options {
+        width: 17rem;
+    }
+
+    .menu-options li,
+    .menu-options a {
+        font-size: 1.4rem;
+    }
+
+
+
+
 }
 </style>

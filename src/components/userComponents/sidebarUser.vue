@@ -151,7 +151,7 @@ h2 {
 }
 
 .logout {
-    color: #c10f0f
+    color: var(--txtc-error);
 }
 
 .svg {
@@ -185,6 +185,35 @@ h2 {
     ;
 }
 
+.dark-mode {
+    transition: all .5s ease;
+    background-color: var(--bg-darkmode-2);
+}
+
+
+.dark-mode h2 {
+    color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .option {
+    color: var(--txtc-darkmode-2);
+
+}
+
+.dark-mode .option:hover,
+.dark-mode .option.is-active {
+    color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .option:hover::before,
+.dark-mode .is-active:before {
+    background-color: var(--txtc-darkmode-1);
+}
+
+.dark-mode .logout {
+    color: var(--txtc-error);
+}
+
 @media (width <=768px) {
     .sidebar {
         width: 25%;
@@ -210,36 +239,5 @@ h2 {
     .option span {
         display: none;
     }
-}
-
-.dark-mode {
-    transition: all .5s ease;
-}
-
-.dark-mode {
-    background-color: #223012;
-}
-
-.dark-mode h2 {
-    color: #ebead6;
-}
-
-.dark-mode .option {
-    color: #B0CB7F;
-
-}
-
-.dark-mode .option:hover,
-.dark-mode .option.is-active {
-    color: #ebead6;
-}
-
-.dark-mode .option:hover::before,
-.dark-mode .is-active:before {
-    background-color: #ebead6;
-}
-
-.dark-mode .logout {
-    color: #c10f0f;
 }
 </style>
