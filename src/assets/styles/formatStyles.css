@@ -140,7 +140,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  background: rgb(234, 234, 234) 100%;
+  background: #eaeaea;
   /* background-color: #E7EBDD; */
 
 }

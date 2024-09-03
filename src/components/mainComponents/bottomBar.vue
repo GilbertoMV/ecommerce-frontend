@@ -88,7 +88,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #62ab18;
+  background-color: var(--bg-lightmode-2);
   margin-top: 7rem;
   z-index: 997;
 }
@@ -103,7 +103,7 @@ export default {
 .navbarDown a {
   font-weight: 500;
   text-decoration: none;
-  color: #000;
+  color: var(--txtc-negro);
 }
 
 
@@ -115,7 +115,7 @@ export default {
 
 .navbarDown .active,
 .navbarDown a:hover {
-  color: hsl(54, 70%, 86%);
+  color: var(--txtc-text-hover);
 }
 
 .dropdown {
@@ -135,7 +135,7 @@ export default {
 .dropdown-menu {
   visibility: hidden;
   position: absolute;
-  background-color: #ffffff;
+  background-color: var(--txtc-blanco);
   min-width: 27rem;
   box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -151,8 +151,8 @@ export default {
 }
 
 .dropdown-menu a:hover {
-  color: #000;
-  background-color: #f1f1f1;
+  color: var(--txtc-negro);
+  background-color: var(--txtc-gris);
   border-radius: .5rem;
 }
 
@@ -184,16 +184,13 @@ export default {
 
 .dropdown-item {
   font-size: 1.6rem;
-  color: #000;
+  color: var(--txtc-negro);
   padding: 1.2rem 1.6rem;
   text-decoration: none;
   display: block;
   cursor: pointer;
 }
 
-.outlet {
-  color: red;
-}
 
 @media (width <=780px) {
   .navbarDown {

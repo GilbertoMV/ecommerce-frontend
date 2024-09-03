@@ -61,7 +61,7 @@ export default {
 }
 
 .switch input:checked+.slider {
-    background-color: #68ab18;
+    background-color: var(--bg-lightmode-2);
 }
 
 .switch input:focus+.slider {
