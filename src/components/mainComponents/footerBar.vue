@@ -49,14 +49,14 @@ export default {
 
 <style scoped>
 .svg {
-    fill: #62ab18;
+    fill: var(--bg-lightmode-2);
     width: 1.6rem;
     height: 1.6rem;
 }
 
 .footer {
-    background-color: #62ab18;
-    color: #000;
+    background-color: var(--bg-lightmode-2);
+    color: var(--txtc-negro);
     text-align: center;
     padding: 2rem 0rem 1rem;
     position: relative;
@@ -76,7 +76,7 @@ export default {
 }
 
 .scroll-to-top {
-    background: #fff;
+    background: var(--txtc-blanco);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -102,7 +102,7 @@ export default {
 }
 
 .footer-link {
-    color: #000;
+    color: var(--txtc-negro);
     font-size: 1.6rem;
     text-decoration: none;
     transition: color .5s;
@@ -119,14 +119,14 @@ export default {
 }
 
 .footer-link:hover {
-    color: hsl(54, 70%, 86%);
+    color: var(--txtc-text-hover);
 }
 
 .footer-copy {
     margin-top: .5rem;
     grid-column: span 4;
     font-size: 1rem;
-    color: #000;
+    color: var(--txtc-negro);
 }
 
 @media (width <=768px) {
@@ -184,7 +184,7 @@ export default {
 }
 
 .dark-mode .scroll-to-top {
-    background-color: #4B7617;
+    background-color: var(--bg-darkmode-5);
 }
 
 .dark-mode .svg {

@@ -2,8 +2,12 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "../store/store.js";
 
+// LAYOUTS
+
+const adminLayout = () => import('../../layouts/adminLayout.vue')
+
 // ADMIN VIEWS
-// import indexAdminPage from "../views/adminViews/index.vue";
+const dashboard = () => import('../views/adminViews/dashboardAdmin.vue')
 
 // MAIN VIEWS
 const NotFoundPage = () => import('../views/mainViews/notFoundPage.vue')
@@ -48,21 +52,23 @@ const router = new Router({
     {path: '/more-ecofriendly', name: 'moreEcofriendlyPage', component: moreEcofriendlyPage, meta: {title: 'More Eco-Friendly'}},
     {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresSesionActive: true, title: 'Shopping Car'}},
     {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresSesionActive: true, title: 'Favorites productos'}},
-    {path: '/rewards-shop', name: 'RewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
+    {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
     {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}},
     {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}, props:true},
     {path: '/user', redirect: '/user/profile', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
-        {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}}, // /user/profile
-        {path: 'my-orders', name: 'myOrdersComponent', component: myOrdersComponent, meta: {title: 'My Orders'}}, // /user/my-orders
-        {path: 'rewards', name: 'rewardsComponent', component: rewardsComponent, meta: {title: 'My Rewards'}}, // /user/rewards
-        {path: 'address', name: 'addressComponent', component: addressComponent, meta: {title: 'My Address'}},// /user/address
-        {path: 'security', name: 'securityComponent', component: securityComponent, meta: {title: 'Security Settings'}}, // /user/security
-        {path: 'accessibility', name: 'accessibilityComponent', component: accessibilityComponent, meta: {title: 'Accessibility Settings'}}, // /user/accessibility
-        {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} }, // /user/privacy
-        {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}}, // /user/support
-      ]},
-    // {path: '/admin/index', name: 'indexAdminPage', component: indexAdminPage, meta: {requiresAuth:false}},
+        {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}},
+        {path: 'my-orders', name: 'myOrdersComponent', component: myOrdersComponent, meta: {title: 'My Orders'}},
+        {path: 'rewards', name: 'rewardsComponent', component: rewardsComponent, meta: {title: 'My Rewards'}},
+        {path: 'address', name: 'addressComponent', component: addressComponent, meta: {title: 'My Address'}},
+        {path: 'security', name: 'securityComponent', component: securityComponent, meta: {title: 'Security Settings'}},
+        {path: 'accessibility', name: 'accessibilityComponent', component: accessibilityComponent, meta: {title: 'Accessibility Settings'}},
+        {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
+        {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
+    ]},
+    {path: '/admin', component: adminLayout, children: [
+      {path: '',component: dashboard}
+    ]},
     {path: '*', name: '404NotFound',component: NotFoundPage, meta: {title: 'Not Found Page'}},
 ]
 })

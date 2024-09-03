@@ -190,7 +190,7 @@ export default {
   },
   created() {
     this.isMenuVisible = false;
-    this.fetchCategories()
+    this.fetchCategories();
   }
 }
 </script>
@@ -205,8 +205,8 @@ export default {
   left: 0;
   width: 100%;
   z-index: 998;
-  background-color: #fff;
-  border-bottom: .5rem solid #62ab18;
+  background-color: var(--bg-lightmode-3);
+  border-bottom: .5rem solid var(--bg-lightmode-2);
   height: 6rem;
   padding: .5rem 0;
   transition: all .5s ease;
@@ -286,7 +286,7 @@ export default {
   align-items: center;
   position: fixed;
   z-index: 999;
-  background-color: #62ab18;
+  background-color: var(--bg-lightmode-2);
   top: 5rem;
   left: 0;
   right: 0;
@@ -350,7 +350,7 @@ export default {
 
 .sign-up {
   display: flex;
-  border: .2rem solid #62ab18;
+  border: .2rem solid var(--bg-lightmode-2);
   border-radius: 1rem;
   padding: 1rem;
   color: #000;
@@ -359,7 +359,7 @@ export default {
 }
 
 .sign-up:hover {
-  background-color: #62ab18;
+  background-color: var(--bg-lightmode-2);
   color: #fff;
 }
 
@@ -418,7 +418,7 @@ export default {
 }
 
 .dropdown-item:hover {
-  background-color: #fff;
+  background-color: #f1f1f1;
 }
 
 /*Dark Mode*/
@@ -520,7 +520,7 @@ export default {
   .sign-up {
     border-radius: 1rem;
     padding: 1rem;
-    background-color: #62ab18;
+    background-color: var(--bg-lightmode-2);
     color: #fff !important;
   }
 
