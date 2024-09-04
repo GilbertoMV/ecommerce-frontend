@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import adminLayout from '../layouts/adminLayout.vue';
-import mainLayout from '../layouts/mainLayout.vue';
+const adminLayout = () => import('../layouts/adminLayout.vue');
+const mainLayout = () => import('../layouts/mainLayout.vue');
 import { mapGetters } from 'vuex';
 export default {
   name: 'App',

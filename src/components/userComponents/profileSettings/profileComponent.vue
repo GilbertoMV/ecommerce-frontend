@@ -3,12 +3,7 @@
         <div class="gridOptions">
             <div class="row">
                 <div class="iconOption">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#62ab18" class="bi bi-person-circle icon"
-                        viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                        <path fill-rule="evenodd"
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                    </svg>
+                    <userIcon />
                 </div>
                 <div class="infoOption">
                     <h2>{{ username }} {{ paternalLastName }} {{ maternalLastName }} </h2>
@@ -23,8 +18,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+const userIcon = () => import('../../icons/userIcon.vue')
 export default {
     name: 'profileComponent',
+    components: {
+        userIcon
+    },
     computed: {
         ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email', 'isDarkMode'])
     }
@@ -74,7 +73,7 @@ export default {
 }
 
 
-.icon {
+.svg {
     width: 5rem;
     height: 5rem;
     fill: #62ab18;
