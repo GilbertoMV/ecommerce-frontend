@@ -9,10 +9,7 @@
       <div class="search-container">
         <input type="text" placeholder="Search..." class="search-input">
         <button class="search-button">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#006400" class="bi bi-search svgs" viewBox="0 0 16 16">
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-          </svg>
+          <searchIcon />
         </button>
       </div>
       <!-- en lugar de los links se muestra un menu hamburguesa -->
@@ -26,31 +23,19 @@
       <!-- se muestran los links en telefonos -->
       <ul class="menuResponsive">
         <li @click="removeMenu"><router-link to="/user/profile">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-square svgs"
-              viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-              <path
-                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
-            </svg> {{ username }}</router-link></li>
+            <userIcon />
+            {{ username }}
+          </router-link></li>
         <li><a @click="categoriesMenu">All Categories</a></li>
         <li @click="removeMenu"><router-link to="/shopping-car">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart svgs" viewBox="0 0 16 16">
-              <path
-                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-            </svg> Shopping Car</router-link></li>
+            <shoppingcarIcon /> Shopping Car
+          </router-link></li>
         <li @click="removeMenu"><router-link to="/favorites">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star svgs" viewBox="0 0 16 16">
-              <path
-                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-            </svg> Favorites</router-link></li>
+            <favoritesIcon /> Favorites
+          </router-link></li>
         <li><a @click="handleLogout">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-box-arrow-right svgs"
-              viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
-              <path fill-rule="evenodd"
-                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-            </svg> Log Out</a></li>
+            <logoutIcon /> Log Out
+          </a></li>
       </ul>
       <ul class="categoriesMenu">
         <li @click="removeMenu" v-for="category in categories" :key="category.id_categoria"><router-link
@@ -62,35 +47,35 @@
       <ul class="linksContainer">
         <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
           <a to="/user/profile" class="dropdown-button link">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-square svgs"
-              viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-              <path
-                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
-            </svg> {{ username }}</a>
+            <userIcon />
+
+            {{ username }}
+          </a>
           <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
             @mouseleave="scheduleHideMenu">
             <router-link to="/user/profile" class="dropdown-item">
-              <i class="bi bi-person-square"></i> Profile</router-link>
+              <userIcon /> Profile
+            </router-link>
             <router-link to="/user/my-orders" class="dropdown-item">
-              <i class="bi bi-bag"></i> My Orders</router-link>
+              <ordersIcon /> My Orders
+            </router-link>
             <router-link to="/user/rewards" class="dropdown-item">
-              <i class="bi bi-trophy"></i> Rewards</router-link>
+              <rewardsIcon /> Rewards
+            </router-link>
             <router-link to="/user/accessibility" class="dropdown-item">
-              <i class="bi bi-universal-access-circle"></i> Accessibility</router-link>
-            <a @click="handleLogout" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+              <accessibilityIcon /> Accessibility
+            </router-link>
+            <a @click="handleLogout" class="dropdown-item">
+              <logoutIcon /> Log Out
+            </a>
           </div>
         </div>
         <router-link to="/shopping-car" class="link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart svgs" viewBox="0 0 16 16">
-            <path
-              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-          </svg> Shopping Car</router-link>
-        <router-link to="/favorites" class="link"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-            class="bi bi-star svgs" viewBox="0 0 16 16">
-            <path
-              d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-          </svg> Favorites</router-link>
+          <shoppingcarIcon /> Shopping Car
+        </router-link>
+        <router-link to="/favorites" class="link">
+          <favoritesIcon /> Favorites
+        </router-link>
 
       </ul>
     </template>
@@ -98,29 +83,20 @@
       <div class="search-containerSesion">
         <input type="text" placeholder="Search..." class="search-input">
         <button class="search-button">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#006400" class="bi bi-search svgs" viewBox="0 0 16 16">
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-          </svg>
+          <searchIcon />
         </button>
       </div>
       <div class="sesionContainer">
         <router-link to="/shopping-car" class="link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart svgs" viewBox="0 0 16 16">
-            <path
-              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-          </svg>
+          <shoppingcarIcon />
           <p class="handleText">Shopping car</p>
         </router-link>
         <router-link to="/favorites" class="link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star svgs" viewBox="0 0 16 16">
-            <path
-              d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
-          </svg>
+          <favoritesIcon />
           <p class="handleText">Favorites</p>
         </router-link>
         <router-link to="/sign-in" class="link">Login</router-link>
-        <router-link to="/sign-up" class="link sign-up"><i class="bi bi-person-circle"></i> Signup</router-link>
+        <router-link to="/sign-up" class="link sign-up">Signup</router-link>
       </div>
     </template>
   </header>
@@ -129,8 +105,27 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import apiClient from '../../store/auth-vuex';
+const shoppingcarIcon = () => import('../icons/shoppingcarIcon.vue')
+const userIcon = () => import('../icons/userIcon.vue')
+const accessibilityIcon = () => import('../icons/accessibilityIcon.vue')
+const rewardsIcon = () => import('../icons/rewardsIcon.vue')
+const ordersIcon = () => import('../icons/odersIcon.vue')
+const logoutIcon = () => import('../icons/logoutIcon.vue')
+const favoritesIcon = () => import('../icons/favoritesIcon.vue')
+const searchIcon = () => import('../icons/searchIcon.vue')
+
 export default {
   name: 'NavBarTop',
+  components: {
+    userIcon,
+    accessibilityIcon,
+    rewardsIcon,
+    ordersIcon,
+    logoutIcon,
+    favoritesIcon,
+    shoppingcarIcon,
+    searchIcon
+  },
   data() {
     return {
       isMenuVisible: false,
@@ -213,7 +208,7 @@ export default {
 
 }
 
-.svgs {
+.svg {
   width: 1.8rem;
   height: 1.8rem;
 }
@@ -365,7 +360,8 @@ export default {
 
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
+  gap: .5rem;
 }
 
 .dropdown-button {
@@ -412,7 +408,9 @@ export default {
   color: #000;
   padding: 1.2rem 1.6rem;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   border-radius: .7rem;
   cursor: pointer;
 }
@@ -504,7 +502,7 @@ export default {
     padding: 1rem 1.5rem;
   }
 
-  .svgs {
+  .svg {
     width: 2rem;
     height: 2rem;
   }
@@ -559,7 +557,7 @@ export default {
     padding: .7rem .7rem;
   }
 
-  .svgs {
+  .svg {
     width: 1.6rem;
     height: 1.6rem;
   }

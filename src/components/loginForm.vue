@@ -18,10 +18,10 @@
         </div>
         <div class="login-container">
             <button class="login-btn facebook">
-                <i class="bi bi-facebook"></i> Login with Facebook
+                <facebookIcon /> Login with Facebook
             </button>
             <button class="login-btn google">
-                <i class="bi bi-google"></i> Login with Google
+                <googleIcon /> Login with Google
             </button>
         </div>
     </div>
@@ -30,14 +30,18 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
-import formInput from './formInput.vue';
 import Swal from 'sweetalert2';
 import apiClient from '../store/auth-vuex';
 
+const formInput = () => import('./formInput.vue');
+const facebookIcon = () => import('./icons/facebookIcon.vue');
+const googleIcon = () => import('./icons/googleIcon.vue')
 export default {
     name: 'SignInForm',
     components: {
         formInput,
+        facebookIcon,
+        googleIcon
     },
     data() {
         return {
@@ -188,6 +192,10 @@ form {
     border-radius: .5rem;
     cursor: pointer;
     margin: .5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .facebook {
@@ -223,6 +231,11 @@ form {
 .dark-mode .google {
     border: solid .1rem var(--txtc-darkmode-1);
     color: var(--txtc-darkmode-1);
+}
+
+.svg {
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
 @media (width <=390px) {

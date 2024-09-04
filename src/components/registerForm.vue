@@ -62,10 +62,10 @@
         </div>
         <div class="login-container">
             <button class="login-btn facebook">
-                <i class="bi bi-facebook"></i> Login with Facebook
+                <facebookIcon /> Login with Facebook
             </button>
             <button class="login-btn google">
-                <i class="bi bi-google"></i> Login with Google
+                <googleIcon /> Login with Google
             </button>
         </div>
     </div>
@@ -74,10 +74,11 @@
 <script>
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 import { helpers } from 'vuelidate/lib/validators'
-import formInput from './formInput.vue';
 import Swal from 'sweetalert2';
 import apiClient from '../store/auth-vuex'
-
+const facebookIcon = () => import('./icons/facebookIcon.vue')
+const googleIcon = () => import('./icons/googleIcon.vue')
+const formInput = () => import('./formInput.vue');
 //VALIDACIONES
 const validDate = helpers.withParams(
     { message: 'Date must be before January 2005' },
@@ -95,7 +96,9 @@ const hasSpace = helpers.regex('hasSpace', /^[A-Za-z\s]*$/); //valida que la cad
 export default {
     name: 'SignUpForm',
     components: {
-        formInput
+        formInput,
+        facebookIcon,
+        googleIcon
     },
     data() {
         return {
@@ -277,6 +280,14 @@ form {
     margin: .5rem 0;
 }
 
+.facebook,
+.google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 .facebook {
     background-color: #3B5998;
 }
@@ -285,6 +296,11 @@ form {
     background-color: transparent;
     border: solid .1rem #666;
     color: #666;
+}
+
+.svg {
+    width: 1.75rem;
+    height: 1.75rem;
 }
 
 .dark-mode {

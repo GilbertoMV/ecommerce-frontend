@@ -177,9 +177,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { helpers } from 'vuelidate/lib/validators'
 import Swal from 'sweetalert2';
 import apiClient from '../../../store/auth-vuex';
-import { helpers } from 'vuelidate/lib/validators'
 const hasLettersNumbersSpaces = helpers.regex('hasLettersNumbersSpaces', /^[a-zA-Z0-9\s]+$/); //valida que la cadena solo contenga numeros, letras y espacios o que no contenga caracteres especiales
 const hasLettersSpaces = helpers.regex('hasLettersSpaces', /^[a-zA-Z\s]+$/) //valida que la cadena solo contenga letras y espacios o que no contenga numeros ni caracteres especiales
 const hasNumbersOnly = helpers.regex('hasNumbersOnly', /^[0-9]+$/) //valida que la cadena sea de numeros unicamente

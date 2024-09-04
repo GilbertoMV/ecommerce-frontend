@@ -7,7 +7,7 @@
     </main>
 </template>
 <script>
-import addressForm from '../../components/userComponents/profileSettings/addressForm.vue'
+const addressForm = () => import('../../components/userComponents/profileSettings/addressForm.vue')
 export default {
     name: 'configAddressPage',
     components: {

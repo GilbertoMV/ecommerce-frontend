@@ -5,19 +5,18 @@
                 <span>{{ addresses.length }} of 3 address</span>
             </div>
             <router-link to="/config-address" class="addAddressBtn" v-if="addresses.length < 3 && addresses.length > 0">
-                New
-                Address</router-link>
+                New Address</router-link>
         </div>
         <div v-if="addresses.length === 0">
-            <p>no addresses available</p>
+            <p>No addresses available</p>
         </div>
         <div class="gridOptions" v-for="address in addresses" :key="address.id">
             <div class="row">
-                <div class="iconOption">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-house-door icon" viewBox="0 0 16 16">
-                        <path
-                            d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
-                    </svg>
+                <div class="iconOption" v-if="address.tipo_direccion === 'Laboral'">
+                    <officeIcon />
+                </div>
+                <div class="iconOption" v-else>
+                    <houseIcon />
                 </div>
                 <div class="infoOption">
                     <h2>
@@ -70,8 +69,14 @@
 import { mapGetters } from 'vuex';
 import apiClient from '../../../store/auth-vuex';
 import Swal from 'sweetalert2';
+const houseIcon = () => import('../../icons/houseIcon.vue');
+const officeIcon = () => import('../../icons/officeIcon.vue');
 export default {
     name: 'addressComponent',
+    components: {
+        houseIcon,
+        officeIcon
+    },
     computed: {
         ...mapGetters(['isDarkMode', 'idUser'])
     },
@@ -192,7 +197,7 @@ export default {
     padding: 1rem;
     width: 2rem;
     height: 2rem;
-    fill: #62ab18;
+    fill: var(--txtc-principal);
 }
 
 .optionIcon:hover {
@@ -201,8 +206,8 @@ export default {
 
 .menu-options {
     position: absolute;
-    background-color: white;
-    box-shadow: 0rem .2rem .5rem rgba(0, 0, 0, 0.5);
+    background-color: var(--bg-lightmode-3);
+    box-shadow: 0rem .2rem .5rem rgba(0, 0, 0, 0.3);
     width: 20rem;
     top: 4rem;
     right: 0;
@@ -264,7 +269,7 @@ export default {
 .addAddressBtn {
     font-size: 1.6rem;
     padding: 1rem;
-    background-color: #62ab18;
+    background-color: var(--bg-lightmode-2);
     border-radius: 1rem;
     text-decoration: none;
     color: #ebead6;
@@ -275,7 +280,7 @@ export default {
     grid-template-rows: repeat(1, 9rem);
     width: 70%;
     height: fit-content;
-    background-color: #fff;
+    background-color: var(--txtc-blanco);
     border-radius: 2rem;
     margin-bottom: 1rem;
 }
@@ -308,13 +313,13 @@ export default {
     padding: 1rem;
     width: 2rem;
     height: 2rem;
-    fill: #62ab18;
+    fill: var(--txtc-principal);
 }
 
-.icon {
+.svg {
     width: 3rem;
     height: 3rem;
-    fill: #62ab18;
+    stroke: var(--strokes-icon);
 }
 
 .infoOption {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import sidebarComponent from '../../components/userComponents/sidebarUser.vue'
+import sidebarComponent from '../../components/mainComponents/sidebarComponent.vue'
 export default {
     name: 'DashboardAdmin',
     components: { sidebarComponent }
