@@ -14,8 +14,16 @@
 </template>
 
 <script>
-
 import { mapGetters } from 'vuex';
+const userIcon = () => import('../icons/userIcon.vue')
+const ordersIcon = () => import('../icons/odersIcon.vue')
+const rewardsIcon = () => import('../icons/rewardsIcon.vue')
+const addressIcon = () => import('../icons/addressIcon.vue')
+const securityIcon = () => import('../icons/securityIcon.vue')
+const privacyIcon = () => import('../icons/privacyIcon.vue')
+const supportIcon = () => import('../icons/supportIcon.vue')
+const accessibilityIcon = () => import('../icons/accessibilityIcon.vue')
+
 export default {
     name: 'SideBar',
     props: {
@@ -25,14 +33,14 @@ export default {
         }
     },
     components: {
-        userIcon: () => import('../icons/userIcon.vue'),
-        ordersIcon: () => import('../icons/odersIcon.vue'),
-        rewardsIcon: () => import('../icons/rewardsIcon.vue'),
-        addressIcon: () => import('../icons/addressIcon.vue'),
-        securityIcon: () => import('../icons/securityIcon.vue'),
-        privacyIcon: () => import('../icons/privacyIcon.vue'),
-        supportIcon: () => import('../icons/supportIcon.vue'),
-        accessibilityIcon: () => import('../icons/accessibilityIcon.vue')
+        userIcon,
+        ordersIcon,
+        rewardsIcon,
+        addressIcon,
+        securityIcon,
+        privacyIcon,
+        supportIcon,
+        accessibilityIcon
 
     },
     computed: {
@@ -42,12 +50,13 @@ export default {
 </script>
 <style scoped>
 .sidebar {
+    height: 100vh;
     width: 15%;
     background-color: #fff;
 }
 
 h2 {
-    margin: 2rem 0rem;
+    padding: 2rem 0rem;
     font-size: 1.8rem;
     font-weight: 600;
     text-align: center;

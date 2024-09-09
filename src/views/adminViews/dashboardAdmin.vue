@@ -5,10 +5,12 @@
 </template>
 
 <script>
-import sidebarComponent from '../../components/mainComponents/sidebarComponent.vue'
+const sidebarComponent = () => import('../../components/mainComponents/sidebarComponent.vue')
 export default {
     name: 'DashboardAdmin',
-    components: { sidebarComponent }
+    components: {
+        sidebarComponent
+    }
 }
 
 </script>
