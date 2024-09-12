@@ -1,6 +1,9 @@
 <template>
     <div>
-        <sidebarComponent :options="adminOptions" />
+        <sidebarComponent :title="titleAdmin" :options="adminOptions" />
+        <div class="loadComponent">
+            <router-view />
+        </div>
     </div>
 </template>
 <script>
@@ -8,12 +11,19 @@ const sidebarComponent = () => import('../src/components/mainComponents/sidebarC
 export default {
     name: 'DashboardAdmin',
     components: {
-        sidebarComponent
+        sidebarComponent,
     },
     data() {
         return {
+            titleAdmin: 'Dashboard Admin',
             adminOptions: [
-                { name: 'create', label: 'Create', route: '/user/profile', icon: 'userIcon' }
+                { label: 'New Product', route: '/dasboard/create', icon: 'newProductIcon', menu: false },
+                {
+                    label: 'Products', icon: 'userIcon', menu: true, opts: [
+                        { label: 'Opcion 1', route: '/use/profile' }
+                    ]
+                },
+
             ]
         }
     }
