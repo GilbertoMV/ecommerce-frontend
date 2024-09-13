@@ -1,13 +1,24 @@
 <template>
     <div class="sidebar" :class="{ 'dark-mode': isDarkMode }">
-        <h2>{{ title }}</h2>
+        <div class="profile">
+            <div class="eliminar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                    stroke="#bebebe" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                </svg>
+            </div>
+            <h2>{{ username }} {{ paternalLastName }}</h2>
+        </div>
         <ul class="list">
             <li v-for="(option, index) in options" :key="index">
                 <!-- Si la opción no tiene submenú, usa router-link directamente -->
                 <router-link v-if="!option.menu" :to="option.route" exact-active-class="is-active" class="item-click">
                     <div class="list__item">
                         <component :is="option.icon"></component>
-                        <span> {{ option.label }}</span>
+                        {{ option.label }}
                     </div>
                 </router-link>
 
@@ -17,18 +28,17 @@
                         <component :is="option.icon"></component>
                         <span>{{ option.label }}</span>
                     </div>
-                    <div class="list__item">
+                    <div class="list__item__icon">
                         <optionsIcon class="desplegableIcon" />
                     </div>
                 </div>
 
                 <!-- Menú desplegable -->
                 <ul v-if="option.menu" :class="{ 'menu': true, 'active': isActive(index) }">
-                    <li v-for="(opt, i) in option.opts" :key="i">
-                        <router-link :to="opt.route" class="menu_item">
-                            <span>{{ opt.label }}</span>
-                        </router-link>
-                    </li>
+                    <router-link :to="opt.route" v-for="(opt, i) in option.opts" :key="i" exact-active-class="is-active"
+                        class="menu_item">
+                        {{ opt.label }}
+                    </router-link>
                 </ul>
             </li>
         </ul>
@@ -39,7 +49,7 @@
 import { mapGetters } from 'vuex';
 //sidebar user icons
 const userIcon = () => import('../icons/userIcon.vue')
-const ordersIcon = () => import('../icons/odersIcon.vue')
+const ordersIcon = () => import('../icons/ordersIcon.vue')
 const rewardsIcon = () => import('../icons/rewardsIcon.vue')
 const addressIcon = () => import('../icons/addressIcon.vue')
 const securityIcon = () => import('../icons/securityIcon.vue')
@@ -49,7 +59,10 @@ const accessibilityIcon = () => import('../icons/accessibilityIcon.vue')
 const optionsIcon = () => import('../icons/optionsIcon.vue')
 
 //sidebar admin icons
-const newProductIcon = () => import('../icons/newproductIcon.vue')
+const homeIcon = () => import('../icons/houseIcon.vue')
+const attributeIcon = () => import('../icons/attributeIcon.vue')
+const categoryIcon = () => import('../icons/categoryIcon.vue')
+const productIcon = () => import('../icons/productIcon.vue')
 
 export default {
     name: 'SideBar',
@@ -73,10 +86,13 @@ export default {
         supportIcon,
         accessibilityIcon,
         optionsIcon,
-        newProductIcon
+        homeIcon,
+        attributeIcon,
+        categoryIcon,
+        productIcon
     },
     computed: {
-        ...mapGetters(['isDarkMode'])
+        ...mapGetters(['isDarkMode', 'username', 'paternalLastName'])
     },
     data() {
         return {
@@ -98,10 +114,14 @@ export default {
     height: 100vh;
     width: 15%;
     background-color: #fff;
+    -webkit-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
+    -moz-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
+    box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
+    z-index: 999;
 }
 
 h2 {
-    padding: 3rem 0 2rem;
+    padding: 1.5rem 0;
     font-size: 1.8rem;
     font-weight: 600;
     text-align: center;
@@ -117,40 +137,57 @@ h2 {
     display: flex;
     justify-content: space-between;
     position: relative;
-    padding: 2rem;
     column-gap: 1rem;
     cursor: pointer;
     color: black;
     text-decoration: none;
 }
 
-.list__item {
+.list__item,
+.list__item__icon {
     display: flex;
     align-items: center;
     gap: 2rem;
     font-size: 1.6rem;
+    padding: 2rem;
+    width: 100%;
+    transition: all .1s;
+}
+
+.list__item__icon {
+    width: initial;
+}
+
+.list__item:hover {
+    transform: translate(1rem);
 }
 
 .menu {
     margin-left: 5rem;
-    border-left: .3rem solid var(--txtc-principal);
     font-size: 1.3rem;
     max-height: 0;
     overflow: hidden;
-    padding: 0;
-    transition: max-height .3s ease-in-out, padding .3s ease-in-out;
+    border-left: solid .2rem var(--txtc-principal);
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .menu.active {
     max-height: 500px;
-    padding: 1rem 0;
+    opacity: 1;
 }
 
 .menu_item {
+    display: flex;
     padding: 1rem;
     color: #5c5c5c;
     cursor: pointer;
     text-decoration: none;
+    font-size: 1.3rem;
+}
+
+.menu_item.is-active {
+    color: #62ab18;
 }
 
 .desplegableIcon {
@@ -165,12 +202,11 @@ h2 {
 .menu_item:hover,
 .item-click.is-active {
     color: #62ab18;
-    background-color: #f9fff3;
 }
 
 .svg {
-    width: 1.7rem;
-    height: 1.7rem;
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 .item-click::before {
@@ -189,7 +225,24 @@ h2 {
     background-color: #62ab18;
 }
 
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+}
 
+.eliminar {
+    width: 10rem;
+    height: 10rem;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: #efeded;
+
+}
 
 .dark-mode {
     transition: all .5s ease;

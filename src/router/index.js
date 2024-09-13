@@ -2,12 +2,25 @@ import Vue from "vue";
 import Router from "vue-router";
 import store from "../store/store.js";
 
-// LAYOUTS
-
-const adminLayout = () => import('../../layouts/adminLayout.vue')
-
 // ADMIN VIEWS
-const dashboard = () => import('../views/adminViews/dashboardAdmin.vue')
+const adminProfilePage = () => import('../views/adminViews/adminProfilePage.vue')
+const dashboardComponent = () => import('../components/adminComponents/dashboardComponent.vue')
+//User
+const userComponent = () => import('../components/adminComponents/users/userComponent.vue')
+//Product
+const addproductComponent = () => import('../components/adminComponents/products/addProductoComponent.vue')
+const catalogProductsComponent = () => import('../components/adminComponents/products/catalogProductsComponent.vue')
+const productDetailsComponent = () => import('../components/adminComponents/products/productDetailsComponent.vue')
+//Categories
+const addCategoryComponent = () => import('../components/adminComponents/categories/addCategoryComponent.vue')
+const allCategoriesComponent = () => import('../components/adminComponents/categories/allCategoriesComponent.vue')
+//Attributes
+const addAttributeComponent = () => import('../components/adminComponents/attributes/addAttributeComponent.vue')
+const allAttributesComponent = () => import('../components/adminComponents/attributes/allAttributesComponent.vue')
+//Orders
+const allOrdersComponent = () => import('../components/adminComponents/orders/allOrdersComponent.vue')
+const orderDetailsComponent = () => import('../components/adminComponents/orders/orderDetailsComponent.vue')
+
 
 // MAIN VIEWS
 const NotFoundPage = () => import('../views/mainViews/notFoundPage.vue')
@@ -66,8 +79,24 @@ const router = new Router({
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
         {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
     ]},
-    {path: '/admin', component: adminLayout, children: [
-      {path: '',component: dashboard}
+    {path: '/admin', redirect: '/admin/add-product', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard'},
+      children: [
+        {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'} },
+        //USERS
+        {path:'users', name: 'userComponent', component: userComponent, meta: {title: 'Users'}},
+        //PRODUCTS
+        {path: 'add-product', name: 'addproductComponent', component: addproductComponent, meta: {title: 'Add Product'}},
+        {path: 'product-catalog', name: 'productcatalogComponent', component: catalogProductsComponent, meta: {title: 'Product Catalog'}},
+        {path: 'product-details', name: 'productdetailComponent', component: productDetailsComponent, meta: {title: 'Product Detail'}},
+        //CATEGORIES
+        {path: 'add-category', name: 'addCategoryComponent', component: addCategoryComponent, meta: {title: 'Add Category'}},
+        {path: 'all-categories', name:'allCategoriesComponent', component: allCategoriesComponent, meta:{title: 'All Categories'}},
+        //ATTRIBUTES
+        {path:'add-attribute', name: 'addAttributeComponent', component: addAttributeComponent, meta:{title:'Add Attribute'}},
+        {path:'all-attributes', name: 'allAttributesComponent', component: allAttributesComponent, meta:{title:'All Attributes'}},
+        //ORDERS
+        {path: 'all-orders', name: 'allOrdersComponent', component: allOrdersComponent, meta:{title: 'All Orders'}},
+        {path: 'order-details', name: 'orderDetailsComponent', component: orderDetailsComponent, meta:{title: 'Order Details'}},
     ]},
     {path: '*', name: '404NotFound',component: NotFoundPage, meta: {title: 'Not Found Page'}},
 ]

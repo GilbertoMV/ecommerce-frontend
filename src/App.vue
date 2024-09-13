@@ -6,7 +6,7 @@
 
 <script>
 const adminLayout = () => import('../layouts/adminLayout.vue');
-const mainLayout = () => import('../layouts/mainLayout.vue');
+const mainLayout = () => import('../layouts/userLayout.vue');
 import { mapGetters } from 'vuex';
 export default {
   name: 'App',
