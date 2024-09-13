@@ -283,6 +283,10 @@ export default {
     background-color: var(--txtc-blanco);
     border-radius: 2rem;
     margin-bottom: 1rem;
+
+    box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
+    -webkit-box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
+    -moz-box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
 }
 
 .row {

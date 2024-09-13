@@ -17,7 +17,7 @@ export default {
         return {
             title: 'My Account',
             userOptions: [
-                { label: "Profile", route: '/user/profile', icon: 'userIcon', menu: false },
+                // { label: "Profile", route: '/user/profile', icon: 'userIcon', menu: false },
                 { label: 'My Orders', route: '/user/my-orders', icon: 'ordersIcon', menu: false },
                 { label: 'Rewards', route: '/user/rewards', icon: 'rewardsIcon', menu: false },
                 { label: 'Address', route: '/user/address', icon: 'addressIcon', menu: false },
