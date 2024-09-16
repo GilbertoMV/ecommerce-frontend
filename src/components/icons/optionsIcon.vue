@@ -1,7 +1,8 @@
 <template>
-    <svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
-        width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        class="svg">
-        <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 " />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"
+        class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right svg">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M9 6l6 6l-6 6" />
     </svg>
 </template>

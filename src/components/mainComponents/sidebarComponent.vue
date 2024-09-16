@@ -117,7 +117,7 @@ export default {
     -webkit-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
     -moz-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
     box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
-    z-index: 999;
+    z-index: 990;
 }
 
 h2 {
@@ -232,7 +232,7 @@ h2 {
     align-items: center;
     width: 100%;
     height: auto;
-    margin-top: 1rem;
+    padding-top: 1rem;
 }
 
 .eliminar {
@@ -247,6 +247,7 @@ h2 {
 .dark-mode {
     transition: all .5s ease;
     background-color: var(--bg-darkmode-2);
+    box-shadow: none;
 }
 
 .dark-mode h2 {
