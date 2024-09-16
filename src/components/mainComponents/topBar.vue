@@ -6,12 +6,7 @@
       </router-link>
     </div>
     <template v-if="isAuthenticated">
-      <div class="search-container">
-        <input type="text" placeholder="Search..." class="search-input">
-        <button class="search-button">
-          <searchIcon />
-        </button>
-      </div>
+      <searchComponent />
       <!-- en lugar de los links se muestra un menu hamburguesa -->
       <div class="menu">
         <button class="hamburger hamburger--collapse" type="button" @click="hamburgerMenu">
@@ -42,20 +37,15 @@
             :to="{ name: 'categoryPage', params: { categoryId: category.id_categoria } }">{{
               category.nombre }}</router-link></li>
       </ul>
-
       <!-- se muestran los links en computadoras -->
       <ul class="linksContainer">
         <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
-          <a to="/user/profile" class="dropdown-button link">
+          <span class="dropdown-button link">
             <userIcon />
-
             {{ username }}
-          </a>
+          </span>
           <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
             @mouseleave="scheduleHideMenu">
-            <router-link to="/user/profile" class="dropdown-item">
-              <userIcon /> Profile
-            </router-link>
             <router-link to="/user/my-orders" class="dropdown-item">
               <ordersIcon /> My Orders
             </router-link>
@@ -80,12 +70,7 @@
       </ul>
     </template>
     <template v-else>
-      <div class="search-containerSesion">
-        <input type="text" placeholder="Search..." class="search-input">
-        <button class="search-button">
-          <searchIcon />
-        </button>
-      </div>
+      <searchComponent />
       <div class="sesionContainer">
         <router-link to="/shopping-car" class="link">
           <shoppingcarIcon />
@@ -112,7 +97,7 @@ const rewardsIcon = () => import('../icons/rewardsIcon.vue')
 const ordersIcon = () => import('../icons/ordersIcon.vue')
 const logoutIcon = () => import('../icons/logoutIcon.vue')
 const favoritesIcon = () => import('../icons/favoritesIcon.vue')
-const searchIcon = () => import('../icons/searchIcon.vue')
+const searchComponent = () => import('./searchComponent.vue')
 
 export default {
   name: 'NavBarTop',
@@ -124,7 +109,7 @@ export default {
     logoutIcon,
     favoritesIcon,
     shoppingcarIcon,
-    searchIcon
+    searchComponent
   },
   data() {
     return {
@@ -205,7 +190,6 @@ export default {
   height: 6rem;
   padding: .5rem 0;
   transition: all .5s ease;
-
 }
 
 .svg {
@@ -221,49 +205,6 @@ export default {
 .logoContainer img {
   margin: 0 auto;
   height: 100%;
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  border-radius: 1rem;
-  background-color: rgba(199, 233, 176, 0.7);
-  align-items: center;
-  width: 40%;
-  height: 70%;
-}
-
-.search-containerSesion {
-  display: flex;
-  justify-content: center;
-  border-radius: 1rem;
-  background-color: rgba(199, 233, 176, 0.7);
-  align-items: center;
-  width: 40%;
-  height: 70%;
-}
-
-.search-input {
-  border: none;
-  background-color: transparent;
-  outline: none;
-  padding: 0rem 1.5rem;
-  font-size: 1.3rem;
-  width: 100%;
-  height: 100%;
-}
-
-.search-input::placeholder {
-  color: #006400;
-}
-
-.search-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 1.3rem 2rem;
-  cursor: pointer;
-  border-radius: 0 1rem 1rem 0;
 }
 
 .menu {
@@ -331,7 +272,6 @@ export default {
   width: auto;
 }
 
-
 .navbarTop .link {
   display: flex;
   align-items: center;
@@ -382,7 +322,6 @@ export default {
   opacity: 0;
   transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
   border-radius: .7rem;
-
 }
 
 .dropdown-menu.visible {
@@ -443,11 +382,6 @@ export default {
   color: var(--txtc-darkmode-1);
 }
 
-.dark-mode .search-container,
-.dark-mode .search-containerSesion {
-  background-color: var(--txtc-darkmode-1);
-}
-
 .dark-mode .menuResponsive,
 .dark-mode .categoriesMenu {
   background-color: var(--bg-darkmode-4);
@@ -488,20 +422,6 @@ export default {
     display: none;
   }
 
-  .search-containerSesion {
-    width: 30%;
-    height: 70%;
-  }
-
-  .search-container {
-    width: 65%;
-    height: 60%;
-  }
-
-  .search-button {
-    padding: 1rem 1.5rem;
-  }
-
   .svg {
     width: 2rem;
     height: 2rem;
@@ -538,18 +458,6 @@ export default {
 @media (width <=390px) {
   .navbarTop {
     height: 4rem;
-  }
-
-  .search-container {
-    height: 80%;
-  }
-
-  .search-containerSesion {
-    width: 45%;
-  }
-
-  .search-input {
-    font-size: 1.1rem;
   }
 
   .navbarTop .link {

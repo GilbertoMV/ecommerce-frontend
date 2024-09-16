@@ -1,39 +1,53 @@
 <template>
-    <div class="header">
+    <div class="header" :class="{ 'dark-mode': isDarkMode }">
+        <div class="search_container">
+            <searchComponent />
+        </div>
         <ul class="menu">
-            <li class="menu__item">
-                <darkmodeIcon />
-            </li>
             <li class="menu__item has-notification">
                 <bellIcon />
+                <span>Notifications</span>
             </li>
-            <li class="menu__item has-notification">
-                <messageIcon />
-            </li>
-            <li class="menu__item session">
+            <li class="menu__item">
                 <userIcon />
-                <optionIcon class="rotate" />
+                <span>{{ username }}</span>
+            </li>
+            <li class="menu__item" @click="toggleDarkMode">
+                <transition name="fade" mode="out-in">
+                    <component :is="currentModeIcon" />
+                </transition>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-const userIcon = () => import('../icons/userIcon.vue')
-const optionIcon = () => import('../icons/optionsIcon.vue')
-const darkmodeIcon = () => import('../icons/darkmodeIcon.vue')
-const bellIcon = () => import('../icons/bellIcon.vue')
-const messageIcon = () => import('../icons/messageIcon.vue')
+import userIcon from '../icons/userIcon.vue';
+import darkmodeIcon from '../icons/darkmodeIcon.vue';
+import lightmodeIcon from '../icons/lightmodeIcon.vue';
+import bellIcon from '../icons/bellIcon.vue';
+import searchComponent from '../mainComponents/searchComponent.vue'
+
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     components: {
         userIcon,
-        optionIcon,
         darkmodeIcon,
+        lightmodeIcon,
         bellIcon,
-        messageIcon
+        searchComponent
+    },
+    computed: {
+        ...mapGetters(['username', 'isDarkMode']),
+        currentModeIcon() {
+            return this.isDarkMode ? 'lightmodeIcon' : 'darkmodeIcon';
+        }
+    },
+    methods: {
+        ...mapActions(['toggleDarkMode']),
     }
-}
+};
 </script>
 
 <style scoped>
@@ -41,8 +55,20 @@ export default {
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    height: 6rem;
+    height: 6.5rem;
+    padding: .5rem 0;
     background-color: #ffffff;
+}
+
+.search_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.search_container div {
+    width: 60%;
 }
 
 .menu {
@@ -58,54 +84,55 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 4rem;
-    height: 4rem;
-    background-color: #eaeaea;
+    height: 2.5rem;
     border-radius: 50%;
     cursor: pointer;
+    gap: 0.5rem;
     position: relative;
-    /* Necesario para posicionar el pseudo-elemento */
 }
 
-.menu__item::after {
+span {
+    font-size: 1.6rem;
+}
+
+.menu__item.has-notification::after {
     content: '';
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: -0.3rem;
+    right: -0.6rem;
     width: 0.8rem;
     height: 0.8rem;
     background-color: red;
     border-radius: 50%;
-    display: none;
-    /* Oculto por defecto */
-}
-
-.menu__item.has-notification::after {
-    display: block;
-    /* Muestra el punto de notificación solo para los elementos con clase 'has-notification' */
-}
-
-.session {
-    width: 5rem;
-    border-radius: 1rem;
-    gap: 0.5rem;
-    padding: 0 0.5rem;
-}
-
-.icon {
-    width: 100%;
-    height: 100%;
 }
 
 .svg {
-    fill: #a1a1a1;
-    width: 3rem;
-    height: 3rem;
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 .rotate {
     width: 2rem;
     height: 2rem;
     transform: rotate(90deg);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.dark-mode {
+    background-color: var(--bg-darkmode-2);
+}
+
+.dark-mode .svg,
+.dark-mode span {
+    color: var(--txtc-darkmode-1);
 }
 </style>

@@ -92,11 +92,6 @@ main {
   font-size: 1.6rem !important;
 }
 
-/* dark mode  login/register/addressconfig */
-.dark-mode .login-register-view,
-.dark-mode .config-address-view {
-  background-color: #3a5816;
-}
 
 .dark-mode .h1 {
   color: #ebead6;
@@ -132,6 +127,12 @@ main {
 
 
 /* DARK MODE */
+
+/* dark mode  login/register/addressconfig */
+.dark-mode .login-register-view,
+.dark-mode .config-address-view {
+  background-color: #3a5816;
+}
 
 .dark-mode {
   background-color: var(--bg-darkmode-1);
