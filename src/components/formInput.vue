@@ -41,6 +41,7 @@ export default {
 }
 
 label {
+    color: var(--text-color-body);
     display: block;
     margin-bottom: .5rem;
 }
@@ -49,35 +50,27 @@ input {
     width: 100%;
     padding: .8rem;
     box-sizing: border-box;
-    border: solid .1rem #62ab18;
+    border: solid .1rem var(--primary-color);
     border-radius: .5rem;
-    background-color: #d8f0c8;
+    background-color: var(--tertiary-color);
+    font-size: var(--font-size-base);
 }
 
 input:focus {
-    border-color: #62ab18;
     box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
     outline: none;
 }
 
-.dark-mode input {
-    background-color: var(--txtc-darkmode-1);
-}
-
-.dark-mode label {
-    color: var(--txtc-darkmode-1);
-}
-
 @media (width <=390px) {
     label {
-        font-size: 1.4rem;
+        font-size: var(--font-size-small);
     }
 
     input {
         padding: .5rem;
         box-sizing: border-box;
         border: solid .1rem;
-        font-size: 1.3rem;
+        font-size: var(--font-size-smallest);
     }
 }
 </style>
