@@ -1,54 +1,143 @@
-@import url("formatStyles.css");
-
-:root {
-  /* globales */
-
-  --txtc-error: #c10f0f;
-  --txtc-blanco: #fff;
-  --txtc-negro: #000000;
-  --txtc-gris: #f1f1f1;
-  --txtc-principal: #62ab18;
-
-
-  /* ------------------ */
-
-  /* dark mode */
-  --bg-darkmode-1: #181F12;
-  --bg-darkmode-2: #223012;
-  --bg-darkmode-3: #3A5816;
-  --bg-darkmode-4: #4b7617;
-  --bg-darkmode-5: #2D4115;
-
-  /*  Text Color */
-
-  --txtc-darkmode-1: #ebead6;
-  --txtc-darkmode-2: #B0CB7F;
-
-  /* ------------------ */
-
-  /* light mode */
-  --bg-lightmode-1: #eaeaea;
-  --bg-lightmode-2: #62ab18;
-  --bg-lightmode-3: #fff;
-  --strokes-icon: #62ab18;
-
-
-  /* Text Color */
-  --txtc-text-hover: hsl(54, 70%, 86%);
-}
-
-html {
-  font-size: 10px;
-  overflow-y: scroll;
-}
+@import url("variables.css");
 
 main {
   margin: 11.5rem auto 3rem;
+  max-width: 150rem;
   width: 80vw;
   min-height: 80vh;
   padding: 2rem;
-  border-radius: 2rem;
 }
+
+h1 {
+  font-size: var(--font-size-big);
+  color: var(--text-color-title);
+  font-weight: bold;
+  text-align: center;
+}
+
+svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/*INICIO DE ESTILOS DEL INICIO DE SESION Y REGISTRO*/
+.login-register-view,
+.config-address-view {
+  max-width: 60rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: var(--primary-background-color);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-form {
+  margin-top: 1rem;
+  font-size: var(--font-size-medium);
+}
+
+.account-form__button-login,
+.account-form__button-signup {
+  width: 100%;
+  padding: 1.3rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color-base);
+  cursor: pointer;
+  border-radius: .5rem;
+  transition: all .3s ease;
+}
+
+.account-form__button-login:hover,
+.account-form__button-signup:hover {
+  background-color: var(--text-color-hover-buttons);
+}
+
+.account-form__logs {
+  padding-bottom: 1.5rem;
+}
+
+.account-form__error {
+  color: var(--error-color);
+  padding: .3rem 0;
+  font-size: var(--font-size-small);
+}
+
+.account-form__forget-password,
+.account-form__register-link,
+.account-form__login-link {
+  display: block;
+  padding: .5rem 0 2.5rem;
+  text-align: center;
+  font-size: var(--font-size-small);
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.account-form__register-link,
+.account-form__login-link {
+  padding: 2rem;
+  color: initial;
+}
+
+.account-form__register-link a,
+.account-form__login-link a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider__line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--separators-color);
+}
+
+.divider__text {
+  padding: 0 1rem;
+  color: var(--text-color-body);
+  font-size: var(--font-size-small);
+}
+
+.oauth {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.oauth__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: var(--font-size-small);
+  padding: 1.3rem;
+  border: none;
+  color: var(--text-color-base);
+  border-radius: .5rem;
+  cursor: pointer;
+  margin: .5rem 0;
+  gap: 1rem;
+}
+
+.oauth__button--facebook {
+  background-color: #3B5998;
+}
+
+.oauth__button--google {
+  background-color: transparent;
+  border: solid .1rem var(--gray-color);
+  color: var(--gray-color);
+}
+
+/*FINAL DE ESTILOS DEL INICIO DE SESION Y REGISTRO*/
+
+
+
 
 .userProfile,
 .dashboard {
@@ -69,33 +158,11 @@ main {
   width: 85%;
 }
 
-/*ESTILOS DEL INICIO DE SESION Y REGISTRO*/
-.login-register-view,
-.config-address-view {
-  max-width: 600px;
-  margin: 5rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.h1 {
-  color: #62ab18;
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-.swal2-container,
-.swal2-popup {
-  font-size: 1.6rem !important;
-}
 
 
-.dark-mode .h1 {
-  color: #ebead6;
-}
+
+/* REGISTRO E INICIO DE SESION */
+
 
 @media (width <=768px) {
   main {
@@ -123,17 +190,4 @@ main {
   .loadComponent {
     width: 85%;
   }
-}
-
-
-/* DARK MODE */
-
-/* dark mode  login/register/addressconfig */
-.dark-mode .login-register-view,
-.dark-mode .config-address-view {
-  background-color: #3a5816;
-}
-
-.dark-mode {
-  background-color: var(--bg-darkmode-1);
 }

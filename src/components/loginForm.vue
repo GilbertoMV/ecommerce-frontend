@@ -1,26 +1,33 @@
 <template>
     <div>
-        <form @submit.prevent="signIn">
+        <form @submit.prevent="signIn" class="account-form">
             <formInput v-for="field in fields" :key="field.name" :type="field.type" :label="field.label"
                 :name="field.name" v-model="formData[field.name]" />
-            <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">email is required</div>
-            <div class="error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">email is invalid</div>
-            <div class="error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">password is required
+            <div class="account-form__logs">
+                <div class="account-form__error" v-if="!$v.formData.email.required && $v.formData.email.$dirty">email is
+                    required</div>
+                <div class="account-form__error" v-if="!$v.formData.email.email && $v.formData.email.$dirty">email is
+                    invalid</div>
+                <div class="account-form__error" v-if="!$v.formData.password.required && $v.formData.password.$dirty">
+                    password is required
+                </div>
             </div>
-            <router-link to="/userConfig/forgetPassword" class="forgetPass">Do you forget your password?</router-link>
-            <button class="login">Login</button>
-            <span class="register">Don't have an account? <router-link to="/sign-up">Signup</router-link></span>
+            <router-link to="/userConfig/forgetPassword" class="account-form__forget-password">Do you forget your
+                password?</router-link>
+            <button class="account-form__button-login">Login</button>
+            <span class="account-form__register-link">Don't have an account? <router-link
+                    to="/sign-up">Signup</router-link></span>
         </form>
         <div class="divider">
-            <div class="line"></div>
-            <div><span class="text">Or</span></div>
-            <div class="line"></div>
+            <div class="divider__line"></div>
+            <span class="divider__text">Or</span>
+            <div class="divider__line"></div>
         </div>
-        <div class="login-container">
-            <button class="login-btn facebook">
+        <div class="oauth">
+            <button class="oauth__button oauth__button--facebook">
                 <facebookIcon /> Login with Facebook
             </button>
-            <button class="login-btn google">
+            <button class="oauth__button oauth__button--google">
                 <googleIcon /> Login with Google
             </button>
         </div>
@@ -112,154 +119,4 @@ export default {
 }
 </script>
 
-<style scoped>
-form {
-    margin-top: 1rem;
-    font-size: 1.6rem;
-}
-
-.login {
-    width: 100%;
-    padding: 1.3rem;
-    background-color: #62ab18;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: .5rem;
-    transition: all .5s ease;
-}
-
-.login:hover {
-    background-color: #4a8b14;
-}
-
-.error {
-    color: rgba(255, 0, 0, 0.5);
-    padding: .3rem 0;
-    font-size: 1.5rem;
-}
-
-.forgetPass,
-.register {
-    display: block;
-    padding: .5rem 0 2.5rem;
-    text-align: center;
-    font-size: 1.4rem;
-    color: #4a8b14;
-    text-decoration: none;
-}
-
-.register {
-    padding: 2rem;
-    color: initial;
-}
-
-.register a {
-    color: #4a8b14;
-    text-decoration: none;
-
-}
-
-.divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.line {
-    flex-grow: 1;
-    height: 1px;
-    background-color: #ccc;
-}
-
-.text {
-    padding: 0 1rem;
-    color: #666;
-    font-size: 1.4rem;
-}
-
-.login-container {
-    width: 100%;
-    margin-top: 1rem;
-}
-
-.login-btn {
-    font-size: 1.4rem;
-    width: 100%;
-    padding: 1.3rem;
-    border: none;
-    color: white;
-    border-radius: .5rem;
-    cursor: pointer;
-    margin: .5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.facebook {
-    background-color: #3B5998;
-}
-
-.google {
-    background-color: transparent;
-    border: solid .1rem #666;
-    color: #666;
-}
-
-
-.dark-mode .login {
-    background-color: var(--bg-darkmode-4);
-    color: var(--txtc-darkmode-1);
-}
-
-.dark-mode .login:hover {
-    background-color: #4a8b14;
-}
-
-.dark-mode .forgetPass,
-.dark-mode .register a {
-    color: #B0CB7F;
-}
-
-.dark-mode .register,
-.dark-mode .text {
-    color: var(--txtc-darkmode-1);
-}
-
-.dark-mode .google {
-    border: solid .1rem var(--txtc-darkmode-1);
-    color: var(--txtc-darkmode-1);
-}
-
-.svg {
-    width: 1.6rem;
-    height: 1.6rem;
-}
-
-@media (width <=390px) {
-    button {
-
-        padding: 1rem;
-    }
-
-    .forgetPass,
-    .register {
-        padding: .5rem 0rem 1.5rem;
-        font-size: 1.2rem;
-    }
-
-    .register {
-        padding: 1rem;
-    }
-
-    .error {
-        text-align: center;
-        color: red;
-        font-size: 1rem;
-        padding: .3rem 0;
-    }
-
-}
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="login-register-view">
-            <h1 class="h1">SIGN UP</h1>
+            <h1>SIGN UP</h1>
             <RegisterForm />
         </div>
     </main>
