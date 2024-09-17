@@ -1,89 +1,99 @@
 <template>
-  <header class="navbarTop" :class="{ 'dark-mode': isDarkMode }">
-    <div class="logoContainer">
-      <router-link to="/">
-        <img src="@/assets/images/logo.webp" alt="logo">
-      </router-link>
-    </div>
-    <template v-if="isAuthenticated">
-      <searchComponent />
-      <!-- en lugar de los links se muestra un menu hamburguesa -->
-      <div class="menu">
-        <button class="hamburger hamburger--collapse" type="button" @click="hamburgerMenu">
-          <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-          </span>
-        </button>
+  <header class="navbartop">
+    <nav class="header">
+      <div class="header__logo-container">
+        <router-link to="/">
+          <img src="@/assets/images/logo.webp" alt="logo" class="header__logo">
+        </router-link>
       </div>
-      <!-- se muestran los links en telefonos -->
-      <ul class="menuResponsive">
-        <li @click="removeMenu"><router-link to="/user/profile">
-            <userIcon />
-            {{ username }}
-          </router-link></li>
-        <li><a @click="categoriesMenu">All Categories</a></li>
-        <li @click="removeMenu"><router-link to="/shopping-car">
-            <shoppingcarIcon /> Shopping Car
-          </router-link></li>
-        <li @click="removeMenu"><router-link to="/favorites">
-            <favoritesIcon /> Favorites
-          </router-link></li>
-        <li><a @click="handleLogout">
-            <logoutIcon /> Log Out
-          </a></li>
-      </ul>
-      <ul class="categoriesMenu">
-        <li @click="removeMenu" v-for="category in categories" :key="category.id_categoria"><router-link
-            :to="{ name: 'categoryPage', params: { categoryId: category.id_categoria } }">{{
-              category.nombre }}</router-link></li>
-      </ul>
-      <!-- se muestran los links en computadoras -->
-      <ul class="linksContainer">
-        <div class="dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
-          <span class="dropdown-button link">
-            <userIcon />
-            {{ username }}
-          </span>
-          <div class="dropdown-menu" :class="{ visible: isMenuVisible }" @mouseover="cancelHideMenu"
-            @mouseleave="scheduleHideMenu">
-            <router-link to="/user/my-orders" class="dropdown-item">
-              <ordersIcon /> My Orders
+      <template v-if="isAuthenticated">
+        <searchComponent />
+        <div class="header__menu">
+          <button class="header__hamburger hamburger hamburger--collapse" type="button" @click="hamburgerMenu">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
+        </div>
+        <ul class="header__menu-responsive">
+          <li @click="removeMenu">
+            <router-link to="/user/profile" class="header__menu-item">
+              <userIcon />
+              {{ username }}
             </router-link>
-            <router-link to="/user/rewards" class="dropdown-item">
-              <rewardsIcon /> Rewards
+          </li>
+          <li>
+            <a @click="categoriesMenu" class="header__menu-item">All Categories</a>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/shopping-car" class="header__menu-item">
+              <shoppingcarIcon /> Shopping Car
             </router-link>
-            <router-link to="/user/accessibility" class="dropdown-item">
-              <accessibilityIcon /> Accessibility
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/favorites" class="header__menu-item">
+              <favoritesIcon /> Favorites
             </router-link>
-            <a @click="handleLogout" class="dropdown-item">
+          </li>
+          <li>
+            <a @click="handleLogout" class="header__menu-item">
               <logoutIcon /> Log Out
             </a>
+          </li>
+        </ul>
+        <ul class="header__categories-menu">
+          <li @click="removeMenu" v-for="category in categories" :key="category.id_categoria">
+            <router-link :to="{ name: 'categoryPage', params: { categoryId: category.id_categoria } }">
+              {{ category.nombre }}
+            </router-link>
+          </li>
+        </ul>
+        <ul class="header__links-container">
+          <div class="header__dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
+            <span class="header__dropdown-button header__link">
+              <userIcon />
+              {{ username }}
+            </span>
+            <div class="header__dropdown-menu" :class="{ 'header__dropdown-menu--visible': isMenuVisible }"
+              @mouseover="cancelHideMenu" @mouseleave="scheduleHideMenu">
+              <router-link to="/user/my-orders" class="header__dropdown-item">
+                <ordersIcon /> My Orders
+              </router-link>
+              <router-link to="/user/rewards" class="header__dropdown-item">
+                <rewardsIcon /> Rewards
+              </router-link>
+              <router-link to="/user/accessibility" class="header__dropdown-item">
+                <accessibilityIcon /> Accessibility
+              </router-link>
+              <a @click="handleLogout" class="header__dropdown-item">
+                <logoutIcon /> Log Out
+              </a>
+            </div>
           </div>
+          <router-link to="/shopping-car" class="header__link">
+            <shoppingcarIcon /> Shopping Car
+          </router-link>
+          <router-link to="/favorites" class="header__link">
+            <favoritesIcon /> Favorites
+          </router-link>
+        </ul>
+      </template>
+      <template v-else>
+        <searchComponent />
+        <div class="header__session-container">
+          <router-link to="/shopping-car" class="header__link">
+            <shoppingcarIcon />
+            <p class="header__handle-text">Shopping car</p>
+          </router-link>
+          <router-link to="/favorites" class="header__link">
+            <favoritesIcon />
+            <p class="header__handle-text">Favorites</p>
+          </router-link>
+          <router-link to="/sign-in" class="header__link">Login</router-link>
+          <router-link to="/sign-up" class="header__link header__link--sign-up">Signup</router-link>
         </div>
-        <router-link to="/shopping-car" class="link">
-          <shoppingcarIcon /> Shopping Car
-        </router-link>
-        <router-link to="/favorites" class="link">
-          <favoritesIcon /> Favorites
-        </router-link>
-
-      </ul>
-    </template>
-    <template v-else>
-      <searchComponent />
-      <div class="sesionContainer">
-        <router-link to="/shopping-car" class="link">
-          <shoppingcarIcon />
-          <p class="handleText">Shopping car</p>
-        </router-link>
-        <router-link to="/favorites" class="link">
-          <favoritesIcon />
-          <p class="handleText">Favorites</p>
-        </router-link>
-        <router-link to="/sign-in" class="link">Login</router-link>
-        <router-link to="/sign-up" class="link sign-up">Signup</router-link>
-      </div>
-    </template>
+      </template>
+    </nav>
   </header>
 </template>
 
@@ -146,18 +156,19 @@ export default {
       this.logout();
     },
     hamburgerMenu() {
-      document.querySelector('.hamburger').classList.toggle('is-active')
-      document.querySelector('.menuResponsive').classList.toggle('is-active')
-      document.querySelector('.categoriesMenu').classList.remove('is-active')
+      document.querySelector('.header__hamburger').classList.toggle('is-active');
+      document.querySelector('.header__menu-responsive').classList.toggle('is-active');
+      document.querySelector('.header__categories-menu').classList.remove('is-active');
     },
     removeMenu() {
-      document.querySelector('.hamburger').classList.remove('is-active')
-      document.querySelector('.menuResponsive').classList.remove('is-active')
-      document.querySelector('.categoriesMenu').classList.remove('is-active')
+      document.querySelector('.header__hamburger').classList.remove('is-active');
+      document.querySelector('.header__menu-responsive').classList.remove('is-active');
+      document.querySelector('.header__categories-menu').classList.remove('is-active');
     },
     categoriesMenu() {
-      document.querySelector('.categoriesMenu').classList.toggle('is-active')
+      document.querySelector('.header__categories-menu').classList.toggle('is-active');
     },
+
     async fetchCategories() {
 
       try {
@@ -176,53 +187,56 @@ export default {
 </script>
 
 <style scoped>
-.navbarTop {
+.navbartop {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+  height: auto;
+  position: fixed;
+  top: 0;
+  z-index: 998;
+  border-bottom: .5rem solid var(--primary-color);
+  left: 0;
+}
+
+.header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  z-index: 998;
-  background-color: var(--bg-lightmode-3);
-  border-bottom: .5rem solid var(--bg-lightmode-2);
+  max-width: 150rem;
   height: 6rem;
   padding: .5rem 0;
   transition: all .5s ease;
 }
 
-.svg {
-  width: 1.8rem;
-  height: 1.8rem;
-}
-
-.logoContainer {
+.header__logo-container {
   width: auto;
   height: 100%;
 }
 
-.logoContainer img {
+.header__logo {
   margin: 0 auto;
   height: 100%;
 }
 
-.menu {
+.header__menu {
   -webkit-tap-highlight-color: transparent;
   width: auto;
   height: 100%;
   display: none;
 }
 
-.menuResponsive,
-.categoriesMenu {
+.header__menu-responsive,
+.header__categories-menu {
   display: none;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   position: fixed;
   z-index: 999;
-  background-color: var(--bg-lightmode-2);
+  background-color: var(--primary-color);
   top: 5rem;
   left: 0;
   right: 0;
@@ -231,27 +245,28 @@ export default {
   transition: all .3s ease;
 }
 
-.categoriesMenu {
+.header__categories-menu {
   transform: translateX(-100%);
 }
 
-.menuResponsive li a,
-.categoriesMenu li a {
+.header__menu-responsive li a,
+.header__categories-menu li a {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: .5rem;
-  color: #000;
+  color: var(--text-color-title);
   text-decoration: none;
   width: 100%;
   height: 100%;
 }
 
-.is-active {
+.header__menu-responsive.is-active,
+.header__categories-menu.is-active {
   transform: translateX(0);
 }
 
-.linksContainer {
+.header__links-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -260,11 +275,11 @@ export default {
   height: 100%;
 }
 
-.handleText {
+.header__handle-text {
   display: initial;
 }
 
-.sesionContainer {
+.header__session-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,46 +287,46 @@ export default {
   width: auto;
 }
 
-.navbarTop .link {
+.header__link {
   display: flex;
   align-items: center;
   gap: .5rem;
-  font-size: 1.6rem;
+  font-size: var(--font-size-medium);
   font-weight: 500;
   text-decoration: none;
-  color: #000000;
+  color: var(--text-color-title);
   text-transform: lowercase;
 }
 
-.sign-up {
+.header__link--sign-up {
   display: flex;
-  border: .2rem solid var(--bg-lightmode-2);
+  border: .2rem solid var(--primary-color);
   border-radius: 1rem;
   padding: 1rem;
-  color: #000;
+  color: var(--text-color-title);
   background: transparent;
   transition: background-color 0.3s, color 0.3s;
 }
 
-.sign-up:hover {
-  background-color: var(--bg-lightmode-2);
-  color: #fff;
+.header__link--sign-up:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color-title);
 }
 
-.dropdown {
+.header__dropdown {
   position: relative;
   display: flex;
   gap: .5rem;
 }
 
-.dropdown-button {
+.header__dropdown-button {
   cursor: pointer;
 }
 
-.dropdown-menu {
+.header__dropdown-menu {
   visibility: hidden;
   position: absolute;
-  background-color: white;
+  background-color: var(--primary-background-color);
   min-width: 20rem;
   box-shadow: 0rem .8rem 1.6rem 0rem rgba(0, 0, 0, 0.2);
   z-index: 998;
@@ -324,14 +339,13 @@ export default {
   border-radius: .7rem;
 }
 
-.dropdown-menu.visible {
+.header__dropdown-menu.header__dropdown-menu--visible {
   visibility: visible;
   transform: translateX(-50%) translateY(0);
   opacity: 1;
-
 }
 
-.dropdown-menu::before {
+.header__dropdown-menu::before {
   content: '';
   position: absolute;
   top: -1rem;
@@ -339,12 +353,12 @@ export default {
   transform: translateX(-50%);
   border-width: 0 1rem 1rem 1rem;
   border-style: solid;
-  border-color: transparent transparent white transparent;
+  border-color: transparent transparent var(--primary-background-color) transparent;
 }
 
-.dropdown-item {
-  font-size: 1.6rem;
-  color: #000;
+.header__dropdown-item {
+  font-size: var(--font-size-medium);
+  color: var(--text-color-title);
   padding: 1.2rem 1.6rem;
   text-decoration: none;
   display: flex;
@@ -354,62 +368,20 @@ export default {
   cursor: pointer;
 }
 
-.dropdown-item:hover {
-  background-color: #f1f1f1;
-}
-
-/*Dark Mode*/
-.dark-mode {
-  transition: all .3s ease;
-  border-bottom: .5rem solid var(--bg-darkmode-3)
-}
-
-.dark-mode,
-.dark-mode .dropdown-menu {
-  background-color: var(--bg-darkmode-2);
-}
-
-.dark-mode .dropdown-menu::before {
-  border-color: transparent transparent var(--bg-darkmode-2) transparent;
-}
-
-.dark-mode .dropdown-item:hover {
-  background-color: var(--bg-darkmode-4);
-}
-
-.dark-mode .link,
-.dark-mode .dropdown-item {
-  color: var(--txtc-darkmode-1);
-}
-
-.dark-mode .menuResponsive,
-.dark-mode .categoriesMenu {
-  background-color: var(--bg-darkmode-4);
-}
-
-.dark-mode .menuResponsive li a,
-.dark-mode .categoriesMenu li a {
-  color: var(--txtc-darkmode-1);
-}
-
-.dark-mode .sign-up {
-  border: solid .2rem var(--bg-darkmode-3);
-}
-
-.dark-mode .sign-up:hover {
-  background-color: var(--bg-darkmode-3);
+.header__dropdown-item:hover {
+  background-color: var(--background-hover-menus);
 }
 
 @media (width <=768px) {
 
-  .menuResponsive,
-  .categoriesMenu {
+  .header__menu-responsive,
+  .header__categories-menu {
     display: flex;
     top: 7rem;
   }
 
-  .menuResponsive li,
-  .categoriesMenu li {
+  .header__menu-responsive li,
+  .header__categories-menu li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -417,8 +389,7 @@ export default {
     font-size: 2.3rem;
   }
 
-
-  .linksContainer {
+  .header__links-container {
     display: none;
   }
 
@@ -427,84 +398,16 @@ export default {
     height: 2rem;
   }
 
-  .hamburger {
+  .header__hamburger {
     padding: .5rem;
   }
 
-  .menu {
+  .header__menu {
     display: inherit;
   }
 
-  .sign-up {
-    border-radius: 1rem;
-    padding: 1rem;
-    background-color: var(--bg-lightmode-2);
-    color: #fff !important;
-  }
-
-  .sesionContainer {
-    column-gap: 2rem;
-  }
-
-  .navbarTop .link {
-    font-size: 1.3rem;
-  }
-
-  .dark-mode .sign-up {
-    background-color: var(--bg-darkmode-3);
-  }
-}
-
-@media (width <=390px) {
-  .navbarTop {
-    height: 4rem;
-  }
-
-  .navbarTop .link {
-    font-size: 1.2rem;
-    padding: .7rem .7rem;
-  }
-
-  .svg {
-    width: 1.6rem;
-    height: 1.6rem;
-  }
-
-  .hamburger-inner,
-  .hamburger-inner::before,
-  .hamburger-inner::after {
-    width: 3rem;
-    height: .3rem;
-  }
-
-  .menuResponsive,
-  .categoriesMenu {
-    display: flex;
-    top: 5rem;
-    left: 0;
-  }
-
-  .menuResponsive li,
-  .categoriesMenu li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
-
-  .handleText {
+  .header__session-container {
     display: none;
-  }
-
-  .sign-up {
-    display: none !important;
-  }
-
-  .sesionContainer {
-    column-gap: 0rem;
   }
 }
 </style>

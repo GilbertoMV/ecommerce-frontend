@@ -1,23 +1,25 @@
 <template>
-    <div class="header" :class="{ 'dark-mode': isDarkMode }">
-        <div class="search_container">
-            <searchComponent />
-        </div>
-        <ul class="menu">
-            <li class="menu__item has-notification">
-                <bellIcon />
-                <span>Notifications</span>
-            </li>
-            <li class="menu__item">
-                <userIcon />
-                <span>{{ username }}</span>
-            </li>
-            <li class="menu__item" @click="toggleDarkMode">
-                <transition name="fade" mode="out-in">
-                    <component :is="currentModeIcon" />
-                </transition>
-            </li>
-        </ul>
+    <div class="header">
+        <nav class="items">
+            <div class="search_container">
+                <searchComponent />
+            </div>
+            <ul class="menu">
+                <li class="menu__item has-notification">
+                    <bellIcon />
+                    <span>Notifications</span>
+                </li>
+                <li class="menu__item">
+                    <userIcon />
+                    <span>{{ username }}</span>
+                </li>
+                <li class="menu__item" @click="toggleDarkMode">
+                    <transition name="fade" mode="out-in">
+                        <component :is="currentModeIcon" />
+                    </transition>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -53,11 +55,18 @@ export default {
 <style scoped>
 .header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     width: 100%;
     height: 6.5rem;
     padding: .5rem 0;
     background-color: #ffffff;
+}
+
+.items {
+    width: 100%;
+    display: flex;
+    max-width: 150rem;
+    justify-content: center;
 }
 
 .search_container {

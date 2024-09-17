@@ -61,7 +61,7 @@ export default {
 }
 
 .switch input:checked+.slider {
-    background-color: var(--bg-lightmode-2);
+    background-color: var(--primary-color);
 }
 
 .switch input:focus+.slider {
@@ -70,5 +70,11 @@ export default {
 
 .switch input:checked+.slider:before {
     transform: translateX(1.5em);
+}
+
+@media (width <=768px) {
+    .switch {
+        font-size: 1rem;
+    }
 }
 </style>

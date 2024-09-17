@@ -1,34 +1,33 @@
 <template>
-    <div class="container">
-        <div class="gridOptions">
-            <div class="row">
-                <div class="iconOption">
-                    <darkmodeIcon />
-                </div>
-                <div class="infoOption">
-                    <h2>Dark Mode</h2>
-                    <p>This setting improves readability and reduces eye fatigue during nighttime or prolonged use.
-                    </p>
-                </div>
-                <div class="optionsButton">
-                    <toggleComponent />
-                </div>
+    <div class="accessibility">
+        <div class="accessibility__row">
+            <div class="accessibility__icon">
+                <darkmodeIcon />
             </div>
-            <div class="row">
-                <div class="iconOption">
-                    <textsizeIcon />
-                </div>
-                <div class="infoOption">
-                    <h2>Text Size</h2>
-                    <p>This option is especially useful for visually impaired users.
-                    </p>
-                </div>
-                <div class="optionsButton">
-                </div>
+            <div class="accessibility__information">
+                <h2>Dark Mode</h2>
+                <p>This setting improves readability and reduces eye fatigue during nighttime or prolonged use.
+                </p>
+            </div>
+            <div class="accessibility__button">
+                <toggleComponent />
+            </div>
+        </div>
+        <div class="accessibility__row">
+            <div class="accessibility__icon">
+                <textsizeIcon />
+            </div>
+            <div class="accessibility__information">
+                <h2>Text Size</h2>
+                <p>This option is especially useful for visually impaired users.
+                </p>
+            </div>
+            <div class="accessibility__button">
             </div>
         </div>
 
     </div>
+
 </template>
 
 <script>
@@ -50,56 +49,48 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.accessibility {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding-top: 5rem;
-}
-
-.gridOptions {
-    display: grid;
-    grid-template-rows: repeat(2, 7rem);
-    width: 70%;
-    height: fit-content;
-    background-color: #fff;
+    flex-direction: column;
+    width: 85%;
+    max-width: 120rem;
+    margin-top: 5rem;
+    background-color: var(--primary-background-color);
     border-radius: 2rem;
 }
 
-.row {
+.accessibility__row {
     display: grid;
     grid-template-columns: 7% auto 10%;
-    padding: 1rem;
+    padding: 2rem 1rem;
     column-gap: 1rem;
-    border-bottom: solid .1rem #f2f2f2;
+    border-bottom: solid .1rem var(--separators-color);
 }
 
-.row:last-of-type {
+.accessibility__row:last-of-type {
     border-bottom: none;
 }
 
-.iconOption {
+.accessibility__icon {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.optionsButton {
+.accessibility__button {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 
 .svg {
     width: 4rem;
     height: 4rem;
-    fill: var(--bg-lightmode-2);
-    stroke: var(--bg-lightmode-2);
+    fill: var(--primary-color);
+    stroke: var(--primary-color);
 }
 
-.infoOption {
+.accessibility__information {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -107,54 +98,31 @@ export default {
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: var(--font-size-big);
     font-weight: 500;
+    padding: .5rem 0;
 }
 
 p {
-    font-size: 1.6rem;
+    font-size: var(--font-size-medium);
 }
 
-.dark-mode .gridOptions {
-    background-color: var(--bg-darkmode-3);
-}
-
-.dark-mode .svg {
-    fill: var(--txtc-darkmode-2);
-    stroke: var(--txtc-darkmode-2);
-}
-
-.dark-mode h2 {
-    color: var(--txtc-darkmode-1);
-}
-
-.dark-mode p {
-    color: var(--txtc-darkmode-2);
-}
-
-.dark-mode .row {
-    border-bottom: solid .1rem #7e7e7e;
-}
-
-.dark-mode .row:last-of-type {
-    border-bottom: unset;
-}
 
 @media (width <=768px) {
-    .row {
-        grid-template-columns: 10% auto 10%;
+    .accessibility__row {
+        grid-template-columns: 10% auto 12%;
     }
 
-    .gridOptions {
+    .accessibility {
         width: 90%;
     }
 
     h2 {
-        font-size: 1.7rem;
+        font-size: var(--font-size-medium);
     }
 
     p {
-        font-size: 1.3rem;
+        font-size: var(--font-size-small);
     }
 
     .switch {
@@ -164,16 +132,16 @@ p {
 }
 
 @media (width <=390px) {
-    .row {
+    .accessibility__row {
         grid-template-columns: 8% auto 13%;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: var(--font-size-small);
     }
 
     p {
-        font-size: 1.1rem;
+        font-size: var(--font-size-smallest);
     }
 
 }
