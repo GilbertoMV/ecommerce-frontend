@@ -1,7 +1,7 @@
 <template>
-    <div class="search-container" :class="{ 'dark-mode': isDarkMode }">
-        <input type="text" placeholder="Search..." class="search-input">
-        <button class="search-button">
+    <div class="search">
+        <input type="text" placeholder="Search..." class="search__input">
+        <button class="search__button">
             <searchIcon />
         </button>
     </div>
@@ -19,7 +19,7 @@ export default {
 }
 </script>
 <style scoped>
-.search-container {
+.search {
     display: flex;
     justify-content: center;
     border-radius: 1rem;
@@ -30,7 +30,7 @@ export default {
     padding: .2rem;
 }
 
-.search-input {
+.search__input {
     border: none;
     outline: none;
     padding: 0rem 1.5rem;
@@ -40,7 +40,7 @@ export default {
     background-color: transparent;
 }
 
-.search-button {
+.search__button {
     background-color: transparent;
     border: none;
     outline: none;
@@ -49,39 +49,24 @@ export default {
     border-radius: 0 1rem 1rem 0;
 }
 
-.svg {
+.search__icon {
     width: 2rem;
     height: 2rem;
 }
 
-/*Dark Mode*/
-.dark-mode {
-    transition: all .3s ease;
-    border-color: #ebead632;
-}
-
-.dark-mode .svg {
-    color: #ebead632;
-}
-
 @media (width <=768px) {
-
-    .search-container {
+    .search {
         width: 65%;
         height: 60%;
     }
 
-    .search-button {
+    .search__button {
         padding: 1rem 1.5rem;
     }
 }
 
 @media (width <=390px) {
-    .search-container {
-        height: 80%;
-    }
-
-    .search-input {
+    .search__input {
         font-size: 1.1rem;
     }
 }

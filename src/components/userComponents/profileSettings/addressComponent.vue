@@ -1,24 +1,23 @@
 <template>
-    <div class="container" :class="{ 'dark-mode': isDarkMode }">
-        <div class="configContainer">
-            <div>
-                <span>{{ addresses.length }} of 3 address</span>
-            </div>
-            <router-link to="/config-address" class="addAddressBtn" v-if="addresses.length < 3 && addresses.length > 0">
+    <div class="address">
+        <div class="address__information">
+            <span>{{ addresses.length }} of 3 address</span>
+            <router-link to="/config-address" class="address__add-button"
+                v-if="addresses.length < 3 && addresses.length > 0">
                 New Address</router-link>
         </div>
         <div v-if="addresses.length === 0">
             <p>No addresses available</p>
         </div>
-        <div class="gridOptions" v-for="address in addresses" :key="address.id">
-            <div class="row">
-                <div class="iconOption" v-if="address.tipo_direccion === 'Laboral'">
+        <div v-else class="address__grid" v-for="address in addresses" :key="address.id">
+            <div class="address__row">
+                <div class="address__icon" v-if="address.tipo_direccion === 'Laboral'">
                     <officeIcon />
                 </div>
-                <div class="iconOption" v-else>
+                <div class="address__icon" v-else>
                     <houseIcon />
                 </div>
-                <div class="infoOption">
+                <div class="address__info">
                     <h2>
                         {{ address.colonia }} {{ address.municipio }} {{ address.estado }}
                     </h2>
@@ -28,33 +27,19 @@
                         - {{ address.nombre_completo }} - {{ address.telefono_contacto }}
                     </p>
                 </div>
-                <div class="optionsButton" :ref="'menu-' + address.id_direccion">
-                    <div class="menu-container">
-                        <span class="menu-trigger" @click="toggleMenu(address.id_direccion)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-three-dots-vertical optionIcon"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                            </svg>
+                <div class="address__options" :ref="'menu-' + address.id_direccion">
+                    <div class="address__menu-container">
+                        <span class="address__menu-trigger" @click="toggleMenu(address.id_direccion)">
+                            <configIcon />
                         </span>
-                        <div v-if="address.id_direccion === openMenuId" class="menu-options">
+                        <div v-if="address.id_direccion === openMenuId" class="address__menu-options">
                             <ul>
                                 <router-link
                                     :to="{ name: 'editAddressPage', params: { addressId: address.id_direccion } }">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path
-                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                        <path fill-rule="evenodd"
-                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                    </svg>Edit address
+                                    <editIcon />Edit address
                                 </router-link>
                                 <li @click="deleteAddress(address.id_direccion)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-trash3" viewBox="0 0 16 16">
-                                        <path
-                                            d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                    </svg>Delete address
+                                    <trashIcon />Delete address
                                 </li>
                             </ul>
                         </div>
@@ -69,13 +54,19 @@
 import { mapGetters } from 'vuex';
 import apiClient from '../../../store/auth-vuex';
 import Swal from 'sweetalert2';
-const houseIcon = () => import('../../icons/houseIcon.vue');
-const officeIcon = () => import('../../icons/officeIcon.vue');
+import houseIcon from '../../icons/houseIcon.vue';
+import officeIcon from '../../icons/officeIcon.vue';
+import configIcon from '../../icons/configIcon.vue';
+import trashIcon from '../../icons/trashIcon.vue';
+import editIcon from '../../icons/editIcon.vue'
 export default {
     name: 'addressComponent',
     components: {
         houseIcon,
-        officeIcon
+        officeIcon,
+        configIcon,
+        trashIcon,
+        editIcon
     },
     computed: {
         ...mapGetters(['isDarkMode', 'idUser'])
@@ -134,7 +125,6 @@ export default {
             }
         },
         editAddress() {
-            console.log('manda la info a los inputs para editar la informacion');
             this.closeMenu()
         },
         async deleteAddress(id_direccion) {
@@ -183,30 +173,85 @@ export default {
 </script>
 
 <style scoped>
-.menu-container {
+.address {
+    display: flex;
+    flex-direction: column;
+    width: 100rem;
+    max-width: 120rem;
+    margin-top: 5rem;
+    border-radius: 2rem;
+}
+
+.address__information {
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address__add-button {
+    font-size: var(--font-size-medium);
+    padding: 1rem;
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--text-color-base);
+}
+
+.address__grid {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    width: 100%;
+    background-color: var(--primary-background-color);
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+}
+
+.address__row {
+    display: grid;
+    grid-template-columns: 7% auto 5%;
+    padding: 1rem;
+    column-gap: 1rem;
+    border-bottom: solid .1rem var(--separators-color);
+}
+
+.address__row:last-of-type {
+    border-bottom: none;
+}
+
+.address__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.address__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.address__options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.address__menu-container {
     position: relative;
     display: inline-block;
 }
 
-.menu-trigger {
+.address__menu-trigger {
     cursor: pointer;
 }
 
-.optionIcon {
-    border-radius: 50%;
-    padding: 1rem;
-    width: 2rem;
-    height: 2rem;
-    fill: var(--txtc-principal);
-}
-
-.optionIcon:hover {
-    background-color: rgba(131, 131, 131, 0.166);
-}
-
-.menu-options {
+.address__menu-options {
     position: absolute;
-    background-color: var(--bg-lightmode-3);
+    background-color: var(--primary-background-color);
     box-shadow: 0rem .2rem .5rem rgba(0, 0, 0, 0.3);
     width: 20rem;
     top: 4rem;
@@ -215,219 +260,82 @@ export default {
     border-radius: .7rem;
 }
 
-.menu-options ul {
+.address__menu-options ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.menu-options li,
-.menu-options a {
+.address__menu-options li,
+.address__menu-options a {
     display: flex;
     align-items: center;
     column-gap: 1rem;
-    font-size: 1.6rem;
+    font-size: var(--font-size-medium);
     padding: 1.2rem 1rem;
     cursor: pointer;
     border-radius: .7rem;
     transition: all .3s ease;
     text-decoration: none;
-    color: black
+    color: var(--black-color);
 }
 
-.menu-options li:last-child {
+.address__menu-options li:last-child {
     border-bottom: unset;
 }
 
-.menu-options li:last-child:hover {
-    color: #c10f0f;
+.address__menu-options li:last-child:hover {
+    color: var(--error-color);
 }
 
-.menu-options li:hover,
-.menu-options a:hover {
-    background-color: #f1f1f1;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding-top: 5rem;
-}
-
-.configContainer {
-    padding: 0rem 1rem 1rem 1rem;
-    width: 69%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: end;
-}
-
-.addAddressBtn {
-    font-size: 1.6rem;
-    padding: 1rem;
-    background-color: var(--bg-lightmode-2);
-    border-radius: 1rem;
-    text-decoration: none;
-    color: #ebead6;
-}
-
-.gridOptions {
-    display: grid;
-    grid-template-rows: repeat(1, 9rem);
-    width: 70%;
-    height: fit-content;
-    background-color: var(--txtc-blanco);
-    border-radius: 2rem;
-    margin-bottom: 1rem;
-
-    box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
-    -webkit-box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
-    -moz-box-shadow: 3px 4px 6px -1px rgba(166, 166, 166, 0.75);
-}
-
-.row {
-    display: grid;
-    grid-template-columns: 7% auto 5%;
-    padding: 1rem;
-    column-gap: 1rem;
-    border-bottom: solid .1rem #f2f2f2;
-}
-
-.row:last-of-type {
-    border-bottom: none;
-}
-
-.iconOption {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.optionsButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.optionIcon {
-    padding: 1rem;
-    width: 2rem;
-    height: 2rem;
-    fill: var(--txtc-principal);
+.address__menu-options li:hover,
+.address__menu-options a:hover {
+    background-color: var(--background-hover-menus);
 }
 
 .svg {
     width: 3rem;
     height: 3rem;
-    stroke: var(--strokes-icon);
-}
-
-.infoOption {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+    stroke: var(--primary-color);
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: var(--font-size-big);
     font-weight: 500;
     text-transform: capitalize;
 }
 
 p {
-    font-size: 1.6rem;
+    font-size: var(--font-size-medium);
     margin-top: 1rem;
-}
-
-.dark-mode .gridOptions {
-    background-color: var(--bg-darkmode-3);
-}
-
-.dark-mode .icon {
-    fill: var(--txtc-darkmode-2);
-}
-
-.dark-mode h2 {
-    color: var(--txtc-darkmode-1);
-}
-
-.dark-mode p {
-    color: var(--txtc-darkmode-2);
-}
-
-.dark-mode .row {
-    border-bottom: solid .1rem #7e7e7e;
-}
-
-.dark-mode .row:last-of-type {
-    border-bottom: unset;
-}
-
-.dark-mode span {
-    color: var(--txtc-darkmode-2);
-}
-
-.dark-mode .menu-options {
-    background-color: var(--bg-darkmode-3);
-}
-
-.dark-mode .menu-options li:hover,
-.dark-mode .menu-options a:hover {
-    background-color: var(--bg-darkmode-4);
-}
-
-.dark-mode .menu-options li,
-.dark-mode .menu-options a {
-    color: var(--txtc-darkmode-1);
+    text-transform: capitalize;
 }
 
 @media (width <=768px) {
-    .row {
-        grid-template-columns: 10% auto 10%;
-    }
-
-    .gridOptions {
+    .address {
         width: 90%;
     }
 
-    .configContainer {
-        width: 79%;
+    .address__row {
+        grid-template-columns: 10% auto 10%;
     }
 
+
     h2 {
-        font-size: 1.7rem;
+        font-size: var(--font-size-medium);
     }
 
     p {
-        font-size: 1.3rem;
+        font-size: var(--font-size-small);
         line-height: 1.8rem;
         margin-top: .5rem;
-    }
-
-    .dark-mode .menu-options li,
-    .menu-options li {
-        color: var(--txtc-error);
-    }
-
-    .switch {
-        font-size: unset;
     }
 
 }
 
 @media (width <=390px) {
-    .row {
+    .address__row {
         grid-template-columns: 8% auto 10%;
-    }
-
-    .gridOptions {
-        display: grid;
-        grid-template-rows: repeat(1, 8rem);
     }
 
     h2 {
@@ -438,22 +346,19 @@ p {
         font-size: 1.1rem;
     }
 
-    .addAddressBtn {
+    .address__add-button {
         font-size: 1.3rem;
         padding: .7rem;
     }
 
-    .menu-options {
+    .address__menu-options {
         width: 17rem;
     }
 
-    .menu-options li,
-    .menu-options a {
+    .address__menu-options li,
+    .address__menu-options a {
         font-size: 1.4rem;
     }
-
-
-
 
 }
 </style>

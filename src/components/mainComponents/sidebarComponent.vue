@@ -1,7 +1,7 @@
 <template>
-    <div class="sidebar" :class="{ 'dark-mode': isDarkMode }">
+    <div class="sidebar">
         <div class="profile">
-            <div class="eliminar">
+            <div class="photocontainer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                     stroke="#bebebe" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icons-tabler-outline icon-tabler-user">
@@ -18,7 +18,9 @@
                 <router-link v-if="!option.menu" :to="option.route" exact-active-class="is-active" class="item-click">
                     <div class="list__item">
                         <component :is="option.icon"></component>
-                        {{ option.label }}
+                        <span>
+                            {{ option.label }}
+                        </span>
                     </div>
                 </router-link>
 
@@ -113,7 +115,8 @@ export default {
 .sidebar {
     height: 100vh;
     width: 15%;
-    background-color: #fff;
+    max-width: 30rem;
+    background-color: var(--primary-background-color);
     -webkit-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
     -moz-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
     box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
@@ -122,9 +125,10 @@ export default {
 
 h2 {
     padding: 1.5rem 0;
-    font-size: 1.8rem;
+    font-size: var(--font-size-big);
     font-weight: 600;
     text-align: center;
+    text-transform: capitalize;
 }
 
 .list {
@@ -139,7 +143,7 @@ h2 {
     position: relative;
     column-gap: 1rem;
     cursor: pointer;
-    color: black;
+    color: var(--text-color-title);
     text-decoration: none;
 }
 
@@ -148,7 +152,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 2rem;
-    font-size: 1.6rem;
+    font-size: var(--font-size-medium);
     padding: 2rem;
     width: 100%;
     transition: all .1s;
@@ -164,10 +168,10 @@ h2 {
 
 .menu {
     margin-left: 5rem;
-    font-size: 1.3rem;
+    font-size: var(--font-size-small);
     max-height: 0;
     overflow: hidden;
-    border-left: solid .2rem var(--txtc-principal);
+    border-left: solid .2rem var(--primary-color);
     opacity: 0;
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
@@ -180,15 +184,12 @@ h2 {
 .menu_item {
     display: flex;
     padding: 1rem;
-    color: #5c5c5c;
+    color: var(--gray-color);
     cursor: pointer;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: var(--font-size-small);
 }
 
-.menu_item.is-active {
-    color: #62ab18;
-}
 
 .desplegableIcon {
     transition: transform 0.3s ease-in-out;
@@ -200,14 +201,11 @@ h2 {
 
 .item-click:hover,
 .menu_item:hover,
-.item-click.is-active {
-    color: #62ab18;
+.item-click.is-active,
+.menu_item.is-active {
+    color: var(--primary-color);
 }
 
-.svg {
-    width: 1.8rem;
-    height: 1.8rem;
-}
 
 .item-click::before {
     content: '';
@@ -222,7 +220,7 @@ h2 {
 
 .item-click:hover::before,
 .item-click.is-active::before {
-    background-color: #62ab18;
+    background-color: var(--primary-color);
 }
 
 .profile {
@@ -235,37 +233,15 @@ h2 {
     padding-top: 1rem;
 }
 
-.eliminar {
-    width: 10rem;
-    height: 10rem;
+.photocontainer {
+    width: auto;
+    height: auto;
+    max-width: 10rem;
+    max-height: 10rem;
     padding: 1rem;
     border-radius: 50%;
     background-color: #efeded;
 
-}
-
-.dark-mode {
-    transition: all .5s ease;
-    background-color: var(--bg-darkmode-2);
-    box-shadow: none;
-}
-
-.dark-mode h2 {
-    color: var(--txtc-darkmode-1);
-}
-
-.dark-mode .item-click {
-    color: var(--txtc-darkmode-2);
-}
-
-.dark-mode .item-click:hover,
-.dark-mode .item-click.is-active {
-    color: var(--txtc-darkmode-1);
-    background-color: #62ab182e;
-}
-
-.dark-mode .item:hover::before {
-    background-color: var(--txtc-darkmode-1);
 }
 
 @media (width <=768px) {
@@ -275,7 +251,7 @@ h2 {
 
     .items {
         margin-top: 3rem;
-        font-size: 1.5rem;
+        font-size: var(--font-size-small);
         row-gap: 1.5rem;
         align-items: center;
     }
@@ -284,14 +260,20 @@ h2 {
 @media (width <=390px) {
     .sidebar {
         width: 15%;
+        margin-top: 2rem;
     }
 
     .sidebar h2 {
         display: none;
     }
 
-    .item-click span {
+    span {
         display: none;
+    }
+
+    .photocontainer {
+        width: 2rem;
+        height: 2rem;
     }
 }
 </style>
