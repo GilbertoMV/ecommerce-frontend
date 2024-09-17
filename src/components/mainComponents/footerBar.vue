@@ -94,7 +94,7 @@ export default {
 
 .footer__link {
     color: var(--text-color-title);
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-small);
     text-decoration: none;
     transition: color .5s;
 }

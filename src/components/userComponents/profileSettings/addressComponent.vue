@@ -294,8 +294,8 @@ export default {
 }
 
 .svg {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     stroke: var(--primary-color);
 }
 
