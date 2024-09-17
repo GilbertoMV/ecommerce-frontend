@@ -37,7 +37,6 @@ const rewardsShopComponent = () => import('../views/mainViews/rewardsShopPage.vu
 
 // USER VIEWS
 const userProfilePage = () => import('../views/userViews/userProfilePage.vue')
-const profileComponent = () => import('../components/userComponents/profileSettings/profileComponent.vue')
 const myOrdersComponent = () => import('../components/userComponents/profileSettings/myOrdersComponent.vue')
 const rewardsComponent = () => import('../components/userComponents/rewardsComponent.vue')
 const addressComponent = () => import('../components/userComponents/profileSettings/addressComponent.vue')
@@ -68,9 +67,8 @@ const router = new Router({
     {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
     {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}},
     {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}, props:true},
-    {path: '/user', redirect: '/user/profile', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
+    {path: '/user', redirect: '/user/security', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
       children :[
-        {path: 'profile', name: 'profileComponent', component: profileComponent, meta: {title: 'Profile'}},
         {path: 'my-orders', name: 'myOrdersComponent', component: myOrdersComponent, meta: {title: 'My Orders'}},
         {path: 'rewards', name: 'rewardsComponent', component: rewardsComponent, meta: {title: 'My Rewards'}},
         {path: 'address', name: 'addressComponent', component: addressComponent, meta: {title: 'My Address'}},

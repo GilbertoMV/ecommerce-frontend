@@ -37,7 +37,8 @@ h1 {
 }
 
 .account-form__button-login,
-.account-form__button-signup {
+.account-form__button-signup,
+.form__button {
   width: 100%;
   padding: 1.3rem;
   background-color: var(--primary-color);

@@ -1,19 +1,19 @@
 <template>
     <div class="header">
-        <nav class="items">
-            <div class="search_container">
+        <nav class="header__nav">
+            <div class="header__search">
                 <searchComponent />
             </div>
-            <ul class="menu">
-                <li class="menu__item has-notification">
+            <ul class="header__options">
+                <li class="header__option header__option-notification">
                     <bellIcon />
                     <span>Notifications</span>
                 </li>
-                <li class="menu__item">
+                <li class="header__option">
                     <userIcon />
                     <span>{{ username }}</span>
                 </li>
-                <li class="menu__item" @click="toggleDarkMode">
+                <li class="header__option" @click="toggleDarkMode">
                     <transition name="fade" mode="out-in">
                         <component :is="currentModeIcon" />
                     </transition>
@@ -62,34 +62,35 @@ export default {
     background-color: #ffffff;
 }
 
-.items {
+.header__nav {
     width: 100%;
     display: flex;
     max-width: 150rem;
     justify-content: center;
 }
 
-.search_container {
+.header__search {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.search_container div {
+.header__search div {
     width: 60%;
 }
 
-.menu {
+.header__options {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
     height: 100%;
+    width: fit-content;
     padding: 0 2rem;
 }
 
-.menu__item {
+.header__option {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +105,7 @@ span {
     font-size: 1.6rem;
 }
 
-.menu__item.has-notification::after {
+.menu__item-notification::after {
     content: '';
     position: absolute;
     top: -0.3rem;
@@ -113,11 +114,6 @@ span {
     height: 0.8rem;
     background-color: red;
     border-radius: 50%;
-}
-
-.svg {
-    width: 1.8rem;
-    height: 1.8rem;
 }
 
 .rotate {
@@ -134,14 +130,5 @@ span {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-}
-
-.dark-mode {
-    background-color: var(--bg-darkmode-2);
-}
-
-.dark-mode .svg,
-.dark-mode span {
-    color: var(--txtc-darkmode-1);
 }
 </style>

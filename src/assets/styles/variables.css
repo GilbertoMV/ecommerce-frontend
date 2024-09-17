@@ -8,9 +8,7 @@
     /*Colores basicos*/
     --black-color: #000000;
     --white-color: #ffffff;
-    --error-color: #c10f0f;
     --gray-color: #666;
-    --separators-color: #cccccc;
 
     /* Colores de fondo para las paginas completas o componentes*/
     --primary-background-color: #ffffff;
@@ -21,6 +19,9 @@
     --primary-color: #62ab18;
     --secondary-color: #4a8b14;
     --tertiary-color: #d8f0c8;
+    --required-color: #ff000085;
+    --separators-color: #cccccc;
+    --error-color: #c10f0f;
 
     /*Colores de texto*/
     --text-color-title: #030136;
