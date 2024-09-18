@@ -59,7 +59,9 @@ export default {
     width: 100%;
     height: 6.5rem;
     padding: .5rem 0;
-    background-color: #ffffff;
+    background-color: var(--primary-background-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .header__nav {
@@ -88,6 +90,7 @@ export default {
     height: 100%;
     width: fit-content;
     padding: 0 2rem;
+    color: var(--text-color-title);
 }
 
 .header__option {

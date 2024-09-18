@@ -18,6 +18,9 @@ export default {
       }
       return mainLayout;
     }
+  },
+  methods: {
+
   }
 
 }

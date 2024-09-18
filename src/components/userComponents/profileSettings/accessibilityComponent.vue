@@ -57,6 +57,8 @@ export default {
     margin-top: 5rem;
     background-color: var(--primary-background-color);
     border-radius: 2rem;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
 }
 
 .accessibility__row {
@@ -101,10 +103,12 @@ h2 {
     font-size: var(--font-size-big);
     font-weight: 500;
     padding: .5rem 0;
+    color: var(--text-color-title);
 }
 
 p {
     font-size: var(--font-size-medium);
+    color: var(--text-color-body);
 }
 
 

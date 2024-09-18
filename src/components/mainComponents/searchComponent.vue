@@ -23,7 +23,7 @@ export default {
     display: flex;
     justify-content: center;
     border-radius: 1rem;
-    border: solid .2rem #ebebeb;
+    border: solid .1rem var(--border-color);
     align-items: center;
     width: 40%;
     height: 60%;
@@ -47,11 +47,7 @@ export default {
     padding: 1.3rem 1.8rem;
     cursor: pointer;
     border-radius: 0 1rem 1rem 0;
-}
-
-.search__icon {
-    width: 2rem;
-    height: 2rem;
+    color: var(--text-color-title);
 }
 
 @media (width <=768px) {

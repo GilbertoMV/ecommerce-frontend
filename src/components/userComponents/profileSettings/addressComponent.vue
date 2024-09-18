@@ -197,7 +197,7 @@ export default {
     background-color: var(--primary-color);
     border-radius: 1rem;
     text-decoration: none;
-    color: var(--text-color-base);
+    color: var(--text-color-title);
 }
 
 .address__grid {
@@ -277,7 +277,8 @@ export default {
     border-radius: .7rem;
     transition: all .3s ease;
     text-decoration: none;
-    color: var(--black-color);
+    color: var(--text-color-title);
+
 }
 
 .address__menu-options li:last-child {
@@ -303,12 +304,18 @@ h2 {
     font-size: var(--font-size-big);
     font-weight: 500;
     text-transform: capitalize;
+    color: var(--text-color-title);
 }
 
 p {
     font-size: var(--font-size-medium);
     margin-top: 1rem;
     text-transform: capitalize;
+    color: var(--text-color-body);
+}
+
+span {
+    color: var(--text-color-body);
 }
 
 @media (width <=768px) {
