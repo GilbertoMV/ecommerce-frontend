@@ -191,18 +191,19 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--primary-background-color);
   height: auto;
   position: fixed;
   top: 0;
   z-index: 998;
   border-bottom: .5rem solid var(--primary-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   left: 0;
 }
 
 .header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 150rem;
@@ -365,11 +366,16 @@ export default {
   align-items: center;
   gap: .5rem;
   border-radius: .7rem;
+  transition: all .3s ease;
   cursor: pointer;
 }
 
 .header__dropdown-item:hover {
   background-color: var(--background-hover-menus);
+}
+
+.header__dropdown-item:last-child:hover {
+  color: var(--error-color);
 }
 
 @media (width <=768px) {

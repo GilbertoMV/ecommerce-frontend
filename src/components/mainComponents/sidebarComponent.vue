@@ -94,7 +94,7 @@ export default {
         productIcon
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'username', 'paternalLastName'])
+        ...mapGetters(['username', 'paternalLastName'])
     },
     data() {
         return {
@@ -117,15 +117,19 @@ export default {
     width: 15%;
     max-width: 30rem;
     background-color: var(--primary-background-color);
-    -webkit-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
-    -moz-box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
-    box-shadow: 0px 0px 50px -30px rgb(150, 150, 150);
+    -webkit-box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
+    -moz-box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
+    box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
     z-index: 990;
+    padding-top: 1rem;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
 }
 
 h2 {
     padding: 1.5rem 0;
     font-size: var(--font-size-big);
+    color: var(--text-color-title);
     font-weight: 600;
     text-align: center;
     text-transform: capitalize;

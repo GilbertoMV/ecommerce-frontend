@@ -61,4 +61,8 @@ export default {
     }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.loadComponent {
+    padding: 0;
+}
+</style>

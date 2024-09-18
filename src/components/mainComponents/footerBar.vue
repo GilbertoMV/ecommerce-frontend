@@ -1,11 +1,11 @@
 <template>
     <footer class="footer">
         <div class="footer__top">
-            <button @click="scrollToTop" class="footer__scroll-to-top">
+            <span @click="scrollToTop" class="footer__scroll-to-top">
                 <uparrowIcon />
-            </button>
+            </span>
         </div>
-        <div>
+        <div class="footer__menu">
             <nav class="footer__nav">
                 <router-link to="/" class="footer__link">About us</router-link>
                 <router-link to="/" class="footer__link">Terms and conditions</router-link>
@@ -72,6 +72,7 @@ export default {
     position: absolute;
     top: -2rem;
     left: 50%;
+    color: var(--text-color-title);
     transform: translateX(-50%);
 }
 
@@ -87,9 +88,17 @@ export default {
     justify-content: center;
 }
 
+.footer__menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .footer__nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 150rem;
 }
 
 .footer__link {

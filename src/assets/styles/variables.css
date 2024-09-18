@@ -12,7 +12,7 @@
 
     /* Colores de fondo para las paginas completas o componentes*/
     --primary-background-color: #ffffff;
-    --secondary-background-color: #eaeaea;
+    --secondary-background-color: #f0f2f5;
     --background-hover-menus: #f1f1f1;
 
     /* Colores de fondo para botones, componentes pequeños e inputs*/
@@ -29,6 +29,8 @@
     --text-color-hover-options: #ebead6;
     --text-color-hover-buttons: #4a8b14;
     --text-color-base: #ffffff;
+    --box-shadow-color: #969696;
+    --border-color: #ebead6;
 
     /*Fuentes de texto*/
     --font-family: "Poppins";
@@ -41,11 +43,26 @@
 }
 
 .dark-mode {
-    --main-color: #1083D6;
-    --title-color: #2A3B47;
-    --text-color: #697477;
-    --light-text-color: #A0A7AC;
-    --body-color: #FBFBFE;
+    --primary-background-color: #202020;
+    --secondary-background-color: #191919;
+    --background-hover-menus: #2c2c2c;
+
+    /* Colores de fondo para botones, componentes pequeños e inputs*/
+    --primary-color: #446622;
+    --secondary-color: #4b7727;
+    --tertiary-color: #d8edca;
+    --required-color: #ff000085;
+    --separators-color: #373737;
+    --error-color: #c10f0f;
+    --box-shadow-color: none;
+    --border-color: #ebead63a;
+
+    /*Colores de texto*/
+    --text-color-title: #d4d4d4;
+    --text-color-body: #d0c3c3df;
+    --text-color-hover-options: #ebead6;
+    --text-color-hover-buttons: #4a8b14;
+    --text-color-base: #000000;
 }
 
 .swal2-container,
