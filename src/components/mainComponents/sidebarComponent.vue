@@ -113,13 +113,12 @@ export default {
 </script>
 <style scoped>
 .sidebar {
-    height: 100vh;
     width: 15%;
     max-width: 30rem;
     background-color: var(--primary-background-color);
-    -webkit-box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
-    -moz-box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
-    box-shadow: 0px 0px 50px -30px var(--box-shadow-color);
+    -webkit-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
+    -moz-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
+    box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
     z-index: 990;
     padding-top: 1rem;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -187,8 +186,9 @@ h2 {
 
 .menu_item {
     display: flex;
+    margin: 1rem;
     padding: 1rem;
-    color: var(--gray-color);
+    color: var(--help-color);
     cursor: pointer;
     text-decoration: none;
     font-size: var(--font-size-small);
@@ -208,6 +208,12 @@ h2 {
 .item-click.is-active,
 .menu_item.is-active {
     color: var(--primary-color);
+}
+
+.menu_item.is-active {
+    color: var(--primary-color);
+    background-color: var(--option-hover-color);
+    border-radius: 1rem;
 }
 
 
@@ -244,7 +250,7 @@ h2 {
     max-height: 10rem;
     padding: 1rem;
     border-radius: 50%;
-    background-color: #efeded;
+    background-color: var(--option-hover-color);
 
 }
 

@@ -61,6 +61,7 @@ export default {
     padding: .5rem 0;
     background-color: var(--primary-background-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0px 4px 24px 0px var(--box-shadow-color);
 
 }
 
@@ -106,6 +107,7 @@ export default {
 
 span {
     font-size: 1.6rem;
+    text-transform: capitalize;
 }
 
 .menu__item-notification::after {

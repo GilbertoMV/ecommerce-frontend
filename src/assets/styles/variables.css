@@ -20,8 +20,10 @@
     --secondary-color: #4a8b14;
     --tertiary-color: #d8f0c8;
     --required-color: #ff000085;
-    --separators-color: #cccccc;
+    --separators-color: #ffffff42;
     --error-color: #c10f0f;
+    --help-color: #95989D;
+    --option-hover-color: #62ab1828;
 
     /*Colores de texto*/
     --text-color-title: #030136;
@@ -29,7 +31,7 @@
     --text-color-hover-options: #ebead6;
     --text-color-hover-buttons: #4a8b14;
     --text-color-base: #ffffff;
-    --box-shadow-color: #969696;
+    --box-shadow-color: rgba(20, 25, 38, 0.05);
     --border-color: #ebead6;
 
     /*Fuentes de texto*/
@@ -54,8 +56,11 @@
     --required-color: #ff000085;
     --separators-color: #373737;
     --error-color: #c10f0f;
-    --box-shadow-color: none;
+    --box-shadow-color: rgba(20, 25, 38, 0.05);
     --border-color: #ebead63a;
+    --option-hover-color: #44662228;
+
+
 
     /*Colores de texto*/
     --text-color-title: #d4d4d4;
