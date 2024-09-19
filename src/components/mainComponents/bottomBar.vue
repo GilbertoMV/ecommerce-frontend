@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <nav>
     <div class="header__navbar">
       <ul class="header__nav-list">
         <li class="header__nav-item"><router-link to="/outlet" active-class="active">Outlet</router-link></li>
@@ -25,7 +25,7 @@
         </li>
       </ul>
     </div>
-  </header>
+  </nav>
 </template>
 <script>
 import apiClient from '../../store/auth-vuex';
