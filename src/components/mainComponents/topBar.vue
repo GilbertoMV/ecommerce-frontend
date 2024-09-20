@@ -296,7 +296,7 @@ export default {
   font-weight: 500;
   text-decoration: none;
   color: var(--text-color-title);
-  text-transform: lowercase;
+  text-transform: capitalize;
 }
 
 .header__link--sign-up {

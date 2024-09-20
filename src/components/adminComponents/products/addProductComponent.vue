@@ -14,16 +14,9 @@
                     Category <span class="form__required">*</span>
                 </label>
                 <select name="categories" id="categories" class="form__select">
-                    <option value="option1">option 1</option>
-                    <option value="option2">option 2</option>
-                    <option value="option3">option 3</option>
-                    <option value="option4">option 4</option>
-                    <option value="option5">option 5</option>
-                    <option value="option6">option 6</option>
-                    <option value="option7">option 7</option>
-                    <option value="option8">option 8</option>
-                    <option value="option9">option 9</option>
-                    <option value="option10">option 10</option>
+                    <option value=""> Select a category</option>
+                    <option v-for="category in categories" :key="category.id_categoria" :value="category.id_categoria">
+                        {{ category.nombre }}</option>
                 </select>
                 <div class="form__column--inline">
                     <div class="form__column-block">
@@ -134,12 +127,22 @@
     </div>
 </template>
 <script>
+import { fetchCategoryData } from '../../../utils/apiUtils';
 import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue'
 export default {
+    name: 'addProduct',
     components: {
         plusIcon,
         uploadImageIcon
+    },
+    data() {
+        return {
+            categories: []
+        }
+    },
+    async created() {
+        this.categories = await fetchCategoryData();
     }
 }
 </script>

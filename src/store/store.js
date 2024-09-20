@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
-import apiClient from './auth-vuex.js';
+import {fetchUserData} from '../utils/apiUtils';
 
 Vue.use(Vuex);
 let loadingTimer = null;
@@ -40,8 +40,8 @@ export default new Vuex.Store({
     },
     async fetchAndSetUserData({ commit }) {
       try {
-        const response = await apiClient.get('/users/me');
-          commit('setUser', response.data);
+        const userData = await fetchUserData();
+          commit('setUser', userData);
           commit('setAuthentication', true);
       } catch(error) {
           console.error('Error fetching user data:', error);
@@ -60,14 +60,14 @@ export default new Vuex.Store({
       }
     },
     logout({ commit }) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('token'); 
+      sessionStorage.removeItem('userData');
       commit('setUser', null);
       commit('setAuthentication', false);
       router.push('/sign-in');
     },
     toggleDarkMode({ commit, state }) {
       commit('setDarkMode', !state.darkMode);
-
     }
   },
   getters: {
