@@ -8,7 +8,7 @@ const dashboardComponent = () => import('../components/adminComponents/dashboard
 //User
 const userComponent = () => import('../components/adminComponents/users/userComponent.vue')
 //Product
-const addproductComponent = () => import('../components/adminComponents/products/addProductoComponent.vue')
+const addproductComponent = () => import('../components/adminComponents/products/addProductComponent.vue')
 const catalogProductsComponent = () => import('../components/adminComponents/products/catalogProductsComponent.vue')
 const productDetailsComponent = () => import('../components/adminComponents/products/productDetailsComponent.vue')
 //Categories

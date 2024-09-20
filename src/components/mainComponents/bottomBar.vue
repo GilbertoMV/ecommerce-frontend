@@ -28,7 +28,7 @@
   </nav>
 </template>
 <script>
-import apiClient from '../../store/auth-vuex';
+import { fetchCategoryData } from '../../utils/apiUtils.js'
 import { mapGetters } from 'vuex';
 export default {
   name: 'NavBar',
@@ -61,21 +61,21 @@ export default {
         this.hideMenuTimeout = null;
       }
     },
-    async fetchCategories() {
-      this.$store.dispatch('setLoading', true)
-      try {
-        const response = await apiClient.get("/categories");
-        this.categories = response.data;
-      } catch (err) {
-        console.error(err);
-      } finally {
-        this.$store.dispatch('setLoading', false)
-      }
-    }
+    // async fetchCategories() {
+    //   this.$store.dispatch('setLoading', true)
+    //   try {
+    //     const response = await fetchCategoryData();
+    //     this.categories = response.data;
+    //   } catch (err) {
+    //     console.error(err);
+    //   } finally {
+    //     this.$store.dispatch('setLoading', false)
+    //   }
+    // }
   },
-  created() {
+  async created() {
     this.isMenuVisible = false;
-    this.fetchCategories();
+    this.categories = await fetchCategoryData();
   },
   beforeDestroy() {
     if (this.hideMenuTimeout) {
@@ -175,7 +175,7 @@ export default {
   transform: translateX(-50%);
   border-width: 0 1rem 1rem 1rem;
   border-style: solid;
-  border-color: transparent transparent var(--white-color) transparent;
+  border-color: transparent transparent var(--primary-background-color) transparent;
   z-index: 2;
   opacity: 0;
   visibility: hidden;
