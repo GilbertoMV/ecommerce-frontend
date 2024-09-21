@@ -21,6 +21,7 @@
     "sweetalert2": "^11.11.0",
     "vue": "^2.6.14",
     "vue-router": "^3.6.5",
+    "vue-select": "^3.20.3",
     "vuelidate": "^0.7.7",
     "vuex": "^3.6.2"
   },

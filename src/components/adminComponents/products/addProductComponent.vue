@@ -1,64 +1,53 @@
 <template>
     <div class="addProducto">
         <h1 class="addProducto___title">Add Product</h1>
-        <form action="#" class="form">
+        <form @submit.prevent="submitForm" class="form">
             <fieldset class="form__column">
                 <h2 class="form__subtitle">Product Details</h2>
                 <label for="product_name" class="form__label">
                     Product Name <span class="form__required">*</span></label>
                 <input type="text" id="product_name" name="producto_name" placeholder="Enter product name"
-                    class="form__input">
+                    class="form__input" maxlength="50" minlength="10" required>
                 <span class="form__input-helps">Do not exceed 50 characters when entering the product name.
                 </span>
                 <label for="categories" class="form__label">
                     Category <span class="form__required">*</span>
                 </label>
-                <select name="categories" id="categories" class="form__select">
-                    <option value=""> Select a category</option>
+                <select name="categories" id="categories" class="form__select" required>
+                    <option value="" selected disabled> Select a category</option>
                     <option v-for="category in categories" :key="category.id_categoria" :value="category.id_categoria">
                         {{ category.nombre }}</option>
                 </select>
                 <div class="form__column--inline">
                     <div class="form__column-block">
                         <label for="sizes" class="form__label">
-                            Sizes <span class="form__input-helps toggle">disabled</span>
+                            Sizes <span @click="toggleDisable('sizes')" class="form__input-helps toggle"
+                                id="sizes_toggle">
+                                {{ sizesDisabled ? 'enable' : 'disable' }}
+                            </span>
                         </label>
-                        <select name="sizes" id="sizes" class="form__select" disabled>
-                            <option value="option1">option 1</option>
-                            <option value="option2">option 2</option>
-                            <option value="option3">option 3</option>
-                            <option value="option4">option 4</option>
-                            <option value="option5">option 5</option>
-                            <option value="option6">option 6</option>
-                            <option value="option7">option 7</option>
-                            <option value="option8">option 8</option>
-                            <option value="option9">option 9</option>
-                            <option value="option10">option 10</option>
-                        </select>
+                        <VueSelect :options="sizesOptions" v-model="selectedSizes" :disabled="sizesDisabled"
+                            :multiple="true" id="sizes" name="sizes" required>
+                        </VueSelect>
                     </div>
                     <div class="form__column-block">
-                        <label for=" sizes" class="form__label">
-                            Sizes <span class="form__input-helps toggle">disabled</span>
+                        <label for="colors" class="form__label">
+                            Colors <span @click="toggleDisable('colors')" class="form__input-helps toggle"
+                                id="colors_toggle">
+                                {{ colorsDisabled ? 'enable' : 'disable' }}
+                            </span>
                         </label>
-                        <select name="colors" id="colors" class="form__select" disabled>
-                            <option value="option1">option 1</option>
-                            <option value="option2">option 2</option>
-                            <option value="option3">option 3</option>
-                            <option value="option4">option 4</option>
-                            <option value="option5">option 5</option>
-                            <option value="option6">option 6</option>
-                            <option value="option7">option 7</option>
-                            <option value="option8">option 8</option>
-                            <option value="option9">option 9</option>
-                            <option value="option10">option 10</option>
-                        </select>
+                        <VueSelect :options="colorOptions" v-model="selectedColors" :disabled="colorsDisabled"
+                            :multiple="true" id="colors" name="colors" required>
+                        </VueSelect>
                     </div>
                 </div>
                 <label for="description" class="form__label">
                     Description <span class="form__required">*</span>
                 </label>
                 <textarea name="description" id="description" cols="30" rows="12"
-                    placeholder="Enter product description" class="form__textarea"></textarea>
+                    placeholder="Enter product description" class="form__textarea" maxlength="100" minlength="30"
+                    required></textarea>
                 <span class="form__input-helps">Do not exceed 100 characters when entering the product description.
                 </span>
             </fieldset>
@@ -66,19 +55,21 @@
                 <h2 class="form__subtitle">Product Extras</h2>
                 <h3 class="form__label">Upload Images</h3>
                 <div class="form__images">
-                    <div class="form__image"></div>
-                    <div class="form__image"></div>
-                    <!-- <div class="form__image"></div> -->
-                    <!-- <div class="form__image"></div> -->
-                    <!-- <div class="form__image"></div> -->
-                    <div class="form__image form__image--border">
+                    <!--Aqui se muestra la preview de la imagen-->
+                    <div class="form__image" v-for="(image, index) in previewImages" :key="index">
+                        <img :src="image.url" :alt="'Imagen ' + index" />
+                        <div class="form__image-wrapper" @click="removeImage(index)">
+                            <trashIcon />
+                        </div>
+                    </div>
+                    <div class="form__image form__image--border" v-if="previewImages.length < 6">
                         <label for="upload_images" class="form__label--file">
                             <uploadImageIcon />
                             <span class="form__upload-text">Drop your images here or select <span
                                     class="form__upload-text--bold">click to browse</span></span>
                         </label>
-                        <input type="file" id="upload_images" name="upload_images" accept="/images/*"
-                            class="form__input form__input--file">
+                        <input type="file" accept="/images/*" multiple id="upload_images" name="upload_images"
+                            class="form__input form__input--file" @change="handleImageSelect" required>
                     </div>
                 </div>
                 <span class="form__input-helps">You need to add at least 4 images. Pay attention to the quality of the
@@ -91,23 +82,23 @@
                             Price <span class="form__required">*</span>
                         </label>
                         <input type="number" id="price" name="price" placeholder="Enter product price"
-                            class="form__input">
+                            class="form__input" step="1" min="1" required>
                     </div>
                     <div class="form__column-block">
                         <label for="carbon_footprint" class="form__label">
                             Carbon Footprint <span class="form__required">*</span>
                         </label>
                         <input type="number" id="carbon_footprint" name="carbon_footprint"
-                            placeholder="Enter carbon footprint" class="form__input">
+                            placeholder="Enter carbon footprint" class="form__input" step="1" min="1" required>
                     </div>
                 </div>
                 <div class="form__column--inline">
                     <div class="form__column-block">
-                        <label for="stoke" class="form__label">
-                            Stoke <span class="form__required">*</span>
+                        <label for="stock" class="form__label">
+                            Stock <span class="form__required">*</span>
                         </label>
-                        <input type="number" id="stoke" name="stoke" placeholder="Enter product stoke"
-                            class="form__input">
+                        <input type="number" id="stock" name="stock" placeholder="Enter product stock"
+                            class="form__input" step="1" min="1" max="999">
                     </div>
                     <div class="form__column-block">
                         <label for="reward_points" class="form__label">
@@ -128,18 +119,97 @@
 </template>
 <script>
 import { fetchCategoryData } from '../../../utils/apiUtils';
+import VueSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+//import { required, minLength } from 'vuelidate/lib/validators';
+import Swal from 'sweetalert2';
 import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue'
+import trashIcon from '../../icons/trashIcon.vue';
 export default {
     name: 'addProduct',
     components: {
         plusIcon,
-        uploadImageIcon
+        uploadImageIcon,
+        trashIcon,
+        VueSelect
     },
     data() {
         return {
-            categories: []
+            sizesDisabled: false,
+            colorsDisabled: false,
+            categories: [], //Array de las categorias
+            selectedColors: [], //Array de los colores seleccionados
+            selectedSizes: [],
+            sizesOptions: [
+                { value: 's', label: 'Pequeño' },
+                { value: 'm', label: 'Mediano' },
+                { value: 'l', label: 'Grande' },
+                { value: 'xl', label: 'Extra Grande' }
+            ],
+            colorOptions: [
+                { value: 'red', label: 'Rojo' },
+                { value: 'green', label: 'Verde' },
+                { value: 'blue', label: 'Azul' },
+                { value: 'yellow', label: 'Amarillo' },
+                { value: 'black', label: 'Negro' }
+            ],
+            selectedImages: [], //Array de los archivos de imagen,
+            previewImages: [], //Array de las urls temporales de previsualizacion
+            formData: {
+                id_category: '',
+                name: '',
+                features: '',
+                description: '',
+                price: '',
+                stock: '',
+                carbon_footprint: '',
+                rewards_points: ''
+            }
         }
+    },
+    methods: {
+        toggleDisable(type) {
+            if (type === 'sizes') {
+                this.sizesDisabled = !this.sizesDisabled; // Cambiar estado de tamaños
+            } else if (type === 'colors') {
+                this.colorsDisabled = !this.colorsDisabled; // Cambiar estado de colores
+            }
+        },
+        handleImageSelect(event) {
+            const files = Array.from(event.target.files);
+
+            //verificamos cuantas imagenes hay seleccionadas
+            if (this.selectedImages.length + files.length > 6) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "You can upload a maximum of 6 images.",
+                    width: 'auto',
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                return;
+            }
+            //Añadimos las nuevas imagenes al array
+            files.forEach(file => {
+                if (this.selectedImages.length < 6) {
+                    this.selectedImages.push(file);
+                    this.previewImages.push({
+                        url: URL.createObjectURL(file) //Generamos la url temporal para la visualizacion
+                    });
+                }
+            });
+        },
+        removeImage(index) {
+            //Eliminamos la imagen del array de imágenes seleccionada
+            this.selectedImages.splice(index, 1);
+            //Eliminamos la URL de previsualizacion
+            this.previewImages.splice(index, 1);
+        },
+
     },
     async created() {
         this.categories = await fetchCategoryData();
@@ -248,6 +318,7 @@ export default {
     border-color: var(--text-color-body);
 }
 
+
 .form__textarea {
     resize: vertical;
     max-height: 30rem;
@@ -275,10 +346,46 @@ export default {
 }
 
 .form__image {
-    width: 31%;
+    position: relative;
+    width: calc(31% - 2rem);
     height: 17rem;
     border: solid .1rem var(--border-color);
     border-radius: .7rem;
+    overflow: hidden;
+    padding: 1rem;
+    transition: all .3s ease-in-out;
+}
+
+.form__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.form__image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: #00000058;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+.form__image-wrapper svg {
+    width: 5rem;
+    height: 5rem;
+    color: var(--required-color)
+}
+
+.form__image-wrapper:hover {
+    opacity: 1;
 }
 
 .form__image--border {
