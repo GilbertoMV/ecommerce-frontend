@@ -61,17 +61,6 @@ export default {
         this.hideMenuTimeout = null;
       }
     },
-    // async fetchCategories() {
-    //   this.$store.dispatch('setLoading', true)
-    //   try {
-    //     const response = await fetchCategoryData();
-    //     this.categories = response.data;
-    //   } catch (err) {
-    //     console.error(err);
-    //   } finally {
-    //     this.$store.dispatch('setLoading', false)
-    //   }
-    // }
   },
   async created() {
     this.isMenuVisible = false;
