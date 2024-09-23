@@ -5,71 +5,6 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#sizes .vs__dropdown-toggle,
-#colors .vs__dropdown-toggle {
-  border: solid .1rem var(--border-color);
-  padding: 1rem;
-  border-radius: .7rem;
-  background: none;
-}
-
-/* Estilos para el menú desplegable */
-#sizes .vs__dropdown-menu,
-#colors .vs__dropdown-menu {
-  font-size: var(--font-size-small);
-  /* Personaliza el menú desplegable */
-}
-
-#sizes .vs__selected,
-#colors .vs__selected {
-  background-color: var(--option-hover-color);
-  font-size: var(--font-size-small);
-  margin: 0;
-}
-
-#sizes .vs__selected-options,
-#colors .vs__selected-options {
-  gap: .5rem;
-}
-
-#sizes .vs__dropdown-menu,
-#colors .vs__dropdown-menu {
-  margin-top: .5rem;
-  background-color: #fff;
-  padding: 0;
-  border-radius: 4px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-/* Estilos para las opciones individuales */
-#sizes .vs__dropdown-menu .vs__dropdown-option,
-#colors .vs__dropdown-menu .vs__dropdown-option {
-  padding: 10px;
-  /* Espaciado interno */
-  color: var(--text-color-body);
-  /* Color del texto */
-  cursor: pointer;
-  padding: .5rem 1.5rem;
-  /* Cambia el cursor al pasar por encima */
-}
-
-/* Estilo al pasar el ratón sobre una opción */
-#sizes .vs__dropdown-menu .vs__dropdown-option:hover,
-#colors .vs__dropdown-menu .vs__dropdown-option:hover {
-  background-color: #e0e0e0;
-  /* Fondo al pasar el ratón */
-}
-
-/* Estilo para las opciones seleccionadas */
-#sizes .vs__dropdown-menu .vs__dropdown-option.vs--selected,
-#colors .vs__dropdown-menu .vs__dropdown-option.vs--selected {
-  background-color: #d0f0c0;
-  /* Fondo para opciones seleccionadas */
-  font-weight: bold;
-  /* Texto en negrita */
-}
-
 main {
   margin: 11rem auto;
   max-width: 150rem;
@@ -232,7 +167,95 @@ h1 {
   padding-top: 1rem;
 }
 
+/* INICIO PARA ESTILOS DE VUE SELECT */
 
+#sizes .vs__dropdown-toggle,
+#colors .vs__dropdown-toggle {
+  border: solid .1rem var(--border-color);
+  padding: 1rem;
+  border-radius: .7rem;
+  background: none;
+}
+
+#sizes .vs__deselect,
+#colors .vs__deselect {
+  fill: var(--primary-color);
+}
+
+#sizes .vs__open-indicator,
+#colors .vs__open-indicator {
+  fill: var(--text-color-body);
+}
+
+#sizes .vs__dropdown-menu,
+#colors .vs__dropdown-menu {
+  font-size: var(--font-size-small);
+}
+
+#sizes .vs__selected,
+#colors .vs__selected {
+  background-color: transparent;
+  font-size: var(--font-size-small);
+  margin: 0;
+  color: var(--text-color-body);
+  border: none;
+}
+
+#sizes .vs__selected-options,
+#colors .vs__selected-options {
+  gap: .5rem;
+}
+
+#sizes .vs__dropdown-menu,
+#colors .vs__dropdown-menu {
+  margin-top: .5rem;
+  background-color: var(--primary-background-color);
+  padding: 0;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: .1rem solid var(--border-color);
+
+}
+
+/* Estilos para las opciones individuales */
+#sizes .vs__dropdown-menu .vs__dropdown-option,
+#colors .vs__dropdown-menu .vs__dropdown-option {
+  padding: 10px;
+  color: var(--text-color-body);
+  cursor: pointer;
+  padding: .5rem 1.5rem;
+}
+
+#sizes .vs__dropdown-menu .vs__dropdown-option:hover,
+#colors .vs__dropdown-menu .vs__dropdown-option:hover,
+#colors .vs__dropdown-option--highlight,
+#sizes .vs__dropdown-option--highlight {
+  background-color: var(--background-hover-menus);
+}
+
+
+#sizes .vs__dropdown-menu .vs__dropdown-option.vs--selected,
+#colors .vs__dropdown-menu .vs__dropdown-option.vs--selected {
+  background-color: var(--option-hover-color);
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+#sizes .vs__dropdown-menu .vs__dropdown-option.vs--selected:hover,
+#colors .vs__dropdown-menu .vs__dropdown-option.vs--selected:hover {
+  background-color: var(--background-hover-menus);
+}
+
+.vs--disabled .vs__clear,
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__open-indicator,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected {
+  background-color: transparent !important;
+}
+
+/* FIN PARA LOS ESTILOS DE VUE SELECT */
 
 
 /* REGISTRO E INICIO DE SESION */

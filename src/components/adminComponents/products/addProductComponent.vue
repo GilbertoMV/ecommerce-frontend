@@ -136,11 +136,11 @@ export default {
     },
     data() {
         return {
-            sizesDisabled: false,
-            colorsDisabled: false,
+            sizesDisabled: false, //estado del input sizes
+            colorsDisabled: false, //estado del input colors
             categories: [], //Array de las categorias
             selectedColors: [], //Array de los colores seleccionados
-            selectedSizes: [],
+            selectedSizes: [], //Array para los tamanos seleccionados
             sizesOptions: [
                 { value: 's', label: 'Pequeño' },
                 { value: 'm', label: 'Mediano' },
