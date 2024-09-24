@@ -63,7 +63,8 @@ h1 {
   padding-bottom: 1.5rem;
 }
 
-.account-form__error {
+.account-form__error,
+.form__error {
   color: var(--error-color);
   padding: .3rem 0;
   font-size: var(--font-size-small);
@@ -179,7 +180,7 @@ h1 {
 
 #sizes .vs__deselect,
 #colors .vs__deselect {
-  fill: var(--primary-color);
+  fill: var(--required-color);
 }
 
 #sizes .vs__open-indicator,
