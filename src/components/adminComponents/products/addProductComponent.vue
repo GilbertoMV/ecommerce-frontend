@@ -26,8 +26,8 @@
                                 {{ sizesDisabled ? 'enable' : 'disable' }}
                             </span>
                         </label>
-                        <VueSelect :options="sizesOptions" v-model="formData.selectedSizes" :disabled="sizesDisabled"
-                            :multiple="true" id="sizes" name="sizes">
+                        <VueSelect :options="sizesOptions" v-model="selectedSizes" :disabled="sizesDisabled"
+                            :multiple="true" id="sizes" name="sizes" :get-option-label="option => option.nombre">
                         </VueSelect>
                     </div>
                     <div class="form__column-block">
@@ -37,9 +37,10 @@
                                 {{ colorsDisabled ? 'enable' : 'disable' }}
                             </span>
                         </label>
-                        <VueSelect :options="colorOptions" v-model="formData.selectedColors" :disabled="colorsDisabled"
-                            :multiple="true" id="colors" name="colors">
+                        <VueSelect :options="colorOptions" v-model="selectedColors" :disabled="colorsDisabled"
+                            :multiple="true" id="colors" name="colors" :get-option-label="option => option.nombre">
                         </VueSelect>
+
                     </div>
                 </div>
                 <label for="description" class="form__label">
@@ -65,11 +66,11 @@
                         required.</span>
 
                     <!-- Images -->
-                    <span class="form__error" v-if="!$v.formData.imagesURL.required && $v.formData.imagesURL.$error">At
+                    <span class="form__error" v-if="!$v.imagesURL.required && $v.imagesURL.$error">At
                         least one image is required.</span>
-                    <span class="form__error" v-if="!$v.formData.imagesURL.minLength && $v.formData.imagesURL.$error">At
+                    <span class="form__error" v-if="!$v.imagesURL.minLength && $v.imagesURL.$error">At
                         least 3 images are required.</span>
-                    <span class="form__error" v-if="!$v.formData.imagesURL.maxLength && $v.formData.imagesURL.$error">A
+                    <span class="form__error" v-if="!$v.imagesURL.maxLength && $v.imagesURL.$error">A
                         maximum of 6 images are allowed.</span>
 
                     <!-- Description -->
@@ -203,7 +204,8 @@
     </div>
 </template>
 <script>
-import { fetchCategoryData } from '../../../utils/apiUtils';
+import { mapGetters } from 'vuex';
+import { fetchCategoryData, fetchColors, fetchSizes } from '../../../utils/apiUtils';
 import VueSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 import { required, minLength, maxLength, minValue, maxValue, between, numeric } from 'vuelidate/lib/validators';
@@ -211,6 +213,7 @@ import Swal from 'sweetalert2';
 import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue';
 import trashIcon from '../../icons/trashIcon.vue';
+import apiClient from '../../../store/auth-vuex';
 export default {
     name: 'addProduct',
     components: {
@@ -219,32 +222,24 @@ export default {
         trashIcon,
         VueSelect
     },
+    computed: {
+        ...mapGetters(['idUser'])
+    },
     data() {
         return {
             sizesDisabled: true, //estado del input sizes
             colorsDisabled: true, //estado del input colors
             categories: [], //Array de las categorias
-            sizesOptions: [
-                { value: 's', label: 'Pequeño' },
-                { value: 'm', label: 'Mediano' },
-                { value: 'l', label: 'Grande' },
-                { value: 'xl', label: 'Extra Grande' } //esto se rellenara por medio de un llamado a la API
-            ],
-            colorOptions: [
-                { value: 'red', label: 'Rojo' },
-                { value: 'green', label: 'Verde' },
-                { value: 'blue', label: 'Azul' },
-                { value: 'yellow', label: 'Amarillo' },
-                { value: 'black', label: 'Negro' } //esto se rellenara por medio de un llamado a la API
-            ],
+            sizesOptions: [], //Array de tamanos
+            colorOptions: [], //Array de colores
             previewImages: [], //Array de las urls temporales de previsualizacion
+            selectedSizes: [],
+            selectedColors: [],
+            imagesURL: [],
             formData: {
                 name: '',
                 id_category: '',
-                selectedSizes: [],
-                selectedColors: [],
                 description: '',
-                imagesURL: [],
                 price: 0,
                 stock: 0,
                 carbon_footprint: 0,
@@ -253,14 +248,11 @@ export default {
         }
     },
     validations: {
+        imagesURL: { required, minLength: minLength(3), maxLength: maxLength(6) },
         formData: {
             name: { required, minLength: minLength(10), maxLength: maxLength(50) },
             id_category: { required },
-            features: {},
             description: { required, minLength: minLength(20), maxLength: maxLength(200) },
-            sizes: {},
-            colors: {},
-            imagesURL: { required, minLength: minLength(3), maxLength: maxLength(6) },
             price: { required, minValue: minValue(1), maxValue: maxValue(1000000), numeric },
             stock: { required, minValue: minValue(1), maxValue: maxValue(100), numeric },
             carbon_footprint: { required, minValue: minValue(0), maxValue: maxLength(100), between: between(0.01, 99.99), numeric },
@@ -286,7 +278,34 @@ export default {
                     });
                     return;
                 }
-                console.log(this.formData)
+                await apiClient.post("/products", {
+                    id_categoria: this.formData.id_category,
+                    id_usuario: this.idUser,
+                    nombre: this.formData.name,
+                    caracteristicas: 'not available',
+                    descripcion: this.formData.description,
+                    precio: this.formData.price,
+                    existencias: this.formData.stock,
+                    huella_carbono: this.formData.carbon_footprint,
+                    puntos_recompensa: this.formData.rewards_points,
+                })
+                Swal.fire({
+                    icon: "success",
+                    title: "Product successfully added",
+                    width: 'auto',
+                    toast: true,
+                    position: "bottom-right",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                });
+                // console.log(this.idUser)
+                // console.log(this.imagesURL)
+                // const id_colors = this.selectedColors.map(color => color.id_color)
+                // console.log(id_colors)
+                // const id_sizes = this.selectedSizes.map(size => size.id_talla)
+                // console.log(id_sizes)
+                // console.log(this.formData)
             } catch (error) {
                 console.error(error);
             } finally {
@@ -303,7 +322,7 @@ export default {
         handleImageSelect(event) {
             const files = Array.from(event.target.files);
             //verificamos cuantas imagenes hay seleccionadas
-            if (this.formData.imagesURL.length + files.length > 6) {
+            if (this.imagesURL.length + files.length > 6) {
                 Swal.fire({
                     icon: "warning",
                     text: "You can upload a maximum of 6 images.",
@@ -318,8 +337,8 @@ export default {
             }
             //Añadimos las nuevas imagenes al array
             files.forEach(file => {
-                if (this.formData.imagesURL.length < 6) {
-                    this.formData.imagesURL.push(file);
+                if (this.imagesURL.length < 6) {
+                    this.imagesURL.push(file);
                     this.previewImages.push({
                         url: URL.createObjectURL(file) //Generamos la url temporal para la visualizacion
                     });
@@ -329,41 +348,25 @@ export default {
         },
         removeImage(index) {
             //Eliminamos la imagen del array de imágenes seleccionada
-            this.formData.imagesURL.splice(index, 1);
+            this.imagesURL.splice(index, 1);
             //Eliminamos la URL de previsualizacion
             this.previewImages.splice(index, 1);
-        },
-
+        }
     },
     async created() {
         this.categories = await fetchCategoryData();
+        this.sizesOptions = await fetchSizes();
+        this.colorOptions = await fetchColors();
     }
 }
 </script>
 <style scoped>
-.addProducto {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    max-width: 150rem;
-    height: auto;
-}
-
-.addProducto___title {
-    font-size: var(--font-size-big);
-    color: var(--text-color-title);
-    margin-top: 3rem;
-    text-align: left;
-    font-weight: 600;
-}
-
 .form {
     display: flex;
     justify-content: center;
     width: 100%;
     gap: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin: 3rem 0 3rem;
 }
 
 .form__column {
@@ -416,35 +419,6 @@ export default {
 .toggle {
     cursor: pointer;
 }
-
-.form__required {
-    color: var(--required-color);
-}
-
-.form__input,
-.form__select,
-.form__textarea {
-    padding: 1rem;
-    font-size: var(--font-size-small);
-    background-color: var(--primary-background-color);
-    color: var(--text-color-body);
-    border-radius: .7rem;
-    border: solid .1rem var(--border-color);
-    outline: none;
-}
-
-.form__input::placeholder,
-.form__textarea::placeholder,
-.form__select::placeholder {
-    color: var(--help-color);
-}
-
-.form__input:focus,
-.form__select:focus,
-.form__textarea:focus {
-    border-color: var(--text-color-body);
-}
-
 
 .form__textarea {
     resize: vertical;
@@ -558,10 +532,5 @@ export default {
 
 .form__input--file {
     display: none;
-}
-
-.form__errors {
-    display: flex;
-    flex-direction: column;
 }
 </style>
