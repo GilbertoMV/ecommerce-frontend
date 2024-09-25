@@ -66,11 +66,11 @@
                         required.</span>
 
                     <!-- Images -->
-                    <span class="form__error" v-if="!$v.imagesURL.required && $v.imagesURL.$error">At
+                    <span class="form__error" v-if="!$v.imagesFiles.required && $v.imagesFiles.$error">At
                         least one image is required.</span>
-                    <span class="form__error" v-if="!$v.imagesURL.minLength && $v.imagesURL.$error">At
+                    <span class="form__error" v-if="!$v.imagesFiles.minLength && $v.imagesFiles.$error">At
                         least 3 images are required.</span>
-                    <span class="form__error" v-if="!$v.imagesURL.maxLength && $v.imagesURL.$error">A
+                    <span class="form__error" v-if="!$v.imagesFiles.maxLength && $v.imagesFiles.$error">A
                         maximum of 6 images are allowed.</span>
 
                     <!-- Description -->
@@ -153,7 +153,7 @@
                             <span class="form__upload-text">Drop your images here or select <span
                                     class="form__upload-text--bold">click to browse</span></span>
                         </label>
-                        <input type="file" accept="/images/*" multiple id="upload_images" name="upload_images"
+                        <input type="file" accept="/image/*" multiple id="upload_images" name="upload_images"
                             class="form__input form__input--file" @change="handleImageSelect">
                     </div>
                 </div>
@@ -214,6 +214,7 @@ import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue';
 import trashIcon from '../../icons/trashIcon.vue';
 import apiClient from '../../../store/auth-vuex';
+import axios from 'axios';
 export default {
     name: 'addProduct',
     components: {
@@ -227,15 +228,16 @@ export default {
     },
     data() {
         return {
+            categories: [], //Array de las categorias
             sizesDisabled: true, //estado del input sizes
             colorsDisabled: true, //estado del input colors
-            categories: [], //Array de las categorias
             sizesOptions: [], //Array de tamanos
             colorOptions: [], //Array de colores
+            selectedSizes: [], //Array con los tamanos seleccionados
+            selectedColors: [], //Array con los colores seleccionados
             previewImages: [], //Array de las urls temporales de previsualizacion
-            selectedSizes: [],
-            selectedColors: [],
-            imagesURL: [],
+            imagesFiles: [], //Array de los archivos de imagen seleccionadas
+            uploadedImages: [], //Array con las url de cloudinary
             formData: {
                 name: '',
                 id_category: '',
@@ -244,11 +246,11 @@ export default {
                 stock: 0,
                 carbon_footprint: 0,
                 rewards_points: 0
-            }
+            } //objeto de los datos del producto
         }
     },
     validations: {
-        imagesURL: { required, minLength: minLength(3), maxLength: maxLength(6) },
+        imagesFiles: { required, minLength: minLength(3), maxLength: maxLength(6) },
         formData: {
             name: { required, minLength: minLength(10), maxLength: maxLength(50) },
             id_category: { required },
@@ -261,6 +263,20 @@ export default {
 
     },
     methods: {
+        async postProduct() {
+            const response = await apiClient.post("/products", {
+                id_categoria: this.formData.id_category,
+                id_usuario: this.idUser,
+                nombre: this.formData.name,
+                caracteristicas: 'not available',
+                descripcion: this.formData.description,
+                precio: this.formData.price,
+                existencias: this.formData.stock,
+                huella_carbono: this.formData.carbon_footprint,
+                puntos_recompensa: this.formData.rewards_points,
+            });
+            return response.data.id_producto;
+        },
         async addProduct() {
             this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
@@ -278,20 +294,13 @@ export default {
                     });
                     return;
                 }
-                await apiClient.post("/products", {
-                    id_categoria: this.formData.id_category,
-                    id_usuario: this.idUser,
-                    nombre: this.formData.name,
-                    caracteristicas: 'not available',
-                    descripcion: this.formData.description,
-                    precio: this.formData.price,
-                    existencias: this.formData.stock,
-                    huella_carbono: this.formData.carbon_footprint,
-                    puntos_recompensa: this.formData.rewards_points,
-                })
+                const productId = await this.postProduct();
+                // await this.uploadImage(productId);
+                await this.assignColorAndSizes(productId);
+
                 Swal.fire({
                     icon: "success",
-                    title: "Product successfully added",
+                    title: "Images successfully added to server",
                     width: 'auto',
                     toast: true,
                     position: "bottom-right",
@@ -299,13 +308,6 @@ export default {
                     timer: 1000,
                     timerProgressBar: true,
                 });
-                // console.log(this.idUser)
-                // console.log(this.imagesURL)
-                // const id_colors = this.selectedColors.map(color => color.id_color)
-                // console.log(id_colors)
-                // const id_sizes = this.selectedSizes.map(size => size.id_talla)
-                // console.log(id_sizes)
-                // console.log(this.formData)
             } catch (error) {
                 console.error(error);
             } finally {
@@ -322,7 +324,7 @@ export default {
         handleImageSelect(event) {
             const files = Array.from(event.target.files);
             //verificamos cuantas imagenes hay seleccionadas
-            if (this.imagesURL.length + files.length > 6) {
+            if (this.imagesFiles.length + files.length > 6) {
                 Swal.fire({
                     icon: "warning",
                     text: "You can upload a maximum of 6 images.",
@@ -337,21 +339,67 @@ export default {
             }
             //Añadimos las nuevas imagenes al array
             files.forEach(file => {
-                if (this.imagesURL.length < 6) {
-                    this.imagesURL.push(file);
+                if (this.imagesFiles.length < 6) {
+                    this.imagesFiles.push(file);
                     this.previewImages.push({
                         url: URL.createObjectURL(file) //Generamos la url temporal para la visualizacion
                     });
                 }
             });
-
         },
         removeImage(index) {
             //Eliminamos la imagen del array de imágenes seleccionada
-            this.imagesURL.splice(index, 1);
+            this.imagesFiles.splice(index, 1);
             //Eliminamos la URL de previsualizacion
             this.previewImages.splice(index, 1);
+        },
+        async uploadImage(productId) {
+            const cloudinaryUrl = "https://api.cloudinary.com/v1_1/koalaMarket/upload";
+            const uploadPreset = "koalaPreset";
+
+            for (let i = 0; i < this.imagesFiles.length; i++) {
+                const file = this.imagesFiles[i];
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', uploadPreset);
+                try {
+                    const response = await axios.post(cloudinaryUrl, formData);
+                    const uploadedUrl = response.data.secure_url;
+                    this.uploadedImages.push(uploadedUrl);
+                    await apiClient.post('/images', {
+                        id_producto: productId,
+                        url_imagen: uploadedUrl,
+                        description: 'not available'
+                    })
+                } catch (error) {
+                    console.error('Error al subir la imagen:', error.response ? error.response.data : error);
+                }
+            }
+        },
+        async assignColorAndSizes(productId) {
+            try {
+                //subir colores
+                const selectedColors = this.selectedColors.map(color => ({
+                    id_producto: productId,
+                    id_color: color.id_color
+                }));
+                await apiClient.post('/colors', { colors: selectedColors });
+
+                //subir tallas
+                const selectedSizes = this.selectedSizes.map(size => ({
+                    id_producto: productId,
+                    id_talla: size.id_talla
+                }))
+                await apiClient.post('/sizes', { sizes: selectedSizes })
+
+                console.log('subidos correctamente')
+            } catch (error) {
+                throw new Error('Error al asignar los colores y las tallas')
+            }
         }
+
+
     },
     async created() {
         this.categories = await fetchCategoryData();
