@@ -33,3 +33,16 @@ export async function fetchUserData() {
   sessionStorage.setItem('userData', JSON.stringify(response.data));  
   return response.data;
 }
+
+export async function fetchSizes() {
+  // Hacer la petición a la API para obtener las sizes
+  const sizes = await apiClient.get('/sizes');
+  return sizes.data;
+}
+
+export async function fetchColors() {
+  // Hacer la petición a la API para obtener los colores
+  const colors = await apiClient.get('/colors');
+
+  return colors.data;
+}

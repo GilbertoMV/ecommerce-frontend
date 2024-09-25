@@ -64,7 +64,8 @@ h1 {
 }
 
 .account-form__error,
-.form__error {
+.form__error,
+.attribute__error {
   color: var(--error-color);
   padding: .3rem 0;
   font-size: var(--font-size-small);
@@ -145,9 +146,6 @@ h1 {
 
 /* INICIO DE ESTILOS PARA USER PROPILE*/
 
-
-
-
 .userProfile,
 .dashboard {
   margin-top: 11rem;
@@ -219,7 +217,6 @@ h1 {
 
 }
 
-/* Estilos para las opciones individuales */
 #sizes .vs__dropdown-menu .vs__dropdown-option,
 #colors .vs__dropdown-menu .vs__dropdown-option {
   padding: 10px;
@@ -257,6 +254,72 @@ h1 {
 }
 
 /* FIN PARA LOS ESTILOS DE VUE SELECT */
+
+
+
+/* INICIO DE LOS ESTILOS PARA ADMIN */
+
+.addProducto,
+.attributes,
+.addAttribute {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 150rem;
+  height: auto;
+}
+
+.addProducto___title,
+.attributes__title,
+.addAttribute__title {
+  font-size: var(--font-size-big);
+  color: var(--text-color-title);
+  margin-top: 3rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.form__required,
+.addAttribute__required {
+  color: var(--required-color);
+}
+
+.form__input,
+.addAttribute__input,
+.form__select,
+.form__textarea,
+.attributes__select,
+.addAttribute__select {
+  padding: 1rem;
+  font-size: var(--font-size-small);
+  background-color: var(--primary-background-color);
+  color: var(--text-color-body);
+  border-radius: .7rem;
+  border: solid .1rem var(--border-color);
+  outline: none;
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder,
+.addAttribute__input::placeholder,
+.addAttribute__select::placeholder {
+  color: var(--help-color);
+}
+
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  border-color: var(--text-color-body);
+}
+
+.form__errors,
+.attribute__errors {
+  display: flex;
+  flex-direction: column;
+}
+
+/* FIN DE LOS ESTILOS PARA ADMIN */
+
 
 
 /* REGISTRO E INICIO DE SESION */
