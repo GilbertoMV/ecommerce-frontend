@@ -55,7 +55,8 @@ h1 {
 }
 
 .account-form__button-login:hover,
-.account-form__button-signup:hover {
+.account-form__button-signup:hover,
+.form__button:hover {
   background-color: var(--text-color-hover-buttons);
 }
 
@@ -85,7 +86,7 @@ h1 {
 .account-form__register-link,
 .account-form__login-link {
   padding: 2rem;
-  color: initial;
+  color: var(--text-color-base);
 }
 
 .account-form__register-link a,
@@ -261,7 +262,8 @@ h1 {
 
 .addProducto,
 .attributes,
-.addAttribute {
+.addAttribute,
+.addCategory {
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -271,7 +273,8 @@ h1 {
 
 .addProducto___title,
 .attributes__title,
-.addAttribute__title {
+.addAttribute__title,
+.addCategory__title {
   font-size: var(--font-size-big);
   color: var(--text-color-title);
   margin-top: 3rem;
@@ -280,7 +283,8 @@ h1 {
 }
 
 .form__required,
-.addAttribute__required {
+.addAttribute__required,
+.addCategory__required {
   color: var(--required-color);
 }
 
@@ -289,7 +293,8 @@ h1 {
 .form__select,
 .form__textarea,
 .attributes__select,
-.addAttribute__select {
+.addAttribute__select,
+.addCategory__input {
   padding: 1rem;
   font-size: var(--font-size-small);
   background-color: var(--primary-background-color);
@@ -316,6 +321,62 @@ h1 {
 .attribute__errors {
   display: flex;
   flex-direction: column;
+}
+
+.form__label--file,
+.addCategory__label--file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.form__upload-text,
+.addCategory__upload-text {
+  width: 70%;
+  color: var(--help-color);
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.addCategory__upload-text {
+  width: 100%;
+}
+
+.form__upload-text--bold,
+.addCategory__upload-text--bold {
+  color: var(--primary-color);
+}
+
+.form__image,
+.addCategory__image {
+  position: relative;
+  width: calc(31% - 2rem);
+  height: 17rem;
+  border: solid .1rem var(--border-color);
+  border-radius: .7rem;
+  overflow: hidden;
+  padding: 1rem;
+  transition: all .3s ease-in-out;
+}
+
+.form__image--border,
+.addCategory__image--border {
+  border: dashed .1rem var(--primary-color);
+}
+
+.addCategory__image--border svg,
+.form__image-wrapper svg {
+  width: 5rem;
+  height: 5rem;
+  color: var(--primary-color);
 }
 
 /* FIN DE LOS ESTILOS PARA ADMIN */

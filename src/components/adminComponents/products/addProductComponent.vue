@@ -499,17 +499,6 @@ export default {
     gap: 1rem;
 }
 
-.form__image {
-    position: relative;
-    width: calc(31% - 2rem);
-    height: 17rem;
-    border: solid .1rem var(--border-color);
-    border-radius: .7rem;
-    overflow: hidden;
-    padding: 1rem;
-    transition: all .3s ease-in-out;
-}
-
 .form__image img {
     width: 100%;
     height: 100%;
@@ -532,44 +521,8 @@ export default {
     cursor: pointer;
 }
 
-.form__image-wrapper svg {
-    width: 5rem;
-    height: 5rem;
-    color: var(--primary-color);
-}
-
 .form__image-wrapper:hover {
     opacity: 1;
-}
-
-.form__image--border {
-    border: dashed .1rem var(--primary-color);
-}
-
-
-.form__label--file {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-}
-
-.form__upload-text {
-    width: 70%;
-    color: var(--help-color);
-    font-size: 1.2rem;
-    line-height: 1.5rem;
-    text-align: center;
-}
-
-.form__upload-text--bold {
-    color: var(--primary-color);
 }
 
 .form__label--file .svg {

@@ -3,7 +3,7 @@
         <div class="address__information">
             <span>{{ addresses.length }} of 3 address</span>
             <router-link to="/config-address" class="address__add-button"
-                v-if="addresses.length < 3 && addresses.length > 0">
+                v-if="addresses.length < 3 && addresses.length >= 0">
                 New Address</router-link>
         </div>
         <div v-if="addresses.length === 0">
@@ -176,19 +176,21 @@ export default {
 .address {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100rem;
     max-width: 120rem;
-    margin-top: 5rem;
+    margin-top: 3rem;
     border-radius: 2rem;
 }
 
 .address__information {
     padding: 2rem 0;
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .address__add-button {
@@ -197,7 +199,12 @@ export default {
     background-color: var(--primary-color);
     border-radius: 1rem;
     text-decoration: none;
-    color: var(--text-color-title);
+    color: var(--text-color-base);
+    transition: all .3s ease-in-out;
+}
+
+.address__add-button:hover {
+    background-color: var(--text-color-hover-buttons);
 }
 
 .address__grid {
@@ -208,6 +215,7 @@ export default {
     background-color: var(--primary-background-color);
     border-radius: 2rem;
     margin-bottom: 1rem;
+    box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
 }
 
 .address__row {

@@ -113,7 +113,7 @@ export default {
 </script>
 <style scoped>
 .sidebar {
-    width: 15%;
+    width: 20%;
     max-width: 30rem;
     background-color: var(--primary-background-color);
     -webkit-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);

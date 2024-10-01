@@ -182,15 +182,15 @@ export default {
                     return;
                 }
                 await apiClient.post("/register", {
-                    nombre: this.formData.name.toUpperCase(),
-                    apellido_paterno: this.formData.paternalLastName.toUpperCase(),
-                    apellido_materno: this.formData.maternalLastName.toUpperCase(),
+                    nombre: this.formData.name.toLowerCase(),
+                    apellido_paterno: this.formData.paternalLastName.toLowerCase(),
+                    apellido_materno: this.formData.maternalLastName.toLowerCase(),
                     correo: this.formData.email.toLowerCase(),
                     contrasena: this.formData.password,
                     fecha_nacimiento: this.formData.birthdate,
                     estado_cuenta: '1'
                 })
-
+                console.log(this.formData)
                 Swal.fire({
                     icon: "success",
                     title: "Successful registration",

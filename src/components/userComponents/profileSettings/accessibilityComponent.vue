@@ -57,6 +57,7 @@ export default {
     margin-top: 5rem;
     background-color: var(--primary-background-color);
     border-radius: 2rem;
+    box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
 }

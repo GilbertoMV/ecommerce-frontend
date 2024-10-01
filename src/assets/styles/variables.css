@@ -30,7 +30,7 @@
     --text-color-body: #595960;
     --text-color-hover-options: #ebead6;
     --text-color-hover-buttons: #4a8b14;
-    --text-color-base: #ffffff;
+    --text-color-base: #fff;
     --box-shadow-color: rgba(20, 25, 38, 0.05);
     --border-color: #ebead6;
 
@@ -50,13 +50,13 @@
     --background-hover-menus: #2c2c2c;
 
     /* Colores de fondo para botones, componentes pequeños e inputs*/
-    --primary-color: #446622;
+    --primary-color: #4a8b14;
     --secondary-color: #4b7727;
     --tertiary-color: #d8edca;
     --required-color: #ff000085;
     --separators-color: #373737;
     --error-color: #c10f0f;
-    --box-shadow-color: rgba(20, 25, 38, 0.05);
+    --box-shadow-color: rgba(61, 61, 61, 0.05);
     --border-color: #ebead63a;
     --option-hover-color: #44662228;
 
@@ -66,8 +66,8 @@
     --text-color-title: #d4d4d4;
     --text-color-body: #d0c3c3df;
     --text-color-hover-options: #ebead6;
-    --text-color-hover-buttons: #4a8b14;
-    --text-color-base: #000000;
+    --text-color-hover-buttons: #446622;
+    --text-color-base: #000;
 }
 
 .swal2-container,
