@@ -22,6 +22,9 @@
                     </router-link>
                 </div>
             </div>
+            <div class="attributes__body">
+
+            </div>
         </div>
     </div>
 </template>

@@ -267,7 +267,7 @@ export default {
             this.$store.dispatch('setLoading', true);
             try {
                 const idAddress = this.formData.id_direccion;
-                await apiClient.put(`address/configurate/${idAddress}`, {
+                await apiClient.put(`address/${idAddress}`, {
                     id_usuario: this.idUser,
                     nombre_completo: this.formData.nombre_completo,
                     codigo_postal: this.formData.codigo_postal,
@@ -317,7 +317,7 @@ export default {
         async createAddress() {
             this.$store.dispatch('setLoading', true); //activa el loading
             try {
-                await apiClient.post('/address/create/', {
+                await apiClient.post('/address/', {
                     id_usuario: this.idUser,
                     nombre_completo: this.formData.nombre_completo,
                     codigo_postal: this.formData.codigo_postal,
@@ -414,7 +414,7 @@ export default {
     border: solid .1rem var(--primary-color);
     border-radius: .5rem;
     background-color: var(--tertiary-color);
-    font-size: var(--font-size-base);
+    font-size: var(--text-color-base);
     margin-bottom: .5rem;
 }
 
