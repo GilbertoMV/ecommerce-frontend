@@ -36,10 +36,10 @@
                             <ul>
                                 <router-link
                                     :to="{ name: 'editAddressPage', params: { addressId: address.id_direccion } }">
-                                    <editIcon />Edit address
+                                    <editIcon class="edit" />Edit address
                                 </router-link>
                                 <li @click="deleteAddress(address.id_direccion)">
-                                    <trashIcon />Delete address
+                                    <trashIcon class="delete" />Delete address
                                 </li>
                             </ul>
                         </div>
@@ -308,6 +308,16 @@ export default {
     height: 2.5rem;
     stroke: var(--primary-color);
 }
+
+.edit,
+.delete {
+    color: var(--text-color-title);
+    width: 1.6rem;
+    height: 1.6rem;
+    stroke: initial;
+}
+
+
 
 h2 {
     font-size: var(--font-size-big);
