@@ -194,7 +194,6 @@
                             class="form__input" v-model="formData.rewards_points">
                     </div>
                 </div>
-
                 <button type="submit" class="form__submit">
                     <plusIcon />
                     Add Product
@@ -346,6 +345,8 @@ export default {
                     });
                 }
             });
+            //reseteamos el evento del input
+            event.target.value = ''
         },
         removeImage(index) {
             //Eliminamos la imagen del array de imágenes seleccionada
@@ -479,7 +480,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: 1.5rem;
     margin-top: 2rem;
     border-radius: .7rem;
     background-color: var(--primary-color);
@@ -493,37 +494,6 @@ export default {
     background-color: var(--text-color-hover-buttons)
 }
 
-.form__images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.form__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.form__image-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    background-color: #0000008b;
-    transition: all .3s ease-in-out;
-    cursor: pointer;
-}
-
-.form__image-wrapper:hover {
-    opacity: 1;
-}
 
 .form__label--file .svg {
     width: 5rem;

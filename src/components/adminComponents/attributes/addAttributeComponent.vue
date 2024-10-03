@@ -20,7 +20,6 @@
                 </div>
                 <div class="addAttribute__row">
                     <div class="addAttribute__label"></div>
-
                     <div class="attribute__errors">
                         <span class="attribute__error" v-if="!$v.formData.name.required && $v.formData.name.$error">Name
                             attribute is required.</span>
@@ -30,7 +29,9 @@
                 </div>
                 <div class="addAttribute__row">
                     <div class="addAttribute__label"></div>
-                    <button type="submit" class="addAttribute__button">Save</button>
+                    <div class="addAttribute__button-container">
+                        <button type="submit" class="addAttribute__button">Save</button>
+                    </div>
                 </div>
 
             </form>
@@ -59,38 +60,35 @@ export default {
     },
     methods: {
         async addAttribute() {
+
             this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             this.$v.$touch();
-            if (this.$v.$invalid) {
-                Swal.fire({
-                    icon: "warning",
-                    text: "Error when adding product, invalid data",
-                    width: 'auto',
-                    toast: true,
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-                return;
+            try {
+                if (this.$v.$invalid) {
+                    Swal.fire({
+                        icon: "warning",
+                        text: "Error when adding attribute, invalid data",
+                        width: 'auto',
+                        toast: true,
+                        position: "bottom-right",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                    return;
+                }
+                if (this.formData.type === 'color') {
+                    this.createAttributeColor()
+                } else if (this.formData.type === 'size') {
+                    this.createAttributeSize()
+                }
+            } catch (error) {
+                console.error(error)
+            } finally {
+                this.$store.dispatch('setLoading', false);  // Activar loader al inicio
+
             }
-            if (this.formData.type === 'color') {
-                this.createAttributeColor()
-            } else if (this.formData.type === 'size') {
-                this.createAttributeSize()
-            } else {
-                Swal.fire({
-                    icon: "warning",
-                    text: "Error when adding product, invalid data",
-                    width: 'auto',
-                    toast: true,
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-                return;
-            }
+
         },
         async createAttributeColor() {
             this.$store.dispatch('setLoading', true);  // Activar loader al inicio
@@ -171,22 +169,6 @@ export default {
 .addAttribute__input,
 .addAttribute__select {
     width: calc(100% - 25rem)
-}
-
-
-.addAttribute__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 5rem;
-    cursor: pointer;
-    border: none;
-    background-color: var(--primary-color);
-    color: var(--text-color-base);
-    font-size: var(--font-size-medium);
-    border-radius: .7rem;
-    transition: all .3s ease-in-out;
-    text-decoration: none;
 }
 
 .addAttribute__button:hover {

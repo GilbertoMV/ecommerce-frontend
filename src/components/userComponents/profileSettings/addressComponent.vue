@@ -69,7 +69,7 @@ export default {
         editIcon
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'idUser'])
+        ...mapGetters(['idUser'])
     },
     data() {
         return {
@@ -94,7 +94,8 @@ export default {
         },
         closeMenu() {
             this.openMenuId = null;
-        }, handleOutsideClick(e) {
+        },
+        handleOutsideClick(e) {
             let isClickInsideAnyMenu = this.addresses.some(address => {
                 const refName = 'menu-' + address.id_direccion;
                 return this.$refs[refName] && this.$refs[refName][0].contains(e.target);
@@ -141,7 +142,7 @@ export default {
             });
             if (result.isConfirmed) {
                 try {
-                    await apiClient.delete(`address/delete/${id_direccion}`);
+                    await apiClient.delete(`address/${id_direccion}`);
                     this.addresses = this.addresses.filter(address => address.id_direccion !== id_direccion); //filtra las direcciones para actualizar el DOM y mostrar solo las existentes despues de elimnarla
                     Swal.fire({
                         icon: "success",

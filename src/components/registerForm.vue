@@ -190,7 +190,6 @@ export default {
                     fecha_nacimiento: this.formData.birthdate,
                     estado_cuenta: '1'
                 })
-                console.log(this.formData)
                 Swal.fire({
                     icon: "success",
                     title: "Successful registration",

@@ -1,7 +1,8 @@
 <template>
     <form class="form" @submit.prevent="handleSubmit">
         <div class="form__single-column">
-            <label class="form__label" for="fullname">Full Name: <span class="form__required">*</span> </label>
+            <label class="form__label" for="fullname">Full Name: {{ idUser }} <span class="form__required">*</span>
+            </label>
             <input class="form__input" type="text" name="fullname" id="fullname" placeholder="Enter your full name"
                 v-model="formData.nombre_completo">
             <div class="form__error" v-if="!$v.formData.nombre_completo.required && $v.formData.nombre_completo.$dirty">
@@ -223,6 +224,7 @@ export default {
             this.isEditMode = true;
             this.fetchAddress(addressId);
         }
+
     },
     validations: {
         formData: {
