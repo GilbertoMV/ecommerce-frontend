@@ -274,7 +274,7 @@ export default {
                 huella_carbono: this.formData.carbon_footprint,
                 puntos_recompensa: this.formData.rewards_points,
             });
-            return response.data.id_producto;
+            return response.data.id;
         },
         async addProduct() {
             this.$store.dispatch('setLoading', true);  // Activar loader al inicio
@@ -294,8 +294,8 @@ export default {
                     return;
                 }
                 const productId = await this.postProduct();
-                // await this.uploadImage(productId);
-                await this.assignColorAndSizes(productId);
+                await this.uploadImage(productId);
+                // await this.assignColorAndSizes(productId);
 
                 Swal.fire({
                     icon: "success",
@@ -368,10 +368,10 @@ export default {
                     const response = await axios.post(cloudinaryUrl, formData);
                     const uploadedUrl = response.data.secure_url;
                     this.uploadedImages.push(uploadedUrl);
-                    await apiClient.post('/images', {
+                    await apiClient.post('/images/', {
                         id_producto: productId,
                         url_imagen: uploadedUrl,
-                        description: 'not available'
+                        descripcion: 'not available'
                     })
                 } catch (error) {
                     console.error('Error al subir la imagen:', error.response ? error.response.data : error);
