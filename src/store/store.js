@@ -62,6 +62,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       localStorage.removeItem('token'); 
       sessionStorage.removeItem('userData');
+      localStorage.removeItem('categoryData');
       commit('setUser', null);
       commit('setAuthentication', false);
       router.push('/sign-in');

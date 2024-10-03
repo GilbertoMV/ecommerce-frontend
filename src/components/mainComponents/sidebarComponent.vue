@@ -43,12 +43,21 @@
                     </router-link>
                 </ul>
             </li>
+
+            <li @click="logout">
+                <a class="item-click logout">
+                    <div class="list__item ">
+                        <logoutIcon />
+                        <span> Log out</span>
+                    </div>
+                </a>
+            </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 //sidebar user icons
 const userIcon = () => import('../icons/userIcon.vue')
 const ordersIcon = () => import('../icons/ordersIcon.vue')
@@ -65,6 +74,7 @@ const homeIcon = () => import('../icons/houseIcon.vue')
 const attributeIcon = () => import('../icons/attributeIcon.vue')
 const categoryIcon = () => import('../icons/categoryIcon.vue')
 const productIcon = () => import('../icons/productIcon.vue')
+const logoutIcon = () => import('../icons/logoutIcon.vue')
 
 export default {
     name: 'SideBar',
@@ -91,10 +101,11 @@ export default {
         homeIcon,
         attributeIcon,
         categoryIcon,
-        productIcon
+        productIcon,
+        logoutIcon
     },
     computed: {
-        ...mapGetters(['username', 'paternalLastName'])
+        ...mapGetters(['username', 'paternalLastName']),
     },
     data() {
         return {
@@ -102,12 +113,13 @@ export default {
         };
     },
     methods: {
+        ...mapActions(['logout']),
         toggleMenu(index) {
             this.activeItem = this.activeItem === index ? null : index;
         },
         isActive(index) {
             return this.activeItem === index;
-        }
+        },
     }
 }
 </script>
@@ -217,7 +229,8 @@ h2 {
 }
 
 
-.item-click::before {
+.item-click::before,
+.item-click.logout::before {
     content: '';
     position: absolute;
     left: 0;
@@ -231,6 +244,10 @@ h2 {
 .item-click:hover::before,
 .item-click.is-active::before {
     background-color: var(--primary-color);
+}
+
+.item-click.logout:hover::before {
+    background-color: var(--required-color);
 }
 
 .profile {
@@ -252,6 +269,10 @@ h2 {
     border-radius: 50%;
     background-color: var(--option-hover-color);
 
+}
+
+.item-click.logout {
+    color: var(--required-color);
 }
 
 @media (width <=768px) {
