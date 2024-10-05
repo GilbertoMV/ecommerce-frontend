@@ -1,7 +1,7 @@
 <template>
     <form class="form" @submit.prevent="handleSubmit">
         <div class="form__single-column">
-            <label class="form__label" for="fullname">Full Name: {{ idUser }} <span class="form__required">*</span>
+            <label class="form__label" for="fullname">Full Name: <span class="form__required">*</span>
             </label>
             <input class="form__input" type="text" name="fullname" id="fullname" placeholder="Enter your full name"
                 v-model="formData.nombre_completo">

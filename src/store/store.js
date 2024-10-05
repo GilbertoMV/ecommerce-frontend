@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
 import {fetchUserData} from '../utils/apiUtils';
+import { jwtDecode } from 'jwt-decode';
 
 Vue.use(Vuex);
 let loadingTimer = null;
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     user: null, //user
     loading: false, //loader
     darkMode: localStorage.getItem('darkmode') === 'true', //dark mode
+    accountType: null,
   },
   mutations: {
     setAuthentication(state, status) {
@@ -26,6 +28,9 @@ export default new Vuex.Store({
       state.darkMode = value;
       localStorage.setItem('darkmode', value);
     },//dark mode
+    setAccountType(state, value) {
+      state.accountType = value;
+    }
   },
   actions: {
     setLoading({commit}, status) {
@@ -54,9 +59,15 @@ export default new Vuex.Store({
       let token = localStorage.getItem('token');
       if (token) {
         commit('setAuthentication', true);
+        //decodificar el toker para obtener el tipo de cuenta
+        const decodedToken = jwtDecode(token);
+        const accountType = decodedToken.cuenta;
+        // Almacenar el tipo de cuenta en el estado de Vuex
+        commit('setAccountType', accountType);
         this.dispatch('fetchAndSetUserData');
       } else {
         commit('setAuthentication', false);
+        commit('setAccountType', false);
       }
     },
     logout({ commit }) {
@@ -95,6 +106,9 @@ export default new Vuex.Store({
     },
     isDarkMode(state) {
       return state.darkMode;
-    }
+    },
+    accountType(state) {
+      return state.accountType;
+    },
   }
 });
