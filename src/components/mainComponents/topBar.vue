@@ -129,6 +129,9 @@
       <template v-if="isAuthenticated"> <!--Si el usuario esta logueado mostramos las opciones de usuario-->
         <ul class="header__links-container">
           <!-- Inicio de menu desplegable para usuarios -->
+          <router-link to="" class="header__link" v-if="accountType === '2'">
+            <bellIcon /> Notifications
+          </router-link>
           <div class="header__dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
             <span class="header__dropdown-button header__link">
               <userIcon />
@@ -152,6 +155,9 @@
             </div>
             <div v-else class="header__dropdown-menu" :class="{ 'header__dropdown-menu--visible': isMenuVisible }"
               @mouseover="cancelHideMenu" @mouseleave="scheduleHideMenu">
+              <router-link to="/admin/dashboard" class="header__dropdown-item">
+                <dashboardIcon /> Dashboard
+              </router-link>
               <router-link to="/admin/add-product" class="header__dropdown-item">
                 <productIcon /> New Product
               </router-link>
@@ -168,16 +174,20 @@
           </div>
           <!-- Fin de menu desplegable para usuarios logueados -->
           <!-- si es usuario comprador -->
+
+
           <router-link v-if="accountType === '1'" to="/shopping-car" class="header__link">
             <shoppingcarIcon />Shopping Car
           </router-link>
           <!-- si es usuario vendedor -->
-          <router-link v-else to="/admin" class="header__link">
-            <dashboardIcon /> Dashboard
-          </router-link>
           <router-link v-if="accountType === '1'" to="/favorites" class="header__link">
             <favoritesIcon /> Favorites
           </router-link>
+          <span class="header__link" @click="toggleDarkMode">
+            <transition name="fade" mode="out-in">
+              <component :is="currentModeIcon" />
+            </transition>
+          </span>
         </ul>
       </template>
       <template v-else> <!--Si el usuario no esta logueado mostramos las opciones de loguearse-->
@@ -201,18 +211,21 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import apiClient from '../../store/auth-vuex';
-const shoppingcarIcon = () => import('../icons/shoppingcarIcon.vue')
-const userIcon = () => import('../icons/userIcon.vue')
-const accessibilityIcon = () => import('../icons/accessibilityIcon.vue')
-const rewardsIcon = () => import('../icons/rewardsIcon.vue')
-const ordersIcon = () => import('../icons/ordersIcon.vue')
-const logoutIcon = () => import('../icons/logoutIcon.vue')
-const favoritesIcon = () => import('../icons/favoritesIcon.vue')
-const searchComponent = () => import('./searchComponent.vue');
-const dashboardIcon = () => import('../icons/dashboardIcon.vue');
-const productIcon = () => import('../icons/productIcon.vue');
-const categoryIcon = () => import('../icons/categoryIcon.vue');
-const attributeIcon = () => import('../icons/attributeIcon.vue')
+import shoppingcarIcon from '../icons/shoppingcarIcon.vue';
+import userIcon from '../icons/userIcon.vue';
+import accessibilityIcon from '../icons/accessibilityIcon.vue';
+import rewardsIcon from '../icons/rewardsIcon.vue';
+import ordersIcon from '../icons/ordersIcon.vue';
+import logoutIcon from '../icons/logoutIcon.vue';
+import favoritesIcon from '../icons/favoritesIcon.vue';
+import searchComponent from './searchComponent.vue';
+import dashboardIcon from '../icons/dashboardIcon.vue';
+import productIcon from '../icons/productIcon.vue';
+import categoryIcon from '../icons/categoryIcon.vue';
+import attributeIcon from '../icons/attributeIcon.vue';
+import darkmodeIcon from '../icons/darkmodeIcon.vue';
+import lightmodeIcon from '../icons/lightmodeIcon.vue';
+import bellIcon from '../icons/bellIcon.vue';
 
 export default {
   name: 'NavBarTop',
@@ -228,7 +241,10 @@ export default {
     dashboardIcon,
     productIcon,
     categoryIcon,
-    attributeIcon
+    attributeIcon,
+    bellIcon,
+    lightmodeIcon,
+    darkmodeIcon
   },
   data() {
     return {
@@ -238,10 +254,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'username', 'accountType']),
+    ...mapGetters(['isAuthenticated', 'username', 'accountType', 'isDarkMode']),
+    currentModeIcon() {
+      return this.isDarkMode ? 'lightmodeIcon' : 'darkmodeIcon';
+    }
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'toggleDarkMode']),
     showMenu() {
       if (this.hideMenuTimeout) {
         clearTimeout(this.hideMenuTimeout);
@@ -315,9 +334,11 @@ export default {
   position: fixed;
   top: 0;
   z-index: 998;
-  border-bottom: .5rem solid var(--primary-color);
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   left: 0;
+  border-bottom: .2rem solid var(--primary-color);
+  box-shadow: 0px 4px 24px 0px var(--box-shadow-color);
+
 }
 
 .header {
@@ -382,6 +403,7 @@ export default {
   width: 100%;
   height: 100%;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .header__menu-responsive.is-active,
@@ -420,6 +442,7 @@ export default {
   text-decoration: none;
   color: var(--text-color-title);
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .header__link--sign-up {
@@ -511,7 +534,20 @@ export default {
   color: var(--error-color);
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 @media (width <=768px) {
+  .navbartop {
+    border-bottom: .5rem solid var(--primary-color);
+  }
 
   .header__menu-responsive,
   .header__categories-menu,
