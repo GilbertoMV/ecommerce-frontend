@@ -124,8 +124,6 @@ export default {
                 }
             }
         }
-
-
     },
     async created() {
         this.colors = await fetchColors();

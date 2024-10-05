@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "../store/store.js";
+import {validation} from "../utils/autorization.js";
+// import store from "../store/store.js";
 
 // ADMIN VIEWS
 const adminProfilePage = () => import('../views/adminViews/adminProfilePage.vue')
@@ -62,12 +63,12 @@ const router = new Router({
     {path: '/best-sellers', name: 'bestSellersPage', component: bestSellersPage, meta: {title: 'Best Sellers'}},
     {path: '/new-items', name: 'newItemPages', component: newItemsPage, meta: {title: 'New Items'}},
     {path: '/more-ecofriendly', name: 'moreEcofriendlyPage', component: moreEcofriendlyPage, meta: {title: 'More Eco-Friendly'}},
-    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresSesionActive: true, title: 'Shopping Car'}},
-    {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresSesionActive: true, title: 'Favorites productos'}},
-    {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}},
-    {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}},
-    {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true}, props:true},
-    {path: '/user', redirect: '/user/security', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile'}, 
+    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresAuth: true, requiresComprador:true, title: 'Shopping Car'}},
+    {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresAuth: true, requiresComprador:true, title: 'Favorites productos'}},
+    {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}}, //todos lo pueden ver pero solo compradores usar
+    {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address',requiresAuth: true, requiresComprador:true}},
+    {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address',requiresAuth: true, requiresComprador:true}, props:true},
+    {path: '/user', redirect: '/user/security', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile', requiresComprador:true}, 
       children :[
         {path: 'my-orders', name: 'myOrdersComponent', component: myOrdersComponent, meta: {title: 'My Orders'}},
         {path: 'rewards', name: 'rewardsComponent', component: rewardsComponent, meta: {title: 'My Rewards'}},
@@ -77,9 +78,9 @@ const router = new Router({
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
         {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
     ]},
-    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard'},
+    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: true, requiresSeller:true},
       children: [
-        {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'} },
+        {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'}},
         //USERS
         {path:'users', name: 'userComponent', component: userComponent, meta: {title: 'Users'}},
         //PRODUCTS
@@ -99,19 +100,33 @@ const router = new Router({
     {path: '*', name: '404NotFound',component: NotFoundPage, meta: {title: 'Not Found Page'}},
 ]
 })
-router.beforeEach(async(to, from, next) => {
-  next();
-  const isAuthenticated = store.getters.isAuthenticated;
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+  //requiresGuest = se require que no haya un token para poder acceder
+  //requiresSeller = se requiere que sea vendedor para poder acceder
+  //requiresClient = se require que sea cliente registrado para poder acceder
+  //requireAuth = se require que exista token para poder acceder
 
-  (to.matched.some(record => record.meta.requiresGuest) && isAuthenticated) ? next('/') : next();
-  (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) ? next('/') : next();
-  (to.matched.some(record => record.meta.requiresSesionActive) && !isAuthenticated) ? next('/sign-in') : next();
+  if (token) {
+    const accountType = validation()
 
-  //establecer titulos de la pagina dinamicamente
-  document.title = to.meta.title || 'Mapache E-commerce'
-
+    if (to.matched.some(record => record.meta.requiresGuest)) {
+      next({ path: '/' }); // Redirige al home o alguna otra ruta si el usuario ya está autenticado
+    }
+    else if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (to.matched.some(record => record.meta.requiresSeller) && accountType !== '2') {
+        return next('/'); // Si no es vendedor
+      }
+      if (to.matched.some(record => record.meta.requiresComprador) && accountType !== '1') {
+        return next('/'); // Si no es comprador
+      }
+    }
+    return next(); // Si tiene permisos, sigue la ruta
+  } else {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      return next('/sign-in'); // Si no hay token, redirige al login
+    }
+    next(); // Si no requiere autenticación, sigue normalmente
+  }
 });
-
-
-
 export default router

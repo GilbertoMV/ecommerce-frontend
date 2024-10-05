@@ -39,6 +39,8 @@
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
 import apiClient from '../store/auth-vuex';
+import { jwtDecode } from 'jwt-decode';
+
 
 const formInput = () => import('./formInput.vue');
 const facebookIcon = () => import('./icons/facebookIcon.vue');
@@ -93,6 +95,10 @@ export default {
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
                     this.$store.dispatch('updateAuthenticationStatus', true);
+                    // Decodifica el token para obtener el tipo de cuenta
+                    const decodedToken = jwtDecode(response.data.token);
+                    this.$store.commit('setAccountType', decodedToken.cuenta);
+
                     await this.$store.dispatch('fetchAndSetUserData');
                     this.$router.push('/');
                 }

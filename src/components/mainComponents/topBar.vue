@@ -6,24 +6,27 @@
           <img src="@/assets/images/logo.webp" alt="logo" class="header__logo">
         </router-link>
       </div>
-      <template v-if="isAuthenticated">
-        <searchComponent />
-        <div class="header__menu">
-          <button class="header__hamburger hamburger hamburger--collapse" type="button" @click="hamburgerMenu">
-            <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
-            </span>
-          </button>
-        </div>
+      <searchComponent />
+      <!-- Inicio responsive del top bar para usuarios logueados -->
+      <div class="header__menu">
+        <button class="header__hamburger hamburger hamburger--collapse" type="button" @click="hamburgerMenu">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+      <template v-if="accountType === '1' || !isAuthenticated">
         <ul class="header__menu-responsive">
-          <li @click="removeMenu">
-            <router-link to="/user/profile" class="header__menu-item">
+          <li @click="removeMenu" v-if="!isAuthenticated">
+            <router-link to="/sign-in" class="header__menu-item">
+              <userIcon />Sign In
+            </router-link>
+          </li>
+          <li @click="removeMenu" v-else>
+            <router-link to="/user" class=" header__menu-item">
               <userIcon />
               {{ username }}
             </router-link>
-          </li>
-          <li>
-            <a @click="categoriesMenu" class="header__menu-item">All Categories</a>
           </li>
           <li @click="removeMenu">
             <router-link to="/shopping-car" class="header__menu-item">
@@ -36,9 +39,47 @@
             </router-link>
           </li>
           <li>
+            <a @click="sectionsMenu" class="header__menu-item">More Sections</a>
+          </li>
+          <li>
+            <a @click="categoriesMenu" class="header__menu-item">All Categories</a>
+          </li>
+          <li v-if="isAuthenticated">
             <a @click="handleLogout" class="header__menu-item">
               <logoutIcon /> Log Out
             </a>
+          </li>
+        </ul>
+        <ul class="header__sections-menu">
+          <li @click="removeMenu">
+            <router-link to="/outlet">
+              Outlet
+            </router-link>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/promotions">
+              Promos
+            </router-link>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/best-sellers">
+              Best Sellers
+            </router-link>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/new-items">
+              New Items
+            </router-link>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/more-ecofriendly">
+              More Eco-friendly
+            </router-link>
+          </li>
+          <li @click="removeMenu">
+            <router-link to="/rewards-shop">
+              Rewards Shop
+            </router-link>
           </li>
         </ul>
         <ul class="header__categories-menu">
@@ -48,14 +89,54 @@
             </router-link>
           </li>
         </ul>
+      </template>
+      <template v-else-if="isAuthenticated && accountType === '2'">
+        <ul class="header__menu-responsive">
+          <li @click="removeMenu">
+            <a class="header__menu-item">
+              <userIcon />
+              {{ username }}
+            </a>
+          </li>
+          <li>
+            <router-link to="/admin" class="header__menu-item">
+              <dashboardIcon /> Dashboard
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/admin/add-product" class="header__menu-item">
+              <productIcon /> New Product
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/admin/add-category" class="header__menu-item">
+              <categoryIcon /> New Category
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/admin/add-attribute" class="header__menu-item">
+              <attributeIcon /> New Attribute
+            </router-link>
+          </li>
+          <li v-if="isAuthenticated">
+            <a @click="handleLogout" class="header__menu-item">
+              <logoutIcon /> Log Out
+            </a>
+          </li>
+        </ul>
+      </template>
+      <!-- Fin responsive del top bar para usuarios logueados -->
+      <template v-if="isAuthenticated"> <!--Si el usuario esta logueado mostramos las opciones de usuario-->
         <ul class="header__links-container">
+          <!-- Inicio de menu desplegable para usuarios -->
           <div class="header__dropdown" @mouseover="showMenu" @mouseleave="scheduleHideMenu">
             <span class="header__dropdown-button header__link">
               <userIcon />
               {{ username }}
             </span>
-            <div class="header__dropdown-menu" :class="{ 'header__dropdown-menu--visible': isMenuVisible }"
-              @mouseover="cancelHideMenu" @mouseleave="scheduleHideMenu">
+            <div v-if="accountType === '1'" class="header__dropdown-menu"
+              :class="{ 'header__dropdown-menu--visible': isMenuVisible }" @mouseover="cancelHideMenu"
+              @mouseleave="scheduleHideMenu">
               <router-link to="/user/my-orders" class="header__dropdown-item">
                 <ordersIcon /> My Orders
               </router-link>
@@ -69,17 +150,37 @@
                 <logoutIcon /> Log Out
               </a>
             </div>
+            <div v-else class="header__dropdown-menu" :class="{ 'header__dropdown-menu--visible': isMenuVisible }"
+              @mouseover="cancelHideMenu" @mouseleave="scheduleHideMenu">
+              <router-link to="/admin/add-product" class="header__dropdown-item">
+                <productIcon /> New Product
+              </router-link>
+              <router-link to="/admin/add-category" class="header__dropdown-item">
+                <categoryIcon /> New Category
+              </router-link>
+              <router-link to="/admin/add-attribute" class="header__dropdown-item">
+                <attributeIcon /> New Attribute
+              </router-link>
+              <a @click="handleLogout" class="header__dropdown-item">
+                <logoutIcon /> Log Out
+              </a>
+            </div>
           </div>
-          <router-link to="/shopping-car" class="header__link">
-            <shoppingcarIcon /> Shopping Car
+          <!-- Fin de menu desplegable para usuarios logueados -->
+          <!-- si es usuario comprador -->
+          <router-link v-if="accountType === '1'" to="/shopping-car" class="header__link">
+            <shoppingcarIcon />Shopping Car
           </router-link>
-          <router-link to="/favorites" class="header__link">
+          <!-- si es usuario vendedor -->
+          <router-link v-else to="/admin" class="header__link">
+            <dashboardIcon /> Dashboard
+          </router-link>
+          <router-link v-if="accountType === '1'" to="/favorites" class="header__link">
             <favoritesIcon /> Favorites
           </router-link>
         </ul>
       </template>
-      <template v-else>
-        <searchComponent />
+      <template v-else> <!--Si el usuario no esta logueado mostramos las opciones de loguearse-->
         <div class="header__session-container">
           <router-link to="/shopping-car" class="header__link">
             <shoppingcarIcon />
@@ -107,7 +208,11 @@ const rewardsIcon = () => import('../icons/rewardsIcon.vue')
 const ordersIcon = () => import('../icons/ordersIcon.vue')
 const logoutIcon = () => import('../icons/logoutIcon.vue')
 const favoritesIcon = () => import('../icons/favoritesIcon.vue')
-const searchComponent = () => import('./searchComponent.vue')
+const searchComponent = () => import('./searchComponent.vue');
+const dashboardIcon = () => import('../icons/dashboardIcon.vue');
+const productIcon = () => import('../icons/productIcon.vue');
+const categoryIcon = () => import('../icons/categoryIcon.vue');
+const attributeIcon = () => import('../icons/attributeIcon.vue')
 
 export default {
   name: 'NavBarTop',
@@ -119,7 +224,11 @@ export default {
     logoutIcon,
     favoritesIcon,
     shoppingcarIcon,
-    searchComponent
+    searchComponent,
+    dashboardIcon,
+    productIcon,
+    categoryIcon,
+    attributeIcon
   },
   data() {
     return {
@@ -129,7 +238,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'username', 'isDarkMode'])
+    ...mapGetters(['isAuthenticated', 'username', 'accountType']),
   },
   methods: {
     ...mapActions(['logout']),
@@ -156,21 +265,31 @@ export default {
       this.logout();
     },
     hamburgerMenu() {
+      const categoriesMenu = document.querySelector('.header__categories-menu');
+      const sectionsMenu = document.querySelector('.header__sections-menu');
+
       document.querySelector('.header__hamburger').classList.toggle('is-active');
       document.querySelector('.header__menu-responsive').classList.toggle('is-active');
-      document.querySelector('.header__categories-menu').classList.remove('is-active');
+      if (categoriesMenu) categoriesMenu.classList.remove('is-active');
+      if (sectionsMenu) sectionsMenu.classList.remove('is-active');
     },
     removeMenu() {
       document.querySelector('.header__hamburger').classList.remove('is-active');
       document.querySelector('.header__menu-responsive').classList.remove('is-active');
-      document.querySelector('.header__categories-menu').classList.remove('is-active');
+
+      const categoriesMenu = document.querySelector('.header__categories-menu');
+      const sectionsMenu = document.querySelector('.header__sections-menu');
+
+      if (categoriesMenu) categoriesMenu.classList.remove('is-active');
+      if (sectionsMenu) sectionsMenu.classList.remove('is-active');
     },
     categoriesMenu() {
       document.querySelector('.header__categories-menu').classList.toggle('is-active');
     },
-
+    sectionsMenu() {
+      document.querySelector('.header__sections-menu').classList.toggle('is-active');
+    },
     async fetchCategories() {
-
       try {
         const response = await apiClient.get("/categories");
         this.categories = response.data;
@@ -230,7 +349,8 @@ export default {
 }
 
 .header__menu-responsive,
-.header__categories-menu {
+.header__categories-menu,
+.header__sections-menu {
   display: none;
   flex-direction: column;
   justify-content: space-around;
@@ -251,7 +371,8 @@ export default {
 }
 
 .header__menu-responsive li a,
-.header__categories-menu li a {
+.header__categories-menu li a,
+.header__sections-menu li a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -260,10 +381,12 @@ export default {
   text-decoration: none;
   width: 100%;
   height: 100%;
+  text-transform: capitalize;
 }
 
 .header__menu-responsive.is-active,
-.header__categories-menu.is-active {
+.header__categories-menu.is-active,
+.header__sections-menu.is-active {
   transform: translateX(0);
 }
 
@@ -360,15 +483,25 @@ export default {
 .header__dropdown-item {
   font-size: var(--font-size-medium);
   color: var(--text-color-title);
-  padding: 1.2rem 1.6rem;
+  padding: 1.2rem;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: .5rem;
-  border-radius: .7rem;
   transition: all .3s ease;
   cursor: pointer;
 }
+
+.header__dropdown-item:first-child {
+  border-top-left-radius: .7rem;
+  border-top-right-radius: .7rem;
+}
+
+.header__dropdown-item:last-child {
+  border-bottom-left-radius: .7rem;
+  border-bottom-right-radius: .7rem;
+}
+
 
 .header__dropdown-item:hover {
   background-color: var(--background-hover-menus);
@@ -381,13 +514,15 @@ export default {
 @media (width <=768px) {
 
   .header__menu-responsive,
-  .header__categories-menu {
+  .header__categories-menu,
+  .header__sections-menu {
     display: flex;
     top: 7rem;
   }
 
   .header__menu-responsive li,
-  .header__categories-menu li {
+  .header__categories-menu li,
+  .header__sections-menu li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -395,6 +530,8 @@ export default {
     font-size: 2.3rem;
   }
 
+  /*
+  */
   .header__links-container {
     display: none;
   }
@@ -414,6 +551,10 @@ export default {
 
   .header__session-container {
     display: none;
+  }
+
+  .header {
+    width: 90%;
   }
 }
 </style>
