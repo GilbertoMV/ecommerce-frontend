@@ -43,21 +43,12 @@
                     </router-link>
                 </ul>
             </li>
-
-            <li @click="logout">
-                <a class="item-click logout">
-                    <div class="list__item ">
-                        <logoutIcon />
-                        <span> Log out</span>
-                    </div>
-                </a>
-            </li>
         </ul>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 //sidebar user icons
 const userIcon = () => import('../icons/userIcon.vue')
 const ordersIcon = () => import('../icons/ordersIcon.vue')
@@ -113,7 +104,6 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['logout']),
         toggleMenu(index) {
             this.activeItem = this.activeItem === index ? null : index;
         },

@@ -2,7 +2,6 @@
     <div class="dashboard">
         <sidebarComponent :title="titleAdmin" :options="adminOptions" />
         <div class="loadComponent">
-            <headerDasboard />
             <router-view />
         </div>
     </div>
@@ -10,11 +9,10 @@
 
 <script>
 const sidebarComponent = () => import('../../components/mainComponents/sidebarComponent.vue');
-const headerDasboard = () => import('../../components/adminComponents/headerComponent.vue');
 export default {
     name: 'dashboardAdmin',
     components: {
-        sidebarComponent, headerDasboard
+        sidebarComponent,
     },
     data() {
         return {
