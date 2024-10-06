@@ -295,11 +295,16 @@ export default {
                 }
                 const productId = await this.postProduct();
                 await this.uploadImage(productId);
-                // await this.assignColorAndSizes(productId);
+                if (this.selectedColors) {
+                    await this.assignColors(productId);
+                }
+                if (this.selectedSizes) {
+                    await this.assignSizes(productId);
+                }
 
                 Swal.fire({
                     icon: "success",
-                    title: "Images successfully added to server",
+                    text: "Product successfully published",
                     width: 'auto',
                     toast: true,
                     position: "bottom-right",
@@ -312,6 +317,55 @@ export default {
             } finally {
                 this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
             }
+        },
+        async uploadImage(productId) {
+            const cloudinaryUrl = "https://api.cloudinary.com/v1_1/koalaMarket/upload";
+            const uploadPreset = "koalaPreset";
+
+            for (let i = 0; i < this.imagesFiles.length; i++) {
+                const file = this.imagesFiles[i];
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', uploadPreset);
+                try {
+                    const response = await axios.post(cloudinaryUrl, formData);
+                    const uploadedUrl = response.data.secure_url;
+                    this.uploadedImages.push(uploadedUrl);
+                    await apiClient.post('/images/', {
+                        id_producto: productId,
+                        url_imagen: uploadedUrl,
+                        descripcion: 'not available'
+                    })
+                } catch (error) {
+                    console.error('Error al subir la imagen:', error.response ? error.response.data : error);
+                }
+            }
+        },
+        async assignColors(productId) {
+            try {
+                for (let i = 0; i < this.selectedColors.length; i++) {
+                    await apiClient.post('/colors/products', {
+                        id_producto: productId,
+                        id_color: this.selectedColors[i].id_color
+                    });
+                }
+            } catch (error) {
+                throw new Error('error when assigning colors to the product')
+            }
+        },
+        async assignSizes(productId) {
+            try {
+                for (let i = 0; i < this.selectedSizes.length; i++) {
+                    await apiClient.post('/sizes/products', {
+                        id_producto: productId,
+                        id_talla: this.selectedSizes[i].id_talla
+                    })
+                }
+            } catch (error) {
+                throw new Error('error when assigning sizes to the product')
+            }
+
         },
         toggleDisable(type) {
             if (type === 'sizes') {
@@ -353,59 +407,15 @@ export default {
             this.imagesFiles.splice(index, 1);
             //Eliminamos la URL de previsualizacion
             this.previewImages.splice(index, 1);
-        },
-        async uploadImage(productId) {
-            const cloudinaryUrl = "https://api.cloudinary.com/v1_1/koalaMarket/upload";
-            const uploadPreset = "koalaPreset";
-
-            for (let i = 0; i < this.imagesFiles.length; i++) {
-                const file = this.imagesFiles[i];
-
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('upload_preset', uploadPreset);
-                try {
-                    const response = await axios.post(cloudinaryUrl, formData);
-                    const uploadedUrl = response.data.secure_url;
-                    this.uploadedImages.push(uploadedUrl);
-                    await apiClient.post('/images/', {
-                        id_producto: productId,
-                        url_imagen: uploadedUrl,
-                        descripcion: 'not available'
-                    })
-                } catch (error) {
-                    console.error('Error al subir la imagen:', error.response ? error.response.data : error);
-                }
-            }
-        },
-        async assignColorAndSizes(productId) {
-            try {
-                //subir colores
-                const selectedColors = this.selectedColors.map(color => ({
-                    id_producto: productId,
-                    id_color: color.id_color
-                }));
-                await apiClient.post('/colors', { colors: selectedColors });
-
-                //subir tallas
-                const selectedSizes = this.selectedSizes.map(size => ({
-                    id_producto: productId,
-                    id_talla: size.id_talla
-                }))
-                await apiClient.post('/sizes', { sizes: selectedSizes })
-
-                console.log('subidos correctamente')
-            } catch (error) {
-                throw new Error('Error al asignar los colores y las tallas')
-            }
         }
-
-
     },
     async created() {
+        this.$store.dispatch('setLoading', true);  // Activar loader al inicio
         this.categories = await fetchCategoryData();
         this.sizesOptions = await fetchSizes();
         this.colorOptions = await fetchColors();
+        this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+
     }
 }
 </script>
