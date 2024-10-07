@@ -55,9 +55,11 @@
                     <!-- Name -->
                     <span class="form__error" v-if="!$v.formData.name.required && $v.formData.name.$error">Name is
                         required.</span>
-                    <span class="form__error" v-if="!$v.formData.name.minLength && $v.formData.name.$error">Name must be
+                    <span class="form__error" v-if="!$v.formData.name.minLength && $v.formData.name.$error">Name
+                        must be
                         at least 10 characters long.</span>
-                    <span class="form__error" v-if="!$v.formData.name.maxLength && $v.formData.name.$error">Name cannot
+                    <span class="form__error" v-if="!$v.formData.name.maxLength && $v.formData.name.$error">Name
+                        cannot
                         exceed 50 characters.</span>
 
                     <!-- Category -->
@@ -78,30 +80,38 @@
                         v-if="!$v.formData.description.required && $v.formData.description.$error">Description is
                         required.</span>
                     <span class="form__error"
-                        v-if="!$v.formData.description.minLength && $v.formData.description.$error">Description must be
+                        v-if="!$v.formData.description.minLength && $v.formData.description.$error">Description must
+                        be
                         at least 20 characters long.</span>
                     <span class="form__error"
-                        v-if="!$v.formData.description.maxLength && $v.formData.description.$error">Description cannot
+                        v-if="!$v.formData.description.maxLength && $v.formData.description.$error">Description
+                        cannot
                         exceed 200 characters.</span>
 
                     <!-- Price -->
-                    <span class="form__error" v-if="!$v.formData.price.required && $v.formData.price.$error">Price is
+                    <span class="form__error" v-if="!$v.formData.price.required && $v.formData.price.$error">Price
+                        is
                         required.</span>
-                    <span class="form__error" v-if="!$v.formData.price.minValue && $v.formData.price.$error">Price must
+                    <span class="form__error" v-if="!$v.formData.price.minValue && $v.formData.price.$error">Price
+                        must
                         be greater than 0.</span>
                     <span class="form__error" v-if="!$v.formData.price.maxValue && $v.formData.price.$error">Price
                         cannot exceed 1,000,000.</span>
-                    <span class="form__error" v-if="!$v.formData.price.numeric && $v.formData.price.$error">Price must
+                    <span class="form__error" v-if="!$v.formData.price.numeric && $v.formData.price.$error">Price
+                        must
                         be a valid number.</span>
 
                     <!-- Stock -->
-                    <span class="form__error" v-if="!$v.formData.stock.required && $v.formData.stock.$error">Stock is
+                    <span class="form__error" v-if="!$v.formData.stock.required && $v.formData.stock.$error">Stock
+                        is
                         required.</span>
-                    <span class="form__error" v-if="!$v.formData.stock.minValue && $v.formData.stock.$error">Stock must
+                    <span class="form__error" v-if="!$v.formData.stock.minValue && $v.formData.stock.$error">Stock
+                        must
                         be at least 1.</span>
                     <span class="form__error" v-if="!$v.formData.stock.maxValue && $v.formData.stock.$error">Stock
                         cannot exceed 100.</span>
-                    <span class="form__error" v-if="!$v.formData.stock.numeric && $v.formData.stock.$error">Stock must
+                    <span class="form__error" v-if="!$v.formData.stock.numeric && $v.formData.stock.$error">Stock
+                        must
                         be a valid number.</span>
                     <!-- Carbon Footprint -->
                     <span class="form__error"
@@ -122,18 +132,99 @@
 
                     <!-- Rewards Points -->
                     <span class="form__error"
-                        v-if="!$v.formData.rewards_points.required && $v.formData.rewards_points.$error">Rewards points
+                        v-if="!$v.formData.rewards_points.required && $v.formData.rewards_points.$error">Rewards
+                        points
                         are required.</span>
                     <span class="form__error"
-                        v-if="!$v.formData.rewards_points.minValue && $v.formData.rewards_points.$error">Rewards points
+                        v-if="!$v.formData.rewards_points.minValue && $v.formData.rewards_points.$error">Rewards
+                        points
                         must be at least 0.</span>
                     <span class="form__error"
-                        v-if="!$v.formData.rewards_points.maxValue && $v.formData.rewards_points.$error">Rewards points
+                        v-if="!$v.formData.rewards_points.maxValue && $v.formData.rewards_points.$error">Rewards
+                        points
                         cannot exceed 1000.</span>
                     <span class="form__error"
-                        v-if="!$v.formData.rewards_points.numeric && $v.formData.rewards_points.$error">Rewards points
+                        v-if="!$v.formData.rewards_points.numeric && $v.formData.rewards_points.$error">Rewards
+                        points
                         must be a valid number.</span>
-
+                </div>
+                <div class="form__logs">
+                    <div class="form__log" v-if="productState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Subiendo información del producto...
+                        </span>
+                    </div>
+                    <div class=" form__log" v-if="productState === 'success'">
+                        <checkIcon />
+                        <span>
+                            Información del producto subida exitosamente.
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="productState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error al subir la información del
+                            producto.
+                        </span>
+                    </div>
+                    <!-- Mostrar el loader o estado para la subida de imágenes -->
+                    <div class="form__log" v-if="imagesState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Subiendo imágenes al servidor...
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="imagesState === 'success'">
+                        <checkIcon />
+                        <span>
+                            Imágenes subidas al servidorexitosamente.
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="imagesState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error al subir las imágenes.
+                        </span>
+                    </div>
+                    <!-- Mostrar el loader o estado para la subida de tallas -->
+                    <div class="form__log" v-if="sizesState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Asignando tallas al producto...
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="sizesState === 'success'">
+                        <checkIcon />
+                        <span>
+                            Tallas asignadas correctamente.
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="sizesState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error al asignar las tallas.
+                        </span>
+                    </div>
+                    <!-- Mostrar el loader o estado para la asignación de colores -->
+                    <div class="form__log" v-if="colorsState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Asignando tallas al producto...
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="colorsState === 'success'">
+                        <checkIcon />
+                        <span>
+                            Colores asignadas correctamente.
+                        </span>
+                    </div>
+                    <div class="form__log" v-if="colorsState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error al asignar las tallas.
+                        </span>
+                    </div>
                 </div>
             </fieldset>
             <fieldset class="form__column">
@@ -157,7 +248,8 @@
                             class="form__input form__input--file" @change="handleImageSelect">
                     </div>
                 </div>
-                <span class="form__input-helps">You need to add at least 3 images. Pay attention to the quality of the
+                <span class="form__input-helps">You need to add at least 3 images. Pay attention to the quality of
+                    the
                     pictures you add, comply with the background color standards. Pictures must be in certain
                     dimensions. Notice that the product shows all the details
                 </span>
@@ -211,7 +303,10 @@ import { required, minLength, maxLength, minValue, maxValue, between, numeric } 
 import Swal from 'sweetalert2';
 import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue';
+import checkIcon from '../../icons/checkIcon.vue'
 import trashIcon from '../../icons/trashIcon.vue';
+import errorIcon from '../../icons/errorIcon.vue';
+import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue'
 import apiClient from '../../../store/auth-vuex';
 import axios from 'axios';
 export default {
@@ -220,7 +315,10 @@ export default {
         plusIcon,
         uploadImageIcon,
         trashIcon,
-        VueSelect
+        VueSelect,
+        checkIcon,
+        tinyLoader,
+        errorIcon
     },
     computed: {
         ...mapGetters(['idUser'])
@@ -245,7 +343,13 @@ export default {
                 stock: 0,
                 carbon_footprint: 0,
                 rewards_points: 0
-            } //objeto de los datos del producto
+            }, //objeto de los datos del producto
+
+            //Manejo del estado de subida de producto
+            productState: '',
+            imagesState: '',
+            colorsState: '',
+            sizesState: ''
         }
     },
     validations: {
@@ -263,21 +367,24 @@ export default {
     },
     methods: {
         async postProduct() {
-            const response = await apiClient.post("/products", {
-                id_categoria: this.formData.id_category,
-                id_usuario: this.idUser,
-                nombre: this.formData.name,
-                caracteristicas: 'not available',
-                descripcion: this.formData.description,
-                precio: this.formData.price,
-                existencias: this.formData.stock,
-                huella_carbono: this.formData.carbon_footprint,
-                puntos_recompensa: this.formData.rewards_points,
-            });
-            return response.data.id;
+            try {
+                const response = await apiClient.post("/products", {
+                    id_categoria: this.formData.id_category,
+                    id_usuario: this.idUser,
+                    nombre: this.formData.name,
+                    caracteristicas: 'not available',
+                    descripcion: this.formData.description,
+                    precio: this.formData.price,
+                    existencias: this.formData.stock,
+                    huella_carbono: this.formData.carbon_footprint,
+                    puntos_recompensa: this.formData.rewards_points,
+                });
+                return response.data.id;
+            } catch (error) {
+                console.error(error)
+            }
         },
         async addProduct() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
@@ -293,15 +400,27 @@ export default {
                     });
                     return;
                 }
+                this.productState = 'loading'
                 const productId = await this.postProduct();
+                this.productState = 'success'
+
+                this.imagesState = 'loading'
                 await this.uploadImage(productId);
+                this.imagesState = 'success'
+
+
                 if (this.selectedColors) {
+                    this.colorsState = 'loading'
                     await this.assignColors(productId);
+                    this.colorsState = 'success'
+
                 }
                 if (this.selectedSizes) {
+                    this.sizesState = 'loading'
                     await this.assignSizes(productId);
+                    this.sizesState = 'success'
                 }
-
+                this.clearForm()
                 Swal.fire({
                     icon: "success",
                     text: "Product successfully published",
@@ -314,14 +433,12 @@ export default {
                 });
             } catch (error) {
                 console.error(error);
-            } finally {
-                this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+                this.productStatus = this.imageStatus = this.sizesColorsStatus = 'error';
             }
         },
         async uploadImage(productId) {
             const cloudinaryUrl = "https://api.cloudinary.com/v1_1/koalaMarket/upload";
             const uploadPreset = "koalaPreset";
-
             for (let i = 0; i < this.imagesFiles.length; i++) {
                 const file = this.imagesFiles[i];
 
@@ -365,7 +482,6 @@ export default {
             } catch (error) {
                 throw new Error('error when assigning sizes to the product')
             }
-
         },
         toggleDisable(type) {
             if (type === 'sizes') {
@@ -407,6 +523,26 @@ export default {
             this.imagesFiles.splice(index, 1);
             //Eliminamos la URL de previsualizacion
             this.previewImages.splice(index, 1);
+        },
+        clearForm() {
+            this.formData.name = ''
+            this.formData.id_category = ''
+            this.formData.description = ''
+            this.formData.price = 0
+            this.formData.stock = 0
+            this.formData.carbon_footprint = 0
+            this.formData.rewards_points = 0
+            this.imagesFiles = []
+            this.previewImages = []
+            this.selectedColors = []
+            this.selectedSizes = []
+            setTimeout(() => {
+                this.productState = ''
+                this.imagesState = ''
+                this.colorsState = ''
+                this.sizesState = ''
+            }, 5000);
+            this.$v.$reset()
         }
     },
     async created() {
@@ -427,6 +563,7 @@ export default {
     gap: 2rem;
     margin: 3rem 0 3rem;
 }
+
 
 .form__column {
     display: flex;

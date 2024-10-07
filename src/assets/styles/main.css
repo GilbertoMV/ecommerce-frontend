@@ -72,6 +72,23 @@ h1 {
   font-size: var(--font-size-small);
 }
 
+.form__log {
+  display: flex;
+  align-items: center;
+  column-gap: .5rem;
+  color: var(--help-color);
+  padding: .3rem 0;
+  font-size: var(--font-size-small);
+}
+
+.form__log .svg {
+  color: var(--primary-color);
+}
+
+.form__log .svg.error {
+  color: var(--required-color);
+}
+
 .account-form__forget-password,
 .account-form__register-link,
 .account-form__login-link {
@@ -329,9 +346,11 @@ h1 {
 }
 
 .form__errors,
-.attribute__errors {
+.attribute__errors,
+.form__logs {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .form__label--file,
