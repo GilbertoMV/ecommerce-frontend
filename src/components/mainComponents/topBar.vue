@@ -202,6 +202,11 @@
           </router-link>
           <router-link to="/sign-in" class="header__link">Login</router-link>
           <router-link to="/sign-up" class="header__link header__link--sign-up">Signup</router-link>
+          <span class="header__link" @click="toggleDarkMode">
+            <transition name="fade" mode="out-in">
+              <component :is="currentModeIcon" />
+            </transition>
+          </span>
         </div>
       </template>
     </nav>

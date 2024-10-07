@@ -4,13 +4,13 @@
         <div class="crud__container">
             <div class="crud__header">
                 <div class="crud__entries">
-                    <!-- <span class="crud__text">Showing</span>
+                    <span class="crud__text">Showing</span>
                     <select name="entries" id="entries" class="crud__select">
                         <option value="5">10</option>
                         <option value="10">20</option>
                         <option value="10">30</option>
                     </select>
-                    <span class="crud__text">entries</span> -->
+                    <span class="crud__text">entries</span>
                 </div>
                 <div class="crud__search">
                     <searchComponent />
