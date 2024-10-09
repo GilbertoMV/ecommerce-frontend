@@ -27,6 +27,18 @@
                     <li v-for="(col, index) in columnsTable" :key="index"> {{ col.label }}</li>
                 </ul>
                 <ul class="table__body">
+                    <li class="form__log" v-if="categoriesState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Loading categories...
+                        </span>
+                    </li>
+                    <li class="form__log" v-if="categoriesState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error loading categories...
+                        </span>
+                    </li>
                     <li v-for="(category, index) in categories" :key="index" class="table__row">
                         <p>{{ category.id_categoria }}</p>
                         <p class="table__images">
@@ -34,11 +46,13 @@
                                 :alt="'Category image: ' + category.nombre">
                         </p>
                         <p>{{ category.nombre }}</p>
+                        <p>{{ category.descripcion }}</p>
                         <p class="table__icons">
-                            <span>
+                            <router-link class="table__icon"
+                                :to="{ name: 'editCategoryComponent', params: { categoryId: category.id_categoria } }">
                                 <editIcon class="edit" />
-                            </span>
-                            <span @click="deleteCategory(category.id_categoria)">
+                            </router-link>
+                            <span class="table__icon" @click="deleteCategory(category.id_categoria)">
                                 <trashIcon class="delete" />
                             </span>
                         </p>
@@ -51,11 +65,13 @@
 <script>
 import searchComponent from '../../mainComponents/searchComponent.vue';
 import plusIcon from '../../icons/plusIcon.vue';
-import { fetchCategoryData } from '../../../utils/apiUtils';
+import { fetchCategoryData } from '../../../utils/apiUtils.js';
 import trashIcon from '../../icons/trashIcon.vue';
 import editIcon from '../../icons/editIcon.vue';
 import apiClient from '../../../store/auth-vuex';
 import Swal from 'sweetalert2';
+import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue';
+import errorIcon from '../../icons/errorIcon.vue';
 
 export default {
     name: 'allCrudComponent',
@@ -63,7 +79,9 @@ export default {
         searchComponent,
         plusIcon,
         trashIcon,
-        editIcon
+        editIcon,
+        errorIcon,
+        tinyLoader
     },
     data() {
         return {
@@ -71,9 +89,11 @@ export default {
                 { label: 'ID', field: 'id_categoria' },
                 { label: 'Image', field: 'url_imagen' },
                 { label: 'Name', field: 'nombre' },
+                { label: 'Description', field: 'descripcion' },
                 { label: 'Actions', field: 'actions' } // Si necesitas acciones para la fila, por ejemplo, editar/eliminar
             ],
-            categories: []
+            categories: [],
+            categoriesState: ''
         }
     },
     methods: {
@@ -121,7 +141,13 @@ export default {
         }
     },
     async created() {
-        this.categories = await fetchCategoryData();
+        try {
+            this.categoriesState = 'loading'
+            this.categories = await fetchCategoryData();
+            this.categoriesState = ''
+        } catch (error) {
+            this.categoriesState = 'error'
+        }
     }
 }
 </script>
@@ -200,7 +226,7 @@ export default {
 
 .table {
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -241,7 +267,7 @@ export default {
 
 .table__row:hover,
 .table__row:nth-child(odd):hover {
-    background-color: #ededed35;
+    background-color: var(--row-option-hover-color);
 }
 
 .table__row:nth-child(odd) {
@@ -255,23 +281,28 @@ export default {
 .table__row p:nth-child(1),
 .table__head li:nth-child(1) {
     /*ID*/
-    width: 10%;
+    width: 5%;
 }
 
 .table__row p:nth-child(2),
 .table__head li:nth-child(2) {
     /*IMAGE*/
-    width: 15%;
+    width: 10%;
 }
 
 .table__row p:nth-child(3),
 .table__head li:nth-child(3) {
     /*NAME*/
-    width: 60%;
+    width: 30%;
 }
 
 .table__row p:nth-child(4),
 .table__head li:nth-child(4) {
+    width: 40%;
+}
+
+.table__row p:nth-child(5),
+.table__head li:nth-child(5) {
     /*actions*/
     width: 15%;
 }
@@ -282,7 +313,7 @@ export default {
 }
 
 .table__image {
-    width: 10rem;
+    width: 5rem;
 }
 
 .table__icons {
@@ -294,11 +325,27 @@ export default {
 .edit,
 .delete {
     cursor: pointer;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.edit {
+    color: var(--edit-color);
 }
 
 .delete {
     color: var(--required-color);
+}
+
+.form__log {
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.form__log .loader,
+.form__log svg {
+    width: 5rem;
+    height: 5rem;
 }
 </style>

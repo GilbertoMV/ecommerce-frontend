@@ -25,6 +25,7 @@
     --error-color: #c10f0f;
     --help-color: #95989D;
     --option-hover-color: #85af5c13;
+    --row-option-hover-color: #86868635;
 
     /*Colores de texto*/
     --text-color-title: #030136;
@@ -34,6 +35,7 @@
     --text-color-base: #fff;
     --box-shadow-color: rgba(20, 25, 38, 0.05);
     --border-color: #ebead6;
+    --edit-color: #6c757d;
 
     /*Fuentes de texto*/
     --font-family: "Poppins";
@@ -60,7 +62,8 @@
     --box-shadow-color: rgba(61, 61, 61, 0.05);
     --border-color: #ebead63a;
     --option-hover-color: #36462628;
-
+    --row-option-hover-color: #9b9a9a35;
+    --edit-color: #6c757d;
 
     /*Colores de texto*/
     --text-color-title: #d4d4d4;

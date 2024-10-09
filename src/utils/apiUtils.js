@@ -1,6 +1,6 @@
 import apiClient from '../store/auth-vuex.js';
 
-export async function fetchCategoryData() {
+export async function fetchCategoryData(categoryId = '') {
   // Intentar obtener los datos almacenados en localStorage
   // const categoryData = localStorage.getItem('categoryData');
 
@@ -10,13 +10,17 @@ export async function fetchCategoryData() {
   // }
 
   // Hacer la petición a la API para obtener las categorías
-  const response = await apiClient.get("/categories");
-  const categories = response.data;
+  if(categoryId === '') {
+    const response = await apiClient.get("/categories");
+    return response.data;
+  }else {
+    const response = await apiClient.get(`/categories/${categoryId}`)
+    return response.data;
+  }
 
   // Almacenar los datos como string en localStorage
   // localStorage.setItem('categoryData', JSON.stringify(categories));
 
-  return categories;
 }
 
 export async function fetchUserData() {
