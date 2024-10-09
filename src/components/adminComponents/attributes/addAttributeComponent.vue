@@ -6,17 +6,21 @@
                 <div class="addAttribute__row">
                     <label for="name" class="addAttribute__label">Attribute Name <span
                             class="addAttribute__required">*</span></label>
-                    <input type="text" class="addAttribute__input" id="name" placeholder="Enter attribute name"
-                        v-model="formData.name" required>
+                    <div class="addAttribute__inputs">
+                        <input type="text" class="addAttribute__input" id="name" placeholder="Enter attribute name"
+                            v-model="formData.name">
+                    </div>
                 </div>
                 <div class="addAttribute__row">
                     <label for="value" class="addAttribute__label">Attribute type <span
                             class="addAttribute__required">*</span></label>
-                    <select class="addAttribute__select" id="value" v-model="formData.type" required>
-                        <option value="" selected disabled>-- Select an option</option>
-                        <option value="color">Color</option>
-                        <option value="size">Size</option>
-                    </select>
+                    <div class="addAttribute__inputs">
+                        <select class="addAttribute__select" id="value" v-model="formData.type">
+                            <option value="" selected disabled>-- Select an option</option>
+                            <option value="color">Color</option>
+                            <option value="size">Size</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="addAttribute__row">
                     <div class="addAttribute__label"></div>
@@ -25,6 +29,33 @@
                             attribute is required.</span>
                         <span class="attribute__error" v-if="!$v.formData.type.required && $v.formData.type.$error">Type
                             attribute is required.</span>
+                        <span class="attribute__error" v-if="!$v.formData.name.minLength && $v.formData.name.$error">
+                            Name attribute must be at least 1 character.
+                        </span>
+                        <span class="attribute__error" v-if="!$v.formData.name.maxLength && $v.formData.name.$error">
+                            Name attribute cannot exceed 10 characters.
+                        </span>
+                    </div>
+
+                    <div class="form__logs">
+                        <div class="form__log" v-if="attributeState === 'loading'">
+                            <tinyLoader />
+                            <span>
+                                Adding Attribute.
+                            </span>
+                        </div>
+                        <div class="form__log" v-if="attributeState === 'success'">
+                            <checkIcon />
+                            <span>
+                                Attribute added successfully.
+                            </span>
+                        </div>
+                        <div class="form__log" v-if="attributeState === 'error'">
+                            <errorIcon />
+                            <span>
+                                Error when assigning sizes.
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="addAttribute__row">
@@ -39,31 +70,38 @@
     </div>
 </template>
 <script>
-import { required } from 'vuelidate/lib/validators';
+import { maxLength, minLength, required } from 'vuelidate/lib/validators';
 import Swal from 'sweetalert2';
 import apiClient from '../../../store/auth-vuex.js';
+import checkIcon from '../../icons/checkIcon.vue';
+import errorIcon from '../../icons/errorIcon.vue';
+import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue';
 export default {
     name: 'adAttributeComponent',
+    components: {
+        checkIcon,
+        tinyLoader,
+        errorIcon
+    },
     data() {
         return {
             formData: {
                 name: '',
                 type: ''
-            }
+            },
+            attributeState: ''
         }
     },
     validations: {
         formData: {
-            name: { required },
+            name: { required, minLength: minLength(1), maxLength: maxLength(10) },
             type: { required }
         }
     },
     methods: {
         async addAttribute() {
-
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
-            this.$v.$touch();
             try {
+                this.$v.$touch();
                 if (this.$v.$invalid) {
                     Swal.fire({
                         icon: "warning",
@@ -78,62 +116,47 @@ export default {
                     return;
                 }
                 if (this.formData.type === 'color') {
+                    this.attributeState = 'loading'
                     this.createAttributeColor()
+                    this.attributeState = 'success'
+
                 } else if (this.formData.type === 'size') {
+                    this.attributeState = 'loading'
                     this.createAttributeSize()
+                    this.attributeState = 'success'
                 }
+                this.clearForm()
             } catch (error) {
                 console.error(error)
-            } finally {
-                this.$store.dispatch('setLoading', false);  // Activar loader al inicio
-
+                this.attributeState = 'error'
             }
-
         },
         async createAttributeColor() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
                 await apiClient.post('/colors/', {
                     nombre: this.formData.name
                 });
-                Swal.fire({
-                    icon: "success",
-                    text: "Successful attribute registration",
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-            } catch (e) {
-                console.error(e)
-            } finally {
-                this.$store.dispatch('setLoading', false);  // Activar loader al inicio
+            } catch (error) {
+                console.error(error)
             }
         },
         async createAttributeSize() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
             try {
                 await apiClient.post('/sizes/', {
                     nombre: this.formData.name
                 });
-                Swal.fire({
-                    icon: "success",
-                    text: "Successful attribute registration",
-                    toast: true,
-                    width: 'auto',
-                    position: "bottom-right",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-            } catch (e) {
-                console.error(e)
-            } finally {
-                this.$store.dispatch('setLoading', false);  // desactivar loader al inicio
-
+            } catch (error) {
+                console.error(error)
             }
+        },
+        clearForm() {
+            this.formData.name = '';
+            this.formData.type = '';
+            setTimeout(() => {
+                this.attributeState = '';
+            }, 5000)
+            this.$v.$reset();
+
         }
     }
 }
@@ -150,14 +173,18 @@ export default {
 .addAttribute__form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     width: 100%;
 }
 
 .addAttribute__row {
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
     justify-content: start;
+}
+
+.addAttribute__row:nth-last-child(3) {
+    margin-bottom: 0;
 }
 
 .addAttribute__label {
@@ -166,10 +193,16 @@ export default {
     color: var(--text-color-title);
 }
 
+.addAttribute__inputs {
+    display: flex;
+    width: calc(100% - 25rem);
+}
+
 .addAttribute__input,
 .addAttribute__select {
-    width: calc(100% - 25rem)
+    width: 100%;
 }
+
 
 .addAttribute__button:hover {
     background-color: var(--text-color-hover-buttons)

@@ -303,10 +303,10 @@ import { required, minLength, maxLength, minValue, maxValue, between, numeric } 
 import Swal from 'sweetalert2';
 import plusIcon from '../../icons/plusIcon.vue';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue';
-import checkIcon from '../../icons/checkIcon.vue'
 import trashIcon from '../../icons/trashIcon.vue';
+import checkIcon from '../../icons/checkIcon.vue';
 import errorIcon from '../../icons/errorIcon.vue';
-import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue'
+import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue';
 import apiClient from '../../../store/auth-vuex';
 import axios from 'axios';
 export default {

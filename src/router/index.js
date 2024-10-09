@@ -66,7 +66,7 @@ const router = new Router({
     {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresAuth: true, requiresComprador:true, title: 'Shopping Car'}},
     {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresAuth: true, requiresComprador:true, title: 'Favorites productos'}},
     {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}}, //todos lo pueden ver pero solo compradores usar
-    {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address',requiresAuth: true, requiresComprador:true}},
+    {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true, requiresComprador:true}},
     {path: '/config-address/:addressId', name: 'editAddressPage', component: configAddressPage, meta: {title: 'Address',requiresAuth: true, requiresComprador:true}, props:true},
     {path: '/user', redirect: '/user/security', name:'userProfilePage',component: userProfilePage, meta: {requiresAuth: true, title: 'Profile', requiresComprador:true}, 
       children :[
@@ -90,6 +90,7 @@ const router = new Router({
         //CATEGORIES
         {path: 'add-category', name: 'addCategoryComponent', component: addCategoryComponent, meta: {title: 'Add Category'}},
         {path: 'all-categories', name:'allCategoriesComponent', component: allCategoriesComponent, meta:{title: 'All Categories'}},
+        {path: 'edit-category/:categoryId', name: 'editCategoryComponent', component: addCategoryComponent, meta: {title: 'edit Category', props:true}},
         //ATTRIBUTES
         {path:'add-attribute', name: 'addAttributeComponent', component: addAttributeComponent, meta:{title:'Add Attribute'}},
         {path:'all-attributes', name: 'allAttributesComponent', component: allAttributesComponent, meta:{title:'All Attributes'}},
