@@ -44,6 +44,8 @@
                 </ul>
             </li>
         </ul>
+        <div class="footer">
+        </div>
     </div>
 </template>
 
@@ -115,16 +117,15 @@ export default {
 </script>
 <style scoped>
 .sidebar {
+    display: flex;
+    flex-direction: column;
     width: 20%;
     max-width: 30rem;
     background-color: var(--primary-background-color);
     -webkit-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
     -moz-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
     box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
-    z-index: 990;
-    padding-top: 1rem;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-
+    transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 h2 {
@@ -247,7 +248,7 @@ h2 {
     align-items: center;
     width: 100%;
     height: auto;
-    padding-top: 1rem;
+    padding-top: 2rem;
 }
 
 .photocontainer {
@@ -263,6 +264,14 @@ h2 {
 
 .item-click.logout {
     color: var(--required-color);
+}
+
+.footer {
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+    padding-bottom: .3rem;
+    height: 100%;
 }
 
 @media (width <=768px) {

@@ -72,7 +72,7 @@
                         <div class="form__log" v-if="categoryState === 'success'">
                             <checkIcon />
                             <span>
-                                {{ isEditMode ? 'Category Updated successfully.' : 'Category added successfully.' }}
+                                {{ isEditMode ? 'Category updated successfully.' : 'Category added successfully.' }}
                             </span>
                         </div>
                         <div class="form__log" v-if="categoryState === 'error'">
@@ -176,7 +176,7 @@ export default {
                     if (this.isDataUnchanged()) {
                         Swal.fire({
                             icon: "info",
-                            text: "No se han realizado cambios",
+                            text: "No changes have been made",
                             width: 'auto',
                             toast: true,
                             position: "bottom-right",
@@ -206,8 +206,6 @@ export default {
                 this.categoryState = 'error';
             }
         },
-
-        // Verificación de cambios
         isDataUnchanged() {
             return (
                 this.formData.name === this.originalData.name &&
@@ -216,7 +214,6 @@ export default {
                 !this.imageSelected // Verifica que no se ha seleccionado una nueva imagen
             );
         },
-
         handleImageSelect(event) {
             const image = event.target.files[0];
 

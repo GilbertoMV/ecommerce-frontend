@@ -2,7 +2,7 @@
     <div class="addAttribute">
         <h1 class="addAttribute__title">Add Attribute</h1>
         <div class="adAttribute__container">
-            <form @submit.prevent="addAttribute" class="addAttribute__form">
+            <form @submit.prevent="handleSubmitAttribute" class="addAttribute__form">
                 <div class="addAttribute__row">
                     <label for="name" class="addAttribute__label">Attribute Name <span
                             class="addAttribute__required">*</span></label>
@@ -15,7 +15,7 @@
                     <label for="value" class="addAttribute__label">Attribute type <span
                             class="addAttribute__required">*</span></label>
                     <div class="addAttribute__inputs">
-                        <select class="addAttribute__select" id="value" v-model="formData.type">
+                        <select class="addAttribute__select" id="value" v-model="formData.type" :disabled="isEditMode">
                             <option value="" selected disabled>-- Select an option</option>
                             <option value="color">Color</option>
                             <option value="size">Size</option>
@@ -41,19 +41,19 @@
                         <div class="form__log" v-if="attributeState === 'loading'">
                             <tinyLoader />
                             <span>
-                                Adding Attribute.
+                                {{ isEditMode ? 'Updating attribute' : 'Adding attribute.' }}
                             </span>
                         </div>
                         <div class="form__log" v-if="attributeState === 'success'">
                             <checkIcon />
                             <span>
-                                Attribute added successfully.
+                                {{ isEditMode ? 'Attribute updated successfully' : 'Attribute added successfully' }}
                             </span>
                         </div>
                         <div class="form__log" v-if="attributeState === 'error'">
                             <errorIcon />
                             <span>
-                                Error when assigning sizes.
+                                {{ isEditMode ? 'Error when updating attribute' : 'Error when assigning attribute' }}
                             </span>
                         </div>
                     </div>
@@ -61,7 +61,8 @@
                 <div class="addAttribute__row">
                     <div class="addAttribute__label"></div>
                     <div class="addAttribute__button-container">
-                        <button type="submit" class="addAttribute__button">Save</button>
+                        <button type="submit" class="addAttribute__button">
+                            {{ isEditMode ? 'Update Attribute' : 'Add Attribute' }}</button>
                     </div>
                 </div>
 
@@ -71,6 +72,7 @@
 </template>
 <script>
 import { maxLength, minLength, required } from 'vuelidate/lib/validators';
+import { fetchSizes, fetchColors } from '../../../utils/apiUtils.js'
 import Swal from 'sweetalert2';
 import apiClient from '../../../store/auth-vuex.js';
 import checkIcon from '../../icons/checkIcon.vue';
@@ -89,7 +91,34 @@ export default {
                 name: '',
                 type: ''
             },
-            attributeState: ''
+            attributeState: '',
+            isEditMode: false,
+            originalData: {}
+        }
+    },
+    async created() {
+        const attributeId = this.$route.params.attributeId;
+        const type = this.$route.params.type;
+        if (attributeId) {
+            this.isEditMode = true
+            if (type === 'size') {
+                const sizeData = await fetchSizes(attributeId);
+
+                this.formData.name = sizeData.nombre;
+                this.formData.type = type;
+                this.originalData = {
+                    name: sizeData.nombre,
+                    type: type
+                }
+            } else if (type === 'color') {
+                const colorData = await fetchColors(attributeId);
+                this.formData.name = colorData.nombre;
+                this.formData.type = type;
+                this.originalData = {
+                    name: colorData.nombre,
+                    type: type
+                }
+            }
         }
     },
     validations: {
@@ -99,7 +128,7 @@ export default {
         }
     },
     methods: {
-        async addAttribute() {
+        async handleSubmitAttribute() {
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
@@ -115,21 +144,52 @@ export default {
                     });
                     return;
                 }
-                if (this.formData.type === 'color') {
-                    this.attributeState = 'loading'
-                    this.createAttributeColor()
-                    this.attributeState = 'success'
-
-                } else if (this.formData.type === 'size') {
-                    this.attributeState = 'loading'
-                    this.createAttributeSize()
-                    this.attributeState = 'success'
+                if (this.isEditMode) {
+                    if (this.isDataUnchanged()) {
+                        Swal.fire({
+                            icon: "info",
+                            text: "No changes have been made",
+                            width: 'auto',
+                            toast: true,
+                            position: "bottom-right",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                        });
+                        return;
+                    }
+                    if (this.formData.type === 'color') {
+                        this.attributeState = 'loading'
+                        await this.updateAttributeColor()
+                        this.attributeState = 'success'
+                    } else if (this.formData.type === 'size') {
+                        this.attributeState = 'loading'
+                        await this.updateAttributeSize()
+                        this.attributeState = 'success'
+                    }
+                    this.clearForm()
+                    setTimeout(() => {
+                        this.$router.push('/admin/all-attributes');
+                    }, 3000);
+                } else {
+                    if (this.formData.type === 'color') {
+                        this.attributeState = 'loading'
+                        await this.createAttributeColor()
+                        this.attributeState = 'success'
+                    } else if (this.formData.type === 'size') {
+                        this.attributeState = 'loading'
+                        await this.createAttributeSize()
+                        this.attributeState = 'success'
+                    }
+                    this.clearForm()
                 }
-                this.clearForm()
             } catch (error) {
                 console.error(error)
                 this.attributeState = 'error'
             }
+        },
+        isDataUnchanged() {
+            return this.formData.name === this.originalData.name && this.formData.type === this.originalData.type
         },
         async createAttributeColor() {
             try {
@@ -149,6 +209,18 @@ export default {
                 console.error(error)
             }
         },
+        async updateAttributeColor() {
+            const attributeId = this.$route.params.attributeId;
+            await apiClient.put(`/colors/${attributeId}`, {
+                nombre: this.formData.name
+            })
+        },
+        async updateAttributeSize() {
+            const attributeId = this.$route.params.attributeId;
+            await apiClient.put(`/sizes/${attributeId}`, {
+                nombre: this.formData.name
+            })
+        },
         clearForm() {
             this.formData.name = '';
             this.formData.type = '';
@@ -156,7 +228,6 @@ export default {
                 this.attributeState = '';
             }, 5000)
             this.$v.$reset();
-
         }
     }
 }

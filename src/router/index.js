@@ -94,6 +94,7 @@ const router = new Router({
         //ATTRIBUTES
         {path:'add-attribute', name: 'addAttributeComponent', component: addAttributeComponent, meta:{title:'Add Attribute'}},
         {path:'all-attributes', name: 'allAttributesComponent', component: allAttributesComponent, meta:{title:'All Attributes'}},
+        {path:'edit-attribute/:attributeId/:type', name: 'editAttributeComponent', component: addAttributeComponent, meta:{title:'Edit Attribute', props:true}},
         //ORDERS
         {path: 'all-orders', name: 'allOrdersComponent', component: allOrdersComponent, meta:{title: 'All Orders'}},
         {path: 'order-details', name: 'orderDetailsComponent', component: orderDetailsComponent, meta:{title: 'Order Details'}},

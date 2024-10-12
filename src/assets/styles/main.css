@@ -169,7 +169,7 @@ h1 {
   margin-top: 11rem;
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 7.2rem);
   height: 100%;
 }
 
