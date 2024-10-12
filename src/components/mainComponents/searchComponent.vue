@@ -1,20 +1,43 @@
 <template>
     <div class="search">
-        <input type="text" placeholder="Search..." class="search__input">
-        <button class="search__button">
+        <input v-model="searchTerm" @input="onSearch" type="text" :placeholder="placeholder" class="search__input">
+        <button @click="onSearch" class="search__button">
             <searchIcon />
         </button>
     </div>
-
 </template>
 <script>
-import { mapGetters } from 'vuex';
 const searchIcon = () => import('../icons/searchIcon.vue')
 export default {
     components: {
         searchIcon
-    }, computed: {
-        ...mapGetters(['isDarkMode'])
+    },
+    props: {
+        searchAction: {
+            type: Function,
+            required: false,
+        },
+        debounceTime: {
+            type: Number,
+            default: 300, // Añadir tiempo para evitar múltiples llamadas
+        },
+        placeholder: {
+            type: String,
+            required: true,
+            default: 'Search...'
+        }
+    },
+    data() {
+        return {
+            searchTerm: ''
+        };
+    },
+    methods: {
+        onSearch() {
+            if (this.searchTerm.trim()) {
+                this.searchAction(this.searchTerm);
+            }
+        }
     }
 }
 </script>
