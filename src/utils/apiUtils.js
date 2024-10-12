@@ -38,15 +38,24 @@ export async function fetchUserData() {
   return response.data;
 }
 
-export async function fetchSizes() {
+export async function fetchSizes(sizeId='') {
   // Hacer la petición a la API para obtener las sizes
-  const sizes = await apiClient.get('/sizes');
-  return sizes.data;
+  if(sizeId==='') {
+    const response = await apiClient.get('/sizes');
+    return response.data;
+  }else {
+    const response = await apiClient.get(`/sizes/${sizeId}`);
+    return response.data;
+  }
 }
 
-export async function fetchColors() {
+export async function fetchColors(colorId='') {
   // Hacer la petición a la API para obtener los colores
-  const colors = await apiClient.get('/colors');
-
-  return colors.data;
+  if(colorId==='') {
+    const response = await apiClient.get('/colors');
+    return response.data;
+  }else {
+    const response = await apiClient.get(`/colors/${colorId}`);
+    return response.data
+  }
 }

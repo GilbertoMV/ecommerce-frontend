@@ -27,14 +27,28 @@
                     <li v-for="(col, index) in columnsTable" :key="index"> {{ col.label }}</li>
                 </ul>
                 <ul class="table__body">
+                    <li class="form__log" v-if="attributesState === 'loading'">
+                        <tinyLoader />
+                        <span>
+                            Loading attributes...
+                        </span>
+                    </li>
+                    <li class="form__log" v-if="attributesState === 'error'">
+                        <errorIcon />
+                        <span>
+                            Error loading attributes...
+                        </span>
+                    </li>
                     <li v-for="(attribute, idx) in attributes" :key="idx" class="table__row">
                         <p>{{ attribute.id_talla || attribute.id_color }}</p>
                         <p>{{ attribute.nombre }}</p>
                         <p class="table__icons">
-                            <span>
+                            <router-link
+                                :to="{ name: 'editAttributeComponent', params: { attributeId: attribute.id_color || attribute.id_talla, type: attribute.type } }"
+                                class="table__icon">
                                 <editIcon class="edit" />
-                            </span>
-                            <span @click="deleteAttribute(attribute)">
+                            </router-link>
+                            <span class="table__icon" @click="deleteAttribute(attribute)">
                                 <trashIcon class="delete" />
                             </span>
                         </p>
@@ -53,6 +67,8 @@ import trashIcon from '../../icons/trashIcon.vue';
 import editIcon from '../../icons/editIcon.vue';
 import Swal from 'sweetalert2';
 import apiClient from '../../../store/auth-vuex.js';
+import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue';
+import errorIcon from '../../icons/errorIcon.vue';
 
 export default {
     name: 'allCrudComponent',
@@ -60,7 +76,9 @@ export default {
         searchComponent,
         plusIcon,
         trashIcon,
-        editIcon
+        editIcon,
+        tinyLoader,
+        errorIcon
     },
     data() {
         return {
@@ -71,7 +89,8 @@ export default {
             ],
             colors: [],
             sizes: [],
-            attributes: []
+            attributes: [],
+            attributesState: ''
         }
     },
     methods: {
@@ -126,13 +145,20 @@ export default {
         }
     },
     async created() {
-        this.colors = await fetchColors();
-        this.sizes = await fetchSizes();
-        // Concatenar los arrays de colores y tallas en uno solo
-        this.attributes = [
-            ...this.colors.map(color => ({ id_color: color.id_color, nombre: color.nombre })),
-            ...this.sizes.map(size => ({ id_talla: size.id_talla, nombre: size.nombre }))
-        ];
+        try {
+            this.attributesState = 'loading'
+            this.sizes = await fetchSizes();
+            this.colors = await fetchColors();
+            // Concatenar los arrays de colores y tallas en uno solo
+            this.attributes = [
+                ...this.colors.map(color => ({ id_color: color.id_color, nombre: color.nombre, type: 'color' })),
+                ...this.sizes.map(size => ({ id_talla: size.id_talla, nombre: size.nombre, type: 'size' }))
+            ];
+            this.attributesState = 'success'
+        } catch (error) {
+            console.error(error)
+            this.attributesState = 'error'
+        }
     }
 
 }
@@ -301,11 +327,27 @@ export default {
 .edit,
 .delete {
     cursor: pointer;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+.edit {
+    color: var(--edit-color);
 }
 
 .delete {
     color: var(--required-color);
+}
+
+.form__log {
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.form__log .loader,
+.form__log svg {
+    width: 5rem;
+    height: 5rem;
 }
 </style>

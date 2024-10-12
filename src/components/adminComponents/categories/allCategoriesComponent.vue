@@ -49,7 +49,7 @@
                         <p>{{ category.descripcion }}</p>
                         <p class="table__icons">
                             <router-link class="table__icon"
-                                :to="{ name: 'editCategoryComponent', params: { categoryId: category.id_categoria } }">
+                                :to="{ name: 'editCategoryComponenst', params: { categoryId: category.id_categoria } }">
                                 <editIcon class="edit" />
                             </router-link>
                             <span class="table__icon" @click="deleteCategory(category.id_categoria)">
@@ -146,6 +146,7 @@ export default {
             this.categories = await fetchCategoryData();
             this.categoriesState = ''
         } catch (error) {
+            console.error(error)
             this.categoriesState = 'error'
         }
     }
