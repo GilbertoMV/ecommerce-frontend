@@ -4,16 +4,9 @@
         <div class="crud__container">
             <div class="crud__header">
                 <div class="crud__entries">
-                    <!-- <span class="crud__text">Showing</span>
-                    <select name="entries" id="entries" class="crud__select">
-                        <option value="5">10</option>
-                        <option value="10">20</option>
-                        <option value="10">30</option>
-                    </select>
-                    <span class="crud__text">entries</span> -->
                 </div>
                 <div class="crud__search">
-                    <searchComponent />
+                    <searchComponent :searchAction="searchCategories" :placeholder="placeholder" />
                 </div>
                 <div class="crud__button-container">
                     <router-link to="/admin/add-category" class="crud__button">
@@ -39,7 +32,11 @@
                             Error loading categories...
                         </span>
                     </li>
-                    <li v-for="(category, index) in categories" :key="index" class="table__row">
+                    <li class="form__log" v-if="filteredCategories.length === 0 && categoriesState !== 'loading'">
+                        <errorIcon />
+                        <span>No categories found.</span>
+                    </li>
+                    <li v-for="(category, index) in filteredCategories" :key="index" class="table__row">
                         <p>{{ category.id_categoria }}</p>
                         <p class="table__images">
                             <img class="table__image" :src="`${category.url_imagen}`"
@@ -49,7 +46,7 @@
                         <p>{{ category.descripcion }}</p>
                         <p class="table__icons">
                             <router-link class="table__icon"
-                                :to="{ name: 'editCategoryComponenst', params: { categoryId: category.id_categoria } }">
+                                :to="{ name: 'editCategoryComponent', params: { categoryId: category.id_categoria } }">
                                 <editIcon class="edit" />
                             </router-link>
                             <span class="table__icon" @click="deleteCategory(category.id_categoria)">
@@ -58,6 +55,7 @@
                         </p>
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>
@@ -65,7 +63,7 @@
 <script>
 import searchComponent from '../../mainComponents/searchComponent.vue';
 import plusIcon from '../../icons/plusIcon.vue';
-import { fetchCategoryData } from '../../../utils/apiUtils.js';
+import { mapGetters, mapActions } from 'vuex';
 import trashIcon from '../../icons/trashIcon.vue';
 import editIcon from '../../icons/editIcon.vue';
 import apiClient from '../../../store/auth-vuex';
@@ -83,6 +81,9 @@ export default {
         errorIcon,
         tinyLoader
     },
+    computed: {
+        ...mapGetters('categories', ['filteredCategories']),
+    },
     data() {
         return {
             columnsTable: [
@@ -92,11 +93,17 @@ export default {
                 { label: 'Description', field: 'descripcion' },
                 { label: 'Actions', field: 'actions' } // Si necesitas acciones para la fila, por ejemplo, editar/eliminar
             ],
-            categories: [],
-            categoriesState: ''
+            categoriesState: '',
+            placeholder: 'Search by name or id...'
         }
     },
     methods: {
+        ...mapActions('categories', ['fetchCategories', 'filterCategories']),
+
+        searchCategories(searchTerm) {
+            this.filterCategories(searchTerm); // Ejecuta la acción de búsqueda en Vuex
+        },
+
         async deleteCategory(id_category) {
             const result = await Swal.fire({
                 title: "Are you sure?",
@@ -112,8 +119,13 @@ export default {
 
             if (result.isConfirmed) {
                 try {
+                    // Llamar al método de eliminación en la API
                     await apiClient.delete(`/categories/${id_category}`);
-                    this.categories = this.categories.filter(category => category.id_categoria !== id_category);
+
+                    // Llamar a la acción de Vuex para obtener las categorías actualizadas
+                    await this.fetchCategories();
+
+                    // Mostrar mensaje de éxito
                     Swal.fire({
                         icon: "success",
                         text: `Category ${id_category} has been deleted.`,
@@ -125,6 +137,7 @@ export default {
                         timerProgressBar: true,
                     });
                 } catch (error) {
+                    // Manejar error de eliminación
                     let errorMessage = 'Error deleting the category: ' + (error.response ? error.response.data : error.message);
                     console.error(errorMessage);
                     Swal.fire({
@@ -140,18 +153,20 @@ export default {
             }
         }
     },
-    async created() {
-        try {
-            this.categoriesState = 'loading'
-            this.categories = await fetchCategoryData();
-            this.categoriesState = ''
-        } catch (error) {
-            console.error(error)
-            this.categoriesState = 'error'
-        }
+    created() {
+        this.categoriesState = 'loading';
+        this.fetchCategories()
+            .then(() => {
+                this.categoriesState = ''; // Estado cargado
+            })
+            .catch((error) => {
+                console.error(error);
+                this.categoriesState = 'error'; // Error en la carga
+            });
     }
 }
 </script>
+
 <style scoped>
 .crud__container {
     display: flex;
