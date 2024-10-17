@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
-import categories from './modules/categories'; // Importar el módulo de categorías
+import categories from './modules/categories';
+import attributes from './modules/attributes';
 import {fetchUserData} from '../utils/apiUtils';
 import { jwtDecode } from 'jwt-decode';
 
@@ -9,7 +10,8 @@ Vue.use(Vuex);
 let loadingTimer = null;
 export default new Vuex.Store({
   modules: {
-    categories, // Registrar el módulo de categorías
+    categories,
+    attributes
   },
   state: {
     isAuthenticated: false, //autentication
