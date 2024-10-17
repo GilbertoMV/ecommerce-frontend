@@ -13,7 +13,7 @@
                     <span class="crud__text">entries</span>
                 </div>
                 <div class="crud__search">
-                    <searchComponent />
+                    <searchComponent :searchAction="searchAttributes" :placeholder="placeholder" />
                 </div>
                 <div class="crud__button-container">
                     <router-link to="/admin/add-attribute" class="crud__button">
@@ -39,7 +39,7 @@
                             Error loading attributes...
                         </span>
                     </li>
-                    <li v-for="(attribute, idx) in attributes" :key="idx" class="table__row">
+                    <li v-for="(attribute, idx) in filteredAttributes" :key="idx" class="table__row">
                         <p>{{ attribute.id_talla || attribute.id_color }}</p>
                         <p>{{ attribute.nombre }}</p>
                         <p class="table__icons">
@@ -48,7 +48,7 @@
                                 class="table__icon">
                                 <editIcon class="edit" />
                             </router-link>
-                            <span class="table__icon" @click="deleteAttribute(attribute)">
+                            <span class="table__icon" @click="confirmDelete(attribute)">
                                 <trashIcon class="delete" />
                             </span>
                         </p>
@@ -62,11 +62,10 @@
 <script>
 import searchComponent from '../../mainComponents/searchComponent.vue';
 import plusIcon from '../../icons/plusIcon.vue';
-import { fetchSizes, fetchColors } from '../../../utils/apiUtils';
+import { mapGetters, mapActions } from 'vuex';
 import trashIcon from '../../icons/trashIcon.vue';
 import editIcon from '../../icons/editIcon.vue';
 import Swal from 'sweetalert2';
-import apiClient from '../../../store/auth-vuex.js';
 import tinyLoader from '../../mainComponents/tinyLoaderComponent.vue';
 import errorIcon from '../../icons/errorIcon.vue';
 
@@ -80,6 +79,9 @@ export default {
         tinyLoader,
         errorIcon
     },
+    computed: {
+        ...mapGetters('attributes', ['filteredAttributes'])
+    },
     data() {
         return {
             columnsTable: [
@@ -87,14 +89,20 @@ export default {
                 { label: 'Name', field: 'nombre' },
                 { label: 'Actions', field: 'actions' }
             ],
-            colors: [],
-            sizes: [],
-            attributes: [],
-            attributesState: ''
+            attributesState: '',
+            placeholder: 'Search by name or id'
         }
     },
     methods: {
-        async deleteAttribute(attribute) {
+        ...mapActions('attributes', ['fetchAttributes', 'filterAttributes', 'deleteAttribute']),
+        searchAttributes(searchTerm) {
+            if (searchTerm.trim() === '') {
+                this.fetchAttributes();
+            } else {
+                this.filterAttributes(searchTerm);
+            }
+        },
+        async confirmDelete(attribute) {
             const result = await Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -109,15 +117,13 @@ export default {
 
             if (result.isConfirmed) {
                 try {
-                    const endpoint = attribute.id_color ? `colors/${attribute.id_color}` : `sizes/${attribute.id_talla}`;
-                    await apiClient.delete(endpoint);
-
-                    this.attributes = this.attributes.filter(attr => {
-                        // Solo elimina el atributo correspondiente
-                        return (attribute.id_color && attr.id_color !== attribute.id_color) ||
-                            (attribute.id_talla && attr.id_talla !== attribute.id_talla);
+                    // Llama a la acción de Vuex para eliminar el atributo
+                    await this.deleteAttribute({
+                        attributeId: attribute.id_color || attribute.id_talla,
+                        type: attribute.type
                     });
 
+                    // Mensaje de éxito
                     Swal.fire({
                         icon: "success",
                         text: `Attribute ${attribute.nombre} has been deleted.`,
@@ -143,24 +149,20 @@ export default {
                 }
             }
         }
+
     },
     async created() {
-        try {
-            this.attributesState = 'loading'
-            this.sizes = await fetchSizes();
-            this.colors = await fetchColors();
-            // Concatenar los arrays de colores y tallas en uno solo
-            this.attributes = [
-                ...this.colors.map(color => ({ id_color: color.id_color, nombre: color.nombre, type: 'color' })),
-                ...this.sizes.map(size => ({ id_talla: size.id_talla, nombre: size.nombre, type: 'size' }))
-            ];
-            this.attributesState = 'success'
-        } catch (error) {
-            console.error(error)
-            this.attributesState = 'error'
-        }
-    }
+        this.attributesState = 'loading'
+        this.fetchAttributes()
+            .then(() => {
+                this.attributesState = 'success';
+            })
+            .catch((error) => {
+                console.error(error)
+                this.attributesState = 'error'
+            })
 
+    }
 }
 </script>
 <style scoped>

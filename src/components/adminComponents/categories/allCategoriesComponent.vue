@@ -94,16 +94,19 @@ export default {
                 { label: 'Actions', field: 'actions' } // Si necesitas acciones para la fila, por ejemplo, editar/eliminar
             ],
             categoriesState: '',
-            placeholder: 'Search by name or id...'
+            placeholder: 'Search by name or id'
         }
     },
     methods: {
         ...mapActions('categories', ['fetchCategories', 'filterCategories']),
 
         searchCategories(searchTerm) {
-            this.filterCategories(searchTerm); // Ejecuta la acción de búsqueda en Vuex
+            if (searchTerm.trim() === '') {
+                this.fetchCategories();
+            } else {
+                this.filterCategories(searchTerm);
+            }
         },
-
         async deleteCategory(id_category) {
             const result = await Swal.fire({
                 title: "Are you sure?",
@@ -119,13 +122,8 @@ export default {
 
             if (result.isConfirmed) {
                 try {
-                    // Llamar al método de eliminación en la API
                     await apiClient.delete(`/categories/${id_category}`);
-
-                    // Llamar a la acción de Vuex para obtener las categorías actualizadas
                     await this.fetchCategories();
-
-                    // Mostrar mensaje de éxito
                     Swal.fire({
                         icon: "success",
                         text: `Category ${id_category} has been deleted.`,
@@ -157,7 +155,7 @@ export default {
         this.categoriesState = 'loading';
         this.fetchCategories()
             .then(() => {
-                this.categoriesState = ''; // Estado cargado
+                this.categoriesState = 'success'; // Estado cargado
             })
             .catch((error) => {
                 console.error(error);
