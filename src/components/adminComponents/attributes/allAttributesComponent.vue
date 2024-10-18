@@ -4,13 +4,6 @@
         <div class="crud__container">
             <div class="crud__header">
                 <div class="crud__entries">
-                    <span class="crud__text">Showing</span>
-                    <select name="entries" id="entries" class="crud__select">
-                        <option value="5">10</option>
-                        <option value="10">20</option>
-                        <option value="10">30</option>
-                    </select>
-                    <span class="crud__text">entries</span>
                 </div>
                 <div class="crud__search">
                     <searchComponent :searchAction="searchAttributes" :placeholder="placeholder" />
@@ -38,6 +31,10 @@
                         <span>
                             Error loading attributes...
                         </span>
+                    </li>
+                    <li class="form__log" v-if="filteredAttributes.length === 0 && attributesState !== 'loading'">
+                        <errorIcon />
+                        <span>No attributes found.</span>
                     </li>
                     <li v-for="(attribute, idx) in filteredAttributes" :key="idx" class="table__row">
                         <p>{{ attribute.id_talla || attribute.id_color }}</p>
@@ -80,7 +77,7 @@ export default {
         errorIcon
     },
     computed: {
-        ...mapGetters('attributes', ['filteredAttributes'])
+        ...mapGetters('attributes', ['filteredAttributes']),
     },
     data() {
         return {
@@ -90,7 +87,8 @@ export default {
                 { label: 'Actions', field: 'actions' }
             ],
             attributesState: '',
-            placeholder: 'Search by name or id'
+            placeholder: 'Search by name or id',
+            entries: 5
         }
     },
     methods: {
