@@ -34,9 +34,7 @@ export default {
     },
     methods: {
         onSearch() {
-            if (this.searchTerm.trim()) {
-                this.searchAction(this.searchTerm);
-            }
+            this.searchAction(this.searchTerm);
         }
     }
 }
