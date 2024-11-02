@@ -1,13 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
-import {validation} from "../utils/autorization.js";
-// import store from "../store/store.js";
+import { validation } from "../utils/autorization.js";
 
 // ADMIN VIEWS
 const adminProfilePage = () => import('../views/adminViews/adminProfilePage.vue')
 const dashboardComponent = () => import('../components/adminComponents/dashboardComponent.vue')
 //User
-const userComponent = () => import('../components/adminComponents/users/userComponent.vue')
+const userComponent = () => import('../components/adminComponents/users/allUsersComponent.vue')
+const viewUserComponent = () => import('../components/adminComponents/users/viewUserInfoComponent.vue')
 //Product
 const addproductComponent = () => import('../components/adminComponents/products/addProductComponent.vue')
 const catalogProductsComponent = () => import('../components/adminComponents/products/catalogProductsComponent.vue')
@@ -78,11 +78,12 @@ const router = new Router({
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
         {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
     ]},
-    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: true, requiresSeller:true},
+    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: false, requiresSeller:true},
       children: [
         {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'}},
         //USERS
         {path:'users', name: 'userComponent', component: userComponent, meta: {title: 'Users'}},
+        {path:'view-user/:userId', name: 'viewUserComponent', component: viewUserComponent, meta: {title: 'Edit User', props:true}},
         //PRODUCTS
         {path: 'add-product', name: 'addproductComponent', component: addproductComponent, meta: {title: 'Add Product'}},
         {path: 'product-catalog', name: 'productcatalogComponent', component: catalogProductsComponent, meta: {title: 'Product Catalog'}},

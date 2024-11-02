@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 import router from '../router';
 import categories from './modules/categories';
 import attributes from './modules/attributes';
-import {fetchUserData} from '../utils/apiUtils';
+import usersData from './modules/users';
+import { fetchUserData } from '../utils/apiUtils';
 import { jwtDecode } from 'jwt-decode';
 
 Vue.use(Vuex);
@@ -11,7 +12,8 @@ let loadingTimer = null;
 export default new Vuex.Store({
   modules: {
     categories,
-    attributes
+    attributes,
+    usersData
   },
   state: {
     isAuthenticated: false, //autentication

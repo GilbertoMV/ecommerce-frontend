@@ -35,6 +35,7 @@
     --text-color-base: #fff;
     --box-shadow-color: rgba(20, 25, 38, 0.05);
     --border-color: #ebead6;
+    --view-color: #1a62a2;
     --edit-color: #6c757d;
 
     /*Fuentes de texto*/
@@ -63,7 +64,6 @@
     --border-color: #ebead63a;
     --option-hover-color: #36462628;
     --row-option-hover-color: #9b9a9a35;
-    --edit-color: #6c757d;
 
     /*Colores de texto*/
     --text-color-title: #d4d4d4;

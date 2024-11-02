@@ -20,16 +20,16 @@
                     <li v-for="(col, index) in columnsTable" :key="index"> {{ col.label }}</li>
                 </ul>
                 <ul class="table__body">
-                    <li class="form__log" v-if="categoriesState === 'loading'">
+                    <li class="form__log" v-if="categoriesState === 'loading' && filteredCategories.length === 0">
                         <tinyLoader />
                         <span>
-                            Loading categories...
+                            Loading categories data...
                         </span>
                     </li>
                     <li class="form__log" v-if="categoriesState === 'error'">
                         <errorIcon />
                         <span>
-                            Error loading categories...
+                            Error loading categories data...
                         </span>
                     </li>
                     <li class="form__log" v-if="filteredCategories.length === 0 && categoriesState !== 'loading'">
@@ -257,7 +257,6 @@ export default {
     color: var(--text-color-title);
     background-color: var(--option-hover-color);
     text-align: center;
-
 }
 
 .table__body {
