@@ -20,16 +20,16 @@
                     <li v-for="(col, index) in columnsTable" :key="index"> {{ col.label }}</li>
                 </ul>
                 <ul class="table__body">
-                    <li class="form__log" v-if="attributesState === 'loading'">
+                    <li class="form__log" v-if="attributesState === 'loading' && filteredAttributes.length === 0">
                         <tinyLoader />
                         <span>
-                            Loading attributes...
+                            Loading attributes data...
                         </span>
                     </li>
                     <li class="form__log" v-if="attributesState === 'error'">
                         <errorIcon />
                         <span>
-                            Error loading attributes...
+                            Error loading attributes data...
                         </span>
                     </li>
                     <li class="form__log" v-if="filteredAttributes.length === 0 && attributesState !== 'loading'">
@@ -84,11 +84,10 @@ export default {
             columnsTable: [
                 { label: 'Id', field: 'id' },
                 { label: 'Name', field: 'nombre' },
-                { label: 'Actions', field: 'actions' }
+                { label: 'Actions', field: 'acciones' }
             ],
             attributesState: '',
             placeholder: 'Search by name or id',
-            entries: 5
         }
     },
     methods: {
