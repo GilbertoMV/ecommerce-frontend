@@ -1,50 +1,53 @@
 <template>
     <div class="sidebar">
-        <div class="profile">
-            <div class="photocontainer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
-                    stroke="#bebebe" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-user">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                </svg>
-            </div>
-            <h2>{{ username }} {{ paternalLastName }}</h2>
-        </div>
-        <ul class="list">
-            <li v-for="(option, index) in options" :key="index">
-                <!-- Si la opción no tiene submenú, usa router-link directamente -->
-                <router-link v-if="!option.menu" :to="option.route" exact-active-class="is-active" class="item-click">
-                    <div class="list__item">
-                        <component :is="option.icon"></component>
-                        <span>
-                            {{ option.label }}
-                        </span>
-                    </div>
-                </router-link>
-
-                <!-- Si la opción tiene submenú, permite el desplegable -->
-                <div v-else @click="toggleMenu(index)" :class="{ 'item-click': true, 'isActive': isActive(index) }">
-                    <div class="list__item">
-                        <component :is="option.icon"></component>
-                        <span>{{ option.label }}</span>
-                    </div>
-                    <div class="list__item__icon">
-                        <optionsIcon class="desplegableIcon" />
-                    </div>
+        <div class="content">
+            <div class="profile">
+                <div class="photocontainer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                        stroke="#bebebe" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-user">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
                 </div>
-
-                <!-- Menú desplegable -->
-                <ul v-if="option.menu" :class="{ 'menu': true, 'active': isActive(index) }">
-                    <router-link :to="opt.route" v-for="(opt, i) in option.opts" :key="i" exact-active-class="is-active"
-                        class="menu_item">
-                        {{ opt.label }}
+                <h2>{{ username }} {{ paternalLastName }}</h2>
+            </div>
+            <ul class="list">
+                <li v-for="(option, index) in options" :key="index">
+                    <!-- Si la opción no tiene submenú, usa router-link directamente -->
+                    <router-link v-if="!option.menu" :to="option.route" exact-active-class="is-active"
+                        class="item-click">
+                        <div class="list__item">
+                            <component :is="option.icon"></component>
+                            <span>
+                                {{ option.label }}
+                            </span>
+                        </div>
                     </router-link>
-                </ul>
-            </li>
-        </ul>
-        <div class="footer">
+
+                    <!-- Si la opción tiene submenú, permite el desplegable -->
+                    <div v-else @click="toggleMenu(index)" :class="{ 'item-click': true, 'isActive': isActive(index) }">
+                        <div class="list__item">
+                            <component :is="option.icon"></component>
+                            <span>{{ option.label }}</span>
+                        </div>
+                        <div class="list__item__icon">
+                            <optionsIcon class="desplegableIcon" />
+                        </div>
+                    </div>
+
+                    <!-- Menú desplegable -->
+                    <ul v-if="option.menu" :class="{ 'menu': true, 'active': isActive(index) }">
+                        <router-link :to="opt.route" v-for="(opt, i) in option.opts" :key="i"
+                            exact-active-class="is-active" class="menu_item">
+                            {{ opt.label }}
+                        </router-link>
+                    </ul>
+                </li>
+            </ul>
+            <div class="footer">
+            </div>
         </div>
     </div>
 </template>
@@ -126,6 +129,11 @@ export default {
     -moz-box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
     box-shadow: 0px 0px 24px 2px var(--box-shadow-color);
     transition: all 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.content {
+    position: fixed;
+    width: 30rem;
 }
 
 h2 {
