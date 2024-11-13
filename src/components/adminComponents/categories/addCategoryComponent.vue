@@ -50,7 +50,7 @@
                         <span class="attribute__error"
                             v-if="!$v.formData.description.maxLength && $v.formData.description.$error">Description
                             category
-                            cannot exceed 30 characters.</span>
+                            cannot exceed 100 characters.</span>
                         <span class="attribute__error"
                             v-if="!$v.formData.description.minLength && $v.formData.description.$error">Description
                             category
@@ -150,7 +150,7 @@ export default {
     validations: {
         formData: {
             name: { required, minLength: minLength(5), maxLength: maxLength(30) },
-            description: { required, minLength: minLength(20), maxLength: maxLength(50) }
+            description: { required, minLength: minLength(20), maxLength: maxLength(100) }
         }
     },
     methods: {

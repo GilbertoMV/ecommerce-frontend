@@ -474,6 +474,21 @@ h1 {
 
 
 
+.popup-content h2 {
+  font-size: var(--font-size-big);
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.popup-content p {
+  text-align: left;
+}
+
+.popup-content ul {
+  text-align: left;
+  list-style-type: circle;
+}
+
 /* REGISTRO E INICIO DE SESION */
 
 

@@ -305,8 +305,12 @@ export default {
 
 .table__row p:nth-child(3),
 .table__head li:nth-child(3) {
-    /*NAME*/
+    /*DESCRIPTION*/
     width: 30%;
+}
+
+.table__row p:nth-child(4) {
+    text-align: left;
 }
 
 .table__row p:nth-child(4),
