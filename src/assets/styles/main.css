@@ -6,11 +6,14 @@
 }
 
 main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   margin: 11rem auto;
-  max-width: 150rem;
-  width: 80vw;
-  min-height: 80vh;
-  padding: 1rem;
+
+  /*max-width: 150rem;
+  width: 100%;*/
+  min-height: 100vh;
 }
 
 h1 {
@@ -28,7 +31,8 @@ h1 {
 /*INICIO DE ESTILOS DEL INICIO DE SESION Y REGISTRO*/
 .login-register-view,
 .config-address-view {
-  max-width: 60rem;
+  min-width: 60rem;
+  width: 60rem;
   margin: 5rem auto;
   padding: 2rem;
   background-color: var(--primary-background-color);
@@ -507,9 +511,6 @@ h1 {
 }
 
 @media (width <=390px) {
-  main {
-    margin: 5rem auto 3rem;
-  }
 
   .userProfile {
     margin-top: 5rem;

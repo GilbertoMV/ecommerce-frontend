@@ -1,6 +1,6 @@
 <template>
     <div class="userProfile">
-        <sidebarComponent :title="title" :options="userOptions" />
+        <sidebarComponent :options="userOptions" />
         <div class="loadComponent">
             <router-view />
         </div>
@@ -15,7 +15,6 @@ export default {
     },
     data() {
         return {
-            title: 'My Account',
             userOptions: [
                 { label: 'My Orders', route: '/user/my-orders', icon: 'ordersIcon', menu: false },
                 { label: 'Rewards', route: '/user/rewards', icon: 'rewardsIcon', menu: false },

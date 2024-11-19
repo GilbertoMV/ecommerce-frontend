@@ -25,7 +25,7 @@ export default {
                     opts: [
                         { label: 'Add Product', route: '/admin/add-product' },
                         { label: 'Product Catalog', route: '/admin/product-catalog' },
-                        { label: 'Product Details', route: '/admin/product-details' },
+                        // { label: 'Product Details', route: '/admin/product-details' },
                     ]
                 },
                 {
