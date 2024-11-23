@@ -31,8 +31,8 @@ h1 {
 /*INICIO DE ESTILOS DEL INICIO DE SESION Y REGISTRO*/
 .login-register-view,
 .config-address-view {
-  min-width: 60rem;
-  width: 60rem;
+  max-width: 60rem;
+  width: 60vw;
   margin: 5rem auto;
   padding: 2rem;
   background-color: var(--primary-background-color);
@@ -165,6 +165,56 @@ h1 {
 }
 
 /*FINAL DE ESTILOS PARA INICIO DE SESION Y REGISTRO*/
+
+/* INICIO PARA LA VISTA DE CATEGORIAS */
+.principal {
+  display: flex;
+  width: 70vw;
+  max-width: 150rem;
+  margin: 2rem 1rem;
+  padding: 1rem;
+  min-height: 30rem;
+  gap: 2rem;
+}
+
+.listFilters {
+  width: 20%;
+}
+
+.listMain {
+  width: 80%;
+}
+
+.listProduct {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.filters__title {
+  font-size: var(--font-size-big);
+  color: var(--text-color-title);
+  margin-bottom: 1.5rem;
+}
+
+.filters__subtitle {
+  font-size: var(--font-size-medium);
+  color: var(--text-color-title);
+  margin: 1rem 0;
+}
+
+.listProduct .product {
+  width: 24rem;
+  box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
+
+}
+
+
+
+/* FIN PARA LA VISTA DE CATEGORIAS */
+
 
 /* INICIO DE ESTILOS PARA USER PROPILE*/
 
@@ -354,6 +404,14 @@ h1 {
 .form__logs {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
+}
+
+.form__label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  padding: 1rem 0;
+  color: var(--text-color-body);
   margin-top: 1rem;
 }
 

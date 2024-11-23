@@ -96,7 +96,7 @@ export default {
 
 .footer__nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     max-width: 150rem;
 }

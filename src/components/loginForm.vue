@@ -24,7 +24,7 @@
             <div class="divider__line"></div>
         </div>
         <div class="oauth">
-            <button class="oauth__button oauth__button--facebook">
+            <button @click="signInFacebook" class="oauth__button oauth__button--facebook">
                 <facebookIcon /> Login with Facebook
             </button>
             <button class="oauth__button oauth__button--google">
@@ -120,6 +120,10 @@ export default {
             } finally {
                 this.$store.dispatch('setLoading', false);  // Desactivar loader al final, independientemente del resultado
             }
+        },
+        async signInFacebook() {
+            const response = await apiClient.post('/facebook')
+            console.log(response)
         }
     }
 }

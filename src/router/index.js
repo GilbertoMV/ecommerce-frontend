@@ -78,7 +78,7 @@ const router = new Router({
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
         {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
     ]},
-    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: true, requiresSeller:true},
+    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: false, requiresSeller:false}, //cambiar a true
       children: [
         {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'}},
         //USERS

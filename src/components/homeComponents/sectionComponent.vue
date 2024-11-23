@@ -2,14 +2,16 @@
     <section class="productSection">
         <header class="productSection__header">
             <h3 class="productSection__title"> {{ title }}</h3>
-            <router-link to="/">Ver todo</router-link>
+            <router-link :to="{ name: 'categoryPage', params: { categoryId: link } }">Ver todo</router-link>
         </header>
-        <div class="products">
-            <productCardComponent />
-            <productCardComponent />
-            <productCardComponent />
-            <productCardComponent />
-            <productCardComponent />
+        <div class="productSection__slider">
+            <div class="products">
+                <productCardComponent />
+                <productCardComponent />
+                <productCardComponent />
+                <productCardComponent />
+                <productCardComponent />
+            </div>
         </div>
     </section>
 </template>
@@ -25,6 +27,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        link: {
+            type: String,
+            required: true
         }
     }
 }
@@ -34,8 +40,9 @@ export default {
     display: flex;
     flex-direction: column;
     width: 70vw;
-    background-color: var(--primary-background-color);
+    max-width: 150rem;
     border-radius: 1.5rem;
+    background-color: var(--primary-background-color);
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
     margin: 2rem 1rem;
 }
@@ -50,9 +57,11 @@ export default {
     display: flex;
     justify-content: space-between;
     width: calc(70vw - 4rem);
+    max-width: calc(150rem - 4rem);
     overflow-x: hidden;
     gap: 1rem;
     padding: 0rem 2rem 2rem;
+
 }
 
 .productSection__header {
@@ -61,17 +70,24 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin: 2rem;
+    margin-bottom: .5rem;
 }
 
 .productSection__header a {
     color: var(--primary-color);
-    font-size: var(--font-size-small)
+    font-size: var(--font-size-small);
 }
 
 @media (width <=768px) {
     .productSection {
         width: 90vw;
         margin-top: 1rem;
+    }
+
+    .productSection__slider {
+        padding: 0rem 1.5rem 1.5rem 1.5rem;
+        width: calc(90vw - 3rem);
+        overflow-x: hidden;
     }
 
     .productSection__title {
@@ -83,9 +99,33 @@ export default {
     }
 
     .products {
-        padding: 0rem 1.5rem 1.5rem 1.5rem;
-        width: calc(90vw - 3rem);
+        width: 100%;
         overflow-x: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 1rem 0rem;
+    }
+
+    .products::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (width <=390px) {
+
+    .productSection__header a,
+    .productSection__title {
+        font-size: var(--font-size-smallest);
+    }
+
+    .productSection__header {
+        margin: 1rem;
+    }
+
+    .productSection__slider {
+        padding: 0rem 1rem 1rem 1rem;
+        width: calc(90vw - 2rem);
+        overflow-x: hidden;
     }
 }
 </style>

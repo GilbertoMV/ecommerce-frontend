@@ -90,7 +90,7 @@ export default {
 
 .header__nav-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 1.5rem 0;
   width: 100%;

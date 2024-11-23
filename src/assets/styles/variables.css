@@ -21,7 +21,7 @@
     --secondary-color: #4a8b14;
     --tertiary-color: #d8f0c8;
     --required-color: #ff000085;
-    --separators-color: #ffffff42;
+    --separators-color: #3a3a3a42;
     --error-color: #c10f0f;
     --help-color: #95989D;
     --option-hover-color: #85af5c13;
@@ -42,6 +42,7 @@
     --font-family: "Poppins";
 
     /*Tamaños de texto*/
+    --font-size-bigest: 2rem;
     --font-size-big: 1.8rem;
     --font-size-medium: 1.6rem;
     --font-size-small: 1.4rem;

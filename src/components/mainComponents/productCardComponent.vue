@@ -1,13 +1,15 @@
 <template>
     <article class="product">
         <figure class="product__image">
-            <img src="https://res.cloudinary.com/koalamarket/image/upload/v1731464352/h6keqmg8x6elirasfjli.webp"
+            <img src="https://ae-pic-a1.aliexpress-media.com/kf/A38d822fda41f40f588fdf4ba330270c4T.jpg_.webp"
                 alt="Silla de Oficina">
         </figure>
         <div class="product__info">
             <header>
                 <h4 class="product__title">Silla de Oficina</h4>
             </header>
+            <section class="product__description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
+                consequuntur eius id cum totam. Debitis repellendus harum </section>
             <section class="product__data">
                 <p class="carbonFootprint">120 CO₂e</p>
                 <p class="rewardsPoints">100 pts</p>
@@ -39,7 +41,11 @@ export default {
     flex-direction: column;
     min-width: 22rem;
     width: 22rem;
-    max-width: 22rem;
+    max-width: 24rem;
+    border-radius: 1.5rem;
+    background-color: var(--primary-background-color);
+    cursor: pointer;
+
 }
 
 /* Imagen del producto */
@@ -47,6 +53,7 @@ export default {
     width: 100%;
     height: 20rem;
     overflow: hidden;
+    padding-top: 1.5rem;
 }
 
 .product__image img {
@@ -61,7 +68,7 @@ export default {
     padding-top: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: .7rem;
 }
 
 /* Título del producto */
@@ -69,6 +76,19 @@ export default {
     font-size: var(--font-size-medium);
     margin: 0;
     color: var(--text-color-title);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.product__description {
+    font-family: var(--font-size-small);
+    color: var(--text-color-body);
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Datos del producto (huella de carbono y puntos) */
@@ -110,7 +130,7 @@ export default {
     background-color: var(--primary-color);
     color: var(--white-color);
     border: none;
-    border-radius: .5rem;
+    border-radius: .7rem;
     padding: 1rem;
     cursor: pointer;
     font-size: var(--font-size-small);
@@ -143,8 +163,45 @@ export default {
         overflow: hidden;
     }
 
+    .product__actions {
+        justify-content: center;
+    }
+
+    .product__button {
+        display: none;
+    }
+
+    .carbonFootprint {
+        font-size: var(--font-size-small);
+    }
+}
+
+@media (width <=390px) {
+    .product {
+        width: 12rem;
+        max-width: 12rem;
+        min-width: 12rem;
+    }
+
+    .product__image {
+        height: 12rem;
+    }
+
+    .product__info {
+        padding: 0 .3rem;
+    }
+
+    .product__title {
+        font-size: var(--font-size-smallest);
+    }
+
     .carbonFootprint {
         font-size: var(--font-size-smallest);
+        padding: .5rem .7rem;
+    }
+
+    .product__price {
+        font-size: var(--font-size-medium)
     }
 }
 </style>
