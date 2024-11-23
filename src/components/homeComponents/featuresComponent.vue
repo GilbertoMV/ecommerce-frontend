@@ -17,27 +17,38 @@
     gap: 1.5rem;
     padding: 1rem;
     width: 80vw;
-    height: 30rem;
+    height: auto;
 }
 
 .card {
     border-radius: 1.5rem;
     background-color: var(--primary-background-color);
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
-    width: 20%;
-    height: 100%;
+    width: 30rem;
+    height: 30rem;
+    max-height: 30rem;
 }
 
 @media (width <=768px) {
+    .card {
+        width: 15rem;
+        height: 15rem;
+    }
+
     .cards-container {
         transform: translateY(-7rem);
         gap: 1rem;
-        width: 95vw;
+        width: 90vw;
         height: 15rem;
     }
 }
 
 @media (width <=390px) {
+    .card {
+        width: 10rem;
+        height: 10rem;
+    }
+
     .cards-container {
         transform: translateY(-4rem);
         gap: 1rem;

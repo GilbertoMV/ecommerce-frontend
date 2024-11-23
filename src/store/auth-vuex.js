@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://koala-backend.up.railway.app',
+  baseURL: 'https://ecommerce-backend-production-e736.up.railway.ap',
   headers: {
     'Content-Type': 'application/json'
   }

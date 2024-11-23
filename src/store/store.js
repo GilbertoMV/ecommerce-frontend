@@ -4,6 +4,7 @@ import router from '../router';
 import categories from './modules/categories';
 import attributes from './modules/attributes';
 import usersData from './modules/users';
+import products from './modules/products';
 import { fetchUserData } from '../utils/apiUtils';
 import { jwtDecode } from 'jwt-decode';
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
   modules: {
     categories,
     attributes,
-    usersData
+    usersData,
+    products
   },
   state: {
     isAuthenticated: false, //autentication
@@ -81,7 +83,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       localStorage.removeItem('token'); 
       sessionStorage.removeItem('userData');
-      localStorage.removeItem('categoryData');
+      // localStorage.removeItem('categoryData');
       commit('setUser', null);
       commit('setAuthentication', false);
       router.push('/sign-in');

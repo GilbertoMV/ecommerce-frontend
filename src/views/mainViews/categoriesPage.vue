@@ -1,17 +1,40 @@
 <template>
     <main>
-        <h1>{{ categoryDetails.nombre }}</h1>
+        <bannerCategory :name="categoryDetails.nombre" :description="categoryDetails.descripcion"
+            :url="categoryDetails.url_imagen" />
+        <div class="principal">
+            <aside class="listFilters">
+                <filtersComponent />
+            </aside>
+            <section class="listMain">
+                <h3 class="filters__title">Results:</h3>
+                <div class="listProduct">
+                    <productCard />
+                    <productCard />
+                    <productCard />
+                    <productCard />
+                    <productCard />
+                </div>
+            </section>
+        </div>
     </main>
 </template>
 
 <script>
-import apiClient from '../../store/auth-vuex';
+import bannerCategory from '../../components/categoriesComponents/bannerCategoryComponent.vue'
+import productCard from '../../components/mainComponents/productCardComponent.vue';
+import filtersComponent from '../../components/mainComponents/filtersComponent.vue';
 export default {
     name: 'CategoriesPage',
+    components: {
+        bannerCategory,
+        productCard,
+        filtersComponent
+    },
     props: ['categoryId'],
     data() {
         return {
-            categoryDetails: [],
+            categoryDetails: []
         }
     },
     watch: {
@@ -20,16 +43,14 @@ export default {
         }
     },
     created() {
-        this.fetchCategoryDetails(this.categoryId)
+        const id_category = Number(this.categoryId)
+        this.fetchCategoryDetails(id_category)
     },
     methods: {
-        async fetchCategoryDetails(id) {
-            try {
-                const response = await apiClient.get(`/categories/${id}`);
-                this.categoryDetails = response.data;
-            } catch (err) {
-                console.error('Failed to fetch category details', err);
-            }
+        fetchCategoryDetails(id) {
+            const categoriesData = JSON.parse(localStorage.getItem('categoryData') || '[]')
+            const searchId = id;
+            this.categoryDetails = categoriesData.find(category => category.id_categoria === searchId)
         }
     }
 }

@@ -22,16 +22,17 @@ export async function fetchAllUsersData() {
 
 export async function fetchCategoryData(categoryId = '') {
   // Intentar obtener los datos almacenados en localStorage
-  // const categoryData = localStorage.getItem('categoryData');
+  const categoryData = localStorage.getItem('categoryData'); 
 
-  // if (categoryData) {
-  //   // Si existen datos en localStorage, convertirlos de vuelta a objeto/array
-  //   return JSON.parse(categoryData);
-  // }
+  if (categoryData) {
+    // Si existen datos en localStorage, convertirlos de vuelta a objeto/array
+    return JSON.parse(categoryData);
+  }
 
   // Hacer la petición a la API para obtener las categorías
   if(categoryId === '') {
     const response = await apiClient.get("/categories");
+    localStorage.setItem('categoryData', JSON.stringify(response.data))
     return response.data;
   }else {
     const response = await apiClient.get(`/categories/${categoryId}`)
@@ -63,4 +64,9 @@ export async function fetchColors(colorId='') {
     const response = await apiClient.get(`/colors/${colorId}`);
     return response.data
   }
+}
+
+export async function fetchAllProductsData() {
+  const response = apiClient.get('/products')
+  return response;
 }

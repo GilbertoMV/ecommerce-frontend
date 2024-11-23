@@ -3,11 +3,17 @@
     <bannerComponent />
     <featuresComponent />
     <bannerMPComponent />
-    <productsSection :title="'Alimentos y Bebidas'" />
-    <productsSectionColumn2 :title="'Cuidado Personal'" :titleProductSpecial="'Special Product'" />
-    <productsSection :title="'Hogar y Decoración'" />
-    <productsSectionColumn :title="'Tecnología e Innovación'" :titleProductSpecial="'Special Product'" />
-    <productsSection :title="'Papelería y Oficina'" />
+    <!-- Una posible feature puede ser que por cada categoria existente, traiga dinamicamente los productos -->
+    <productsSection :link="'6'" :title="'Alimentos y Bebidas'" />
+    <productsSection :link="'7'" :title="'Moda y Textiles'" />
+    <productsSection :link="'8'" :title="'Tecnología'" />
+    <productsSection :link="'9'" :title="'Cuidado Personal'" />
+    <productsSection :link="'10'" :title="'Hogar y Decoración'" />
+    <productsSection :link="'11'" :title="'Juegos y Juguetes'" />
+    <productsSection :link="'12'" :title="'Oficina y Papelería'" />
+    <productsSection :link="'13'" :title="'Jardinería'" />
+    <productsSection :link="'14'" :title="'Libros'" />
+    <productsSection :link="'15'" :title="'Autopartes'" />
   </main>
 </template>
 
@@ -16,8 +22,6 @@ import bannerComponent from '../../components/homeComponents/bannerComponent.vue
 import featuresComponent from '../../components/homeComponents/featuresComponent.vue';
 import bannerMPComponent from '../../components/homeComponents/bannerMPComponent.vue';
 import productsSection from '../../components/homeComponents/sectionComponent.vue';
-import productsSectionColumn from '../../components/homeComponents/sectionColumnComponent1.vue';
-import productsSectionColumn2 from '../../components/homeComponents/sectionColumnComponent2.vue';
 export default {
   name: "HomePage",
   components: {
@@ -25,10 +29,6 @@ export default {
     featuresComponent,
     bannerMPComponent,
     productsSection,
-    productsSectionColumn,
-    productsSectionColumn2
   },
 };
 </script>
-
-<style scoped></style>

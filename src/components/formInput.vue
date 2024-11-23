@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
-        <label :for="name">{{ label }}</label>
-        <input :type="type" :id="name" :name="name" :value="value" :placeholder="label"
+        <label class="form__label" :for="name">{{ label }} <span class="form__required">*</span></label>
+        <input class="form__input" :type="type" :id="name" :name="name" :value="value" :placeholder="label"
             @input="updateValue($event.target.value)" />
     </div>
 </template>
@@ -37,28 +37,8 @@ export default {
 
 <style scoped>
 .form-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    color: var(--text-color-body);
-    display: block;
-    margin-bottom: .5rem;
-}
-
-input {
-    width: 100%;
-    padding: .8rem;
-    box-sizing: border-box;
-    border: solid .1rem var(--primary-color);
-    border-radius: .5rem;
-    background-color: var(--tertiary-color);
-    font-size: var(--font-size-base);
-}
-
-input:focus {
-    box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
-    outline: none;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (width <=390px) {

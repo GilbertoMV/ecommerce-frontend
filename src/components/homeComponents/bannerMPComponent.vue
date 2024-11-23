@@ -15,6 +15,7 @@
     border-radius: 1.5rem;
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
     margin-bottom: 2rem;
+    max-width: 150rem;
 }
 
 .bannerMP img {
