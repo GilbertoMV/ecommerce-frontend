@@ -56,6 +56,7 @@ h1 {
   cursor: pointer;
   border-radius: .5rem;
   transition: all .3s ease;
+  margin-top: 1rem;
 }
 
 .account-form__button-login:hover,
@@ -188,7 +189,7 @@ h1 {
 .listProduct {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1.5rem;
   width: 100%;
 }
@@ -565,6 +566,19 @@ h1 {
 
   .loadComponent {
     width: 75%;
+  }
+
+  .principal {
+    flex-direction: column;
+    width: 90vw;
+  }
+
+  .listFilters {
+    display: none;
+  }
+
+  .listMain {
+    width: 100%;
   }
 }
 

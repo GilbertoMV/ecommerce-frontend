@@ -145,13 +145,13 @@ export default {
 
 @media (width <=768px) {
     .product {
-        min-width: 18rem;
-        width: 18rem;
+        min-width: 21rem;
+        width: 21rem;
         max-width: 18rem;
     }
 
     .product__image {
-        height: 20rem;
+        height: 18rem;
     }
 
     .product__info {
@@ -176,19 +176,19 @@ export default {
     }
 }
 
-@media (width <=390px) {
+@media (width <=485px) {
     .product {
-        width: 12rem;
-        max-width: 12rem;
-        min-width: 12rem;
+        width: 16rem;
+        max-width: 16rem;
+        min-width: 16rem;
     }
 
     .product__image {
-        height: 12rem;
+        height: 16rem;
     }
 
     .product__info {
-        padding: 0 .3rem;
+        padding: 0 1rem;
     }
 
     .product__title {

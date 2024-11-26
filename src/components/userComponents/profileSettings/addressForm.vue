@@ -28,7 +28,7 @@
             <div class="form__error"
                 v-if="!$v.formData.codigo_postal.hasNumbersOnly && $v.formData.codigo_postal.$dirty">
                 ZIP Code should only have numbers</div>
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="state">State: <span class="form__required">*</span> </label>
                 <input class="form__input" type="text" name="state" id="state" placeholder="Enter here your state"
                     v-model="formData.estado">
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="form__bi-column">
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="municipality">Municipality: <span class="form__required">*</span>
                 </label>
                 <input class="form__input" type="text" name="municipality" id="municipality"
@@ -56,7 +56,7 @@
                 <div class="form__error" v-if="!$v.formData.municipio.hasLettersSpaces && $v.formData.municipio.$dirty">
                     Municipality should only have letters and spaces</div>
             </div>
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="colony">Colony: <span class="form__required">*</span> </label>
                 <input class="form__input" type="text" name="colony" id="colony" placeholder="Enter here your colony"
                     v-model="formData.colonia">
@@ -83,7 +83,7 @@
                 Street should only have letters, spaces and/or numbers</div>
         </div>
         <div class="form__bi-column">
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="internal_number">Internal Number:</label>
                 <input class="form__input" type="text" name="internal_number" id="internal_number"
                     placeholder="Enter here the internal number" v-model="formData.num_interior">
@@ -94,7 +94,7 @@
                     v-if="!$v.formData.num_interior.hasLettersNumbersSpaces && $v.formData.num_interior.$dirty">
                     Internal Number should only have letters, spaces and/or numbers</div>
             </div>
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="external_number">External Number: <span class="form__required">*</span>
                 </label>
                 <input class="form__input" type="text" name="external_number" id="external_number"
@@ -110,7 +110,7 @@
             </div>
         </div>
         <div class="form__bi-column">
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="beetwen_street1">Between Street 1: <span class="form__required">*</span>
                 </label>
                 <input class="form__input" type="text" name="beetwen_street1" id="beetwen_street1"
@@ -124,7 +124,7 @@
                     v-if="!$v.formData.entre_calle1.hasLettersNumbersSpaces && $v.formData.entre_calle1.$dirty">
                     Beetwen Street 1 should only have letters, spaces and/or numbers</div>
             </div>
-            <div>
+            <div class="form__single-column">
                 <label class="form__label" for="beetwen_street2">Between Street 2: <span class="form__required">*</span>
                 </label>
                 <input class="form__input" type="text" name="beetwen_street2" id="beetwen_street2"
@@ -397,32 +397,9 @@ export default {
     font-size: 1.6rem;
 }
 
-.form__single-column,
-.form__bi-column {
-    padding: .3rem 0rem;
-}
-
-.form__label {
-    display: block;
-    margin-bottom: .5rem;
-    color: var(--text-color-body);
-}
-
-.form__input,
-.form__select {
-    padding: .8rem;
-    box-sizing: border-box;
-    width: 100%;
-    border: solid .1rem var(--primary-color);
-    border-radius: .5rem;
-    background-color: var(--tertiary-color);
-    font-size: var(--text-color-base);
-    margin-bottom: .5rem;
-}
-
-.form__input:focus {
-    box-shadow: 0 0 .5rem rgba(98, 171, 24, 0.5);
-    outline: none;
+.form__single-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .form__required {

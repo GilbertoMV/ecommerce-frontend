@@ -1,6 +1,5 @@
 <template>
     <aside>
-        <h2 class="filters__title">Search Filters:</h2>
         <div>
             <h3 class="filters__subtitle">Categories</h3>
             <ul v-for="(category, index) in categories" :key="index">
@@ -113,6 +112,10 @@ export default {
     align-items: center;
     gap: 1rem;
 
+}
+
+.ranges span {
+    color: var(--text-color-body);
 }
 
 .divider__line {
