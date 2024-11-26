@@ -4,11 +4,15 @@
             :url="categoryDetails.url_imagen" />
         <div class="principal">
             <aside class="listFilters">
+                <h2 class="filters__title">Search Filters:</h2>
                 <filtersComponent />
             </aside>
             <section class="listMain">
                 <h3 class="filters__title">Results:</h3>
                 <div class="listProduct">
+                    <productCard />
+                    <productCard />
+                    <productCard />
                     <productCard />
                     <productCard />
                     <productCard />
