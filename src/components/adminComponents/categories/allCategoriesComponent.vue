@@ -57,6 +57,13 @@
                 </ul>
 
             </div>
+            <div class="pagination">
+                <button class="pagination__button" @click="goToPage(currentPage - 1)"
+                    :disabled="currentPage === 1">Last</button>
+                <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="pagination__button" @click="goToPage(currentPage + 1)"
+                    :disabled="currentPage === totalPages">Next</button>
+            </div>
         </div>
     </div>
 </template>
@@ -82,7 +89,7 @@ export default {
         tinyLoader
     },
     computed: {
-        ...mapGetters('categories', ['filteredCategories']),
+        ...mapGetters('categories', ['filteredCategories', 'currentPage', 'totalPages', 'totalCategories']),
     },
     data() {
         return {
@@ -91,18 +98,18 @@ export default {
                 { label: 'Image', field: 'url_imagen' },
                 { label: 'Name', field: 'nombre' },
                 { label: 'Description', field: 'descripcion' },
-                { label: 'Actions', field: 'actions' } // Si necesitas acciones para la fila, por ejemplo, editar/eliminar
+                { label: 'Actions', field: 'actions' }
             ],
-            categoriesState: '',
+            searchTerm: '', // Campo para el término de búsqueda
+            categoriesState: '', // Estado de carga de las categorías
             placeholder: 'Search by name or id'
-        }
+        };
     },
     methods: {
         ...mapActions('categories', ['fetchCategories', 'filterCategories']),
-
         searchCategories(searchTerm) {
             if (searchTerm.trim() === '') {
-                this.fetchCategories();
+                this.fetchCategories({ page: this.currentPage, limit: 7 });
             } else {
                 this.filterCategories(searchTerm);
             }
@@ -123,7 +130,7 @@ export default {
             if (result.isConfirmed) {
                 try {
                     await apiClient.delete(`/categories/${id_category}`);
-                    await this.fetchCategories();
+                    await this.fetchCategories({ page: this.currentPage }); // Refrescar la página actual
                     Swal.fire({
                         icon: "success",
                         text: `Category ${id_category} has been deleted.`,
@@ -149,20 +156,28 @@ export default {
                     });
                 }
             }
+        },
+        async goToPage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.categoriesState = 'loading';
+                await this.fetchCategories({ page });
+                this.categoriesState = 'success';
+            }
         }
     },
     created() {
         this.categoriesState = 'loading';
-        this.fetchCategories()
+        this.fetchCategories({ page: 1 })
             .then(() => {
                 this.categoriesState = 'success'; // Estado cargado
             })
             .catch((error) => {
-                console.error(error);
                 this.categoriesState = 'error'; // Error en la carga
+                console.error(error);
             });
     }
-}
+};
+
 </script>
 
 <style scoped>
@@ -183,7 +198,7 @@ export default {
     width: 100%;
     height: 5rem;
     gap: 1rem;
-    padding: 1rem 0 1rem;
+    margin: 2rem 0;
 }
 
 .crud__text {
@@ -218,7 +233,8 @@ export default {
     width: 25%;
 }
 
-.crud__button {
+.crud__button,
+.pagination__button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -234,7 +250,8 @@ export default {
     text-decoration: none;
 }
 
-.crud__button:hover {
+.crud__button:hover,
+.pagination__button:hover {
     background-color: var(--text-color-hover-buttons);
 }
 
@@ -263,8 +280,8 @@ export default {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 95%;
+    min-height: 55rem;
 }
 
 .table__row {
@@ -311,6 +328,7 @@ export default {
 
 .table__row p:nth-child(4) {
     text-align: left;
+    overflow: hidden;
 }
 
 .table__row p:nth-child(4),
@@ -364,5 +382,26 @@ export default {
 .form__log svg {
     width: 5rem;
     height: 5rem;
+}
+
+.pagination {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pagination__button {
+    font-size: var(--font-size-smallest);
+    margin-right: 0rem;
+    padding: 1rem;
+}
+
+.pagination__text {
+    font-family: var(--font-size-medium);
+    color: var(--text-color-body)
 }
 </style>

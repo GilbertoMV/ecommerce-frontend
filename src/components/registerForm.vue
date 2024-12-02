@@ -95,9 +95,9 @@
             <button class="oauth__button oauth__button--facebook">
                 <facebookIcon /> Login with Facebook
             </button>
-            <button class="oauth__button oauth__button--google">
+            <!-- <button class="oauth__button oauth__button--google">
                 <googleIcon /> Login with Google
-            </button>
+            </button> -->
         </div>
     </div>
 </template>
@@ -108,7 +108,7 @@ import { helpers } from 'vuelidate/lib/validators'
 import Swal from 'sweetalert2';
 import apiClient from '../store/auth-vuex'
 const facebookIcon = () => import('./icons/facebookIcon.vue')
-const googleIcon = () => import('./icons/googleIcon.vue')
+// const googleIcon = () => import('./icons/googleIcon.vue')
 const formInput = () => import('./formInput.vue');
 //VALIDACIONES
 const validDate = helpers.withParams(
@@ -129,7 +129,7 @@ export default {
     components: {
         formInput,
         facebookIcon,
-        googleIcon
+        // googleIcon
     },
     data() {
         return {
@@ -220,7 +220,7 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false); //desactiva el loader independientemente del resultado
+                this.$store.dispatch('loader/setLoading', false); //desactiva el loader independientemente del resultado
             }
         }
     }

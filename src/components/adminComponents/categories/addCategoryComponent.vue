@@ -1,6 +1,6 @@
 <template>
     <div class="addCategory">
-        <h1 class="addCategory__title">Add Category</h1>
+        <h1 class="addCategory__title">{{ isEditMode ? 'Edit Category' : 'Add Category' }}</h1>
         <div class="adAttribute__container">
             <form @submit.prevent="handleSubmitCategory" class="addCategory__form">
                 <div class="addCategory__row"> <!--ROW NAME-->
@@ -97,7 +97,7 @@
 </template>
 <script>
 import { required, maxLength, minLength } from 'vuelidate/lib/validators';
-import { fetchCategoryData } from '../../../utils/apiUtils.js'
+import { fetchCategoryById } from '../../../utils/apiUtils.js'
 import Swal from 'sweetalert2';
 import uploadImageIcon from '../../icons/uploadImageIcon.vue';
 import trashIcon from '../../icons/trashIcon.vue';
@@ -133,7 +133,7 @@ export default {
         const categoryId = this.$route.params.categoryId;
         if (categoryId) {
             this.isEditMode = true;
-            const categoryData = await fetchCategoryData(categoryId);
+            const categoryData = await fetchCategoryById(categoryId);
             this.formData.name = categoryData.nombre;
             this.formData.description = categoryData.descripcion;
             this.formData.image_url = categoryData.url_imagen;

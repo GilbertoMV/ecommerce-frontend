@@ -27,9 +27,9 @@
             <button @click="signInFacebook" class="oauth__button oauth__button--facebook">
                 <facebookIcon /> Login with Facebook
             </button>
-            <button class="oauth__button oauth__button--google">
+            <!-- <button class="oauth__button oauth__button--google">
                 <googleIcon /> Login with Google
-            </button>
+            </button> -->
         </div>
     </div>
 
@@ -44,13 +44,13 @@ import { jwtDecode } from 'jwt-decode';
 
 const formInput = () => import('./formInput.vue');
 const facebookIcon = () => import('./icons/facebookIcon.vue');
-const googleIcon = () => import('./icons/googleIcon.vue')
+// const googleIcon = () => import('./icons/googleIcon.vue')
 export default {
     name: 'SignInForm',
     components: {
         formInput,
         facebookIcon,
-        googleIcon
+        // googleIcon
     },
     data() {
         return {
@@ -72,7 +72,7 @@ export default {
     },
     methods: {
         async signIn() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
+            this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {
@@ -93,13 +93,13 @@ export default {
                     contrasena: this.formData.password
                 });
                 if (response.data.token) {
-                    localStorage.setItem('token', response.data.token);
-                    this.$store.dispatch('updateAuthenticationStatus', true);
+                    sessionStorage.setItem('token', response.data.token);
+                    this.$store.dispatch('session/updateAuthenticationStatus', true);
                     // Decodifica el token para obtener el tipo de cuenta
                     const decodedToken = jwtDecode(response.data.token);
-                    this.$store.commit('setAccountType', decodedToken.cuenta);
+                    this.$store.commit('session/SET_ACCOUNT_TYPE', decodedToken.cuenta);
 
-                    await this.$store.dispatch('fetchAndSetUserData');
+                    await this.$store.dispatch('session/fetchAndSetUserData');
                     this.$router.push('/');
                 }
             } catch (error) {
@@ -118,7 +118,7 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);  // Desactivar loader al final, independientemente del resultado
+                this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al final, independientemente del resultado
             }
         },
         async signInFacebook() {

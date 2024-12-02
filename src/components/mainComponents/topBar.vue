@@ -33,11 +33,11 @@
               <shoppingcarIcon /> Shopping Car
             </router-link>
           </li>
-          <li @click="removeMenu">
+          <!-- <li @click="removeMenu">
             <router-link to="/favorites" class="header__menu-item">
               <favoritesIcon /> Favorites
             </router-link>
-          </li>
+          </li> -->
           <li>
             <a @click="sectionsMenu" class="header__menu-item">More Sections</a>
           </li>
@@ -180,9 +180,9 @@
             <shoppingcarIcon />Shopping Car
           </router-link>
           <!-- si es usuario vendedor -->
-          <router-link v-if="accountType === '1'" to="/favorites" class="header__link">
+          <!-- <router-link v-if="accountType === '1'" to="/favorites" class="header__link">
             <favoritesIcon /> Favorites
-          </router-link>
+          </router-link> -->
           <span class="header__link" @click="toggleDarkMode">
             <transition name="fade" mode="out-in">
               <component :is="currentModeIcon" />
@@ -196,10 +196,10 @@
             <shoppingcarIcon />
             <p class="header__handle-text">Shopping car</p>
           </router-link>
-          <router-link to="/favorites" class="header__link">
+          <!-- <router-link to="/favorites" class="header__link">
             <favoritesIcon />
             <p class="header__handle-text">Favorites</p>
-          </router-link>
+          </router-link> -->
           <router-link to="/sign-in" class="header__link">Login</router-link>
           <router-link to="/sign-up" class="header__link header__link--sign-up">Signup</router-link>
           <span class="header__link" @click="toggleDarkMode">
@@ -215,7 +215,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import apiClient from '../../store/auth-vuex';
 import shoppingcarIcon from '../icons/shoppingcarIcon.vue';
 import userIcon from '../icons/userIcon.vue';
 import accessibilityIcon from '../icons/accessibilityIcon.vue';
@@ -231,6 +230,7 @@ import attributeIcon from '../icons/attributeIcon.vue';
 import darkmodeIcon from '../icons/darkmodeIcon.vue';
 import lightmodeIcon from '../icons/lightmodeIcon.vue';
 import bellIcon from '../icons/bellIcon.vue';
+import { fetchCategoryData } from '../../utils/apiUtils';
 
 export default {
   name: 'NavBarTop',
@@ -259,13 +259,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'username', 'accountType', 'isDarkMode']),
+    ...mapGetters('session', ['isAuthenticated', 'username', 'accountType']),
     currentModeIcon() {
       return this.isDarkMode ? 'lightmodeIcon' : 'darkmodeIcon';
     }
   },
   methods: {
-    ...mapActions(['logout', 'toggleDarkMode']),
+    ...mapActions('session', ['logout']),
+    ...mapActions('theme', ['toggleDarkMode']),
+
     showMenu() {
       if (this.hideMenuTimeout) {
         clearTimeout(this.hideMenuTimeout);
@@ -312,19 +314,11 @@ export default {
     },
     sectionsMenu() {
       document.querySelector('.header__sections-menu').classList.toggle('is-active');
-    },
-    async fetchCategories() {
-      try {
-        const response = await apiClient.get("/categories");
-        this.categories = response.data;
-      } catch (err) {
-        console.error(err);
-      }
-    },
+    }
   },
-  created() {
+  async created() {
     this.isMenuVisible = false;
-    this.fetchCategories();
+    this.categories = await fetchCategoryData();
   }
 }
 </script>

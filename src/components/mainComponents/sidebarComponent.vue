@@ -101,7 +101,7 @@ export default {
         logoutIcon
     },
     computed: {
-        ...mapGetters(['username', 'paternalLastName']),
+        ...mapGetters('session', ['username', 'paternalLastName']),
     },
     data() {
         return {

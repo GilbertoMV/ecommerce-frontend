@@ -651,7 +651,7 @@ export default {
 
                     // Si no tenemos el resultado, esperamos 2 segundos antes de intentar nuevamente
                     if (!respuesta) {
-                        await new Promise(resolve => setTimeout(resolve, 2000)); // Esperar 2 segundos
+                        await new Promise(resolve => setTimeout(resolve, 3000)); // Esperar 2 segundos
                     }
                 }
 
@@ -895,10 +895,15 @@ export default {
     },
     async created() {
         this.$store.dispatch('setLoading', true);  // Activar loader al inicio
-        this.categories = await fetchCategoryData();
-        this.sizesOptions = await fetchSizes();
-        this.colorOptions = await fetchColors();
-        this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+        try {
+            this.categories = await fetchCategoryData();
+            this.sizesOptions = await fetchSizes();
+            this.colorOptions = await fetchColors();
+        } catch (error) {
+            console.error(error)
+        } finally {
+            this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+        }
 
     }
 }

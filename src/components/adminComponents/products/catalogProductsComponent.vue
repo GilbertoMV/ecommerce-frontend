@@ -46,9 +46,9 @@
                         <p>{{ product.id_categoria }}</p>
                         <p>{{ product.nombre }}</p>
                         <p>{{ product.descripcion }}</p>
-                        <p>{{ product.precio }}</p>
+                        <p>${{ product.precio }}</p>
                         <p>{{ product.existencias }}</p>
-                        <p>{{ product.huella_carbono }}</p>
+                        <p>{{ product.huella_carbono }}kgCO₂e</p>
                         <p class="table__icons">
                             <!-- <router-link class="table__icon"
                                 :to="{ name: 'editCategoryComponent', params: { categoryId: category.id_categoria } }">
@@ -61,7 +61,13 @@
                         </p>
                     </li>
                 </ul>
-
+            </div>
+            <div class="pagination">
+                <button class="pagination__button" @click="goToPage(currentPage - 1)"
+                    :disabled="currentPage === 1">Last</button>
+                <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="pagination__button" @click="goToPage(currentPage + 1)"
+                    :disabled="currentPage === totalPages">Next</button>
             </div>
         </div>
     </div>
@@ -88,7 +94,7 @@ export default {
         tinyLoader
     },
     computed: {
-        ...mapGetters('products', ['filteredProducts']),
+        ...mapGetters('products', ['filteredProducts', 'currentPage', 'totalPages', 'totalProducts']),
     },
     data() {
         return {
@@ -102,6 +108,7 @@ export default {
                 { label: 'CO₂e', field: 'huella de carbono' },
                 { label: 'Actions', field: 'actions' } // Si necesitas acciones para la fila, por ejemplo, editar/eliminar
             ],
+            searchTerm: '',
             productsState: '',
             placeholder: 'Search by name or id'
         }
@@ -111,7 +118,7 @@ export default {
 
         searchProduct(searchTerm) {
             if (searchTerm.trim() === '') {
-                this.fetchProducts();
+                this.fetchProducts({ page: this.currentPage, limit: 7 });
             } else {
                 this.filterProducts(searchTerm);
             }
@@ -158,11 +165,18 @@ export default {
                     });
                 }
             }
+        },
+        async goToPage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.productsState = 'loading';
+                await this.fetchCategories({ page });
+                this.productsState = 'success';
+            }
         }
     },
     created() {
         this.productsState = 'loading';
-        this.fetchProducts()
+        this.fetchProducts({ page: 1 })
             .then(() => {
                 this.productsState = 'success'; // Estado cargado
             })
@@ -192,7 +206,7 @@ export default {
     width: 100%;
     height: 5rem;
     gap: 1rem;
-    padding: 1rem 0 1rem;
+    margin: 2rem 0rem;
 }
 
 .crud__text {
@@ -227,7 +241,8 @@ export default {
     width: 25%;
 }
 
-.crud__button {
+.crud__button,
+.pagination__button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -243,7 +258,8 @@ export default {
     text-decoration: none;
 }
 
-.crud__button:hover {
+.crud__button:hover,
+.pagination__button:hover {
     background-color: var(--text-color-hover-buttons);
 }
 
@@ -272,8 +288,8 @@ export default {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 95%;
+    min-height: 55rem;
 }
 
 .table__row {
@@ -326,6 +342,7 @@ export default {
 .table__head li:nth-child(4) {
     /*DESCRIPTION*/
     width: 40%;
+    overflow: hidden;
 }
 
 .table__row p:nth-child(5),
@@ -383,5 +400,26 @@ export default {
 .form__log svg {
     width: 5rem;
     height: 5rem;
+}
+
+.pagination {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pagination__button {
+    font-size: var(--font-size-smallest);
+    margin-right: 0rem;
+    padding: 1rem;
+}
+
+.pagination__text {
+    font-family: var(--font-size-medium);
+    color: var(--text-color-body)
 }
 </style>

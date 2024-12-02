@@ -1,14 +1,19 @@
-import { fetchCategoryData } from "../../utils/apiUtils"; 
+import apiClient from "../auth-vuex";
 
 const state = {
-  categories: [], // Todas las categorías traídas de la API
-  filteredCategories: [], // Resultados filtrados según la búsqueda
+  categories: [],
+  filteredCategories: [],
+  totalCategories: 0,
+  currentPage: 1,
+  totalPages: 0,
 };
-
 const mutations = {
-  SET_CATEGORIES(state, categories) {
+  SET_CATEGORIES(state, { categories, totalCategories, totalPages, currentPage }) {
     state.categories = categories;
-    state.filteredCategories = categories; // Inicializa filteredCategories con todas las categorías
+    state.filteredCategories = categories;  // Inicializa filteredCategories con todas las categorías
+    state.totalCategories = totalCategories;
+    state.totalPages = totalPages;
+    state.currentPage = currentPage;
   },
   SET_FILTERED_CATEGORIES(state, filteredCategories) {
     state.filteredCategories = filteredCategories;
@@ -16,15 +21,19 @@ const mutations = {
 };
 
 const actions = {
-  async fetchCategories({ commit }) {
+  async fetchCategories({ commit }, { page = 1, limit = 7 }) {
     try {
-      const response = await fetchCategoryData(); // Obtener todas las categorías desde la API
-      commit('SET_CATEGORIES', response); // Guardar en el estado
+      const response = await apiClient.get(`/categories?page=${page}&limit=${limit}`);
+      commit('SET_CATEGORIES', {
+        categories: response.data.categories,
+        totalCategories: response.data.totalCategories,
+        totalPages: response.data.totalPages,
+        currentPage: response.data.currentPage
+      });
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   },
-
   filterCategories({ commit, state }, searchTerm) {
     const search = searchTerm.toLowerCase();
     
@@ -39,14 +48,16 @@ const actions = {
 };
 
 const getters = {
-  allCategories: state => state.categories, // Obtener todas las categorías
-  filteredCategories: state => state.filteredCategories, // Obtener categorías filtradas
+  filteredCategories: state => state.filteredCategories,
+  categories: (state) => state.categories,
+  currentPage: (state) => state.currentPage,
+  totalPages: (state) => state.totalPages,
+  totalCategories: (state) => state.totalCategories
 };
-
 export default {
-  namespaced: true, // Para permitir usar 'categories/' como namespace
+  namespaced: true,
   state,
-  mutations,
-  actions,
   getters,
+  actions,
+  mutations
 };

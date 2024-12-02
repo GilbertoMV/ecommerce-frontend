@@ -195,7 +195,7 @@ const hasNumbersOnly = helpers.regex('hasNumbersOnly', /^[0-9]+$/) //valida que 
 export default {
     name: 'addressForm',
     computed: {
-        ...mapGetters(['idUser'])
+        ...mapGetters('session', ['idUser'])
     },
     data() {
         return {
@@ -266,7 +266,7 @@ export default {
             }
         },
         async updateAddress() {
-            this.$store.dispatch('setLoading', true);
+            this.$store.dispatch('loader/setLoading', true);
             try {
                 const idAddress = this.formData.id_direccion;
                 await apiClient.put(`address/${idAddress}`, {
@@ -313,11 +313,11 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);
+                this.$store.dispatch('loader/setLoading', false);
             }
         },
         async createAddress() {
-            this.$store.dispatch('setLoading', true); //activa el loading
+            this.$store.dispatch('loader/setLoading', true); //activa el loading
             try {
                 await apiClient.post('/address/', {
                     id_usuario: this.idUser,
@@ -363,12 +363,12 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);
+                this.$store.dispatch('loader/setLoading', false);
             }
 
         },
         async fetchAddress(idAddress) {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
+            this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
             try {
                 const response = await apiClient(`/address/${idAddress}`);
                 this.formData = response.data;
@@ -385,7 +385,7 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+                this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al inicio
             }
         }
     }

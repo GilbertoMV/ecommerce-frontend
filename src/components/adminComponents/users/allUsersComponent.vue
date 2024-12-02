@@ -51,7 +51,13 @@
                         </p>
                     </li>
                 </ul>
-
+            </div>
+            <div class="pagination">
+                <button class="pagination__button" @click="goToPage(currentPage - 1)"
+                    :disabled="currentPage === 1">Last</button>
+                <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="pagination__button" @click="goToPage(currentPage + 1)"
+                    :disabled="currentPage === totalPages">Next</button>
             </div>
         </div>
     </div>
@@ -78,7 +84,7 @@ export default {
         disabledIcon,
     },
     computed: {
-        ...mapGetters('usersData', ['filteredUserData']),
+        ...mapGetters('usersData', ['filteredUserData', 'currentPage', 'totalPages', 'totalUsers']),
     },
     data() {
         return {
@@ -99,7 +105,7 @@ export default {
         ...mapActions('usersData', ['fetchAllUsers', 'filterUserData']),
         searchUsers(searchTerm) {
             if (searchTerm.trim() === '') {
-                this.fetchAllUsers();
+                this.fetchAllUsers({ page: this.currentPage, limit: 7 });
             } else {
                 this.filterUserData(searchTerm);
             }
@@ -195,17 +201,25 @@ export default {
         },
         editUser() {
             console.log("hola")
+        },
+        async goToPage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.categoriesState = 'loading';
+                await this.fetchCategories({ page });
+                this.categoriesState = 'success';
+            }
         }
     },
     async created() {
         this.usersState = 'loading'
-        try {
-            await this.fetchAllUsers();
-            this.usersState = ''
-        } catch (error) {
-            this.usersState = 'error'
-            console.error(error);
-        }
+        this.fetchAllUsers({ page: 1 })
+            .then(() => {
+                this.usersState = 'success'
+            })
+            .catch((error) => {
+                this.usersState = 'error'
+                console.error(error);
+            })
     }
 }
 </script>
@@ -228,7 +242,7 @@ export default {
     width: 100%;
     height: 5rem;
     gap: 1rem;
-    padding: 1rem 0 1rem;
+    margin: 2rem 0rem;
 }
 
 .crud__text {
@@ -274,8 +288,8 @@ export default {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 95%;
+    min-height: 55rem;
 }
 
 .table__row {
@@ -287,6 +301,26 @@ export default {
     font-size: var(--font-size-smallest);
     color: var(--text-color-body);
     transition: background-color .1s ease-in-out;
+}
+
+.pagination__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 5rem;
+    cursor: pointer;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--text-color-base);
+    font-size: var(--font-size-medium);
+    border-radius: .7rem;
+    transition: all .3s ease-in-out;
+    margin-right: 2rem;
+    text-decoration: none;
+}
+
+.pagination__button:hover {
+    background-color: var(--text-color-hover-buttons);
 }
 
 .table__row:hover,
@@ -384,5 +418,26 @@ export default {
 .form__log svg {
     width: 5rem;
     height: 5rem;
+}
+
+.pagination {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pagination__button {
+    font-size: var(--font-size-smallest);
+    margin-right: 0rem;
+    padding: 1rem;
+}
+
+.pagination__text {
+    font-family: var(--font-size-medium);
+    color: var(--text-color-body)
 }
 </style>

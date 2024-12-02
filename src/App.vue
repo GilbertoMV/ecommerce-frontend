@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'App',
   computed: {
-    ...mapGetters(['isDarkMode']),
+    ...mapGetters('theme', ['isDarkMode']),
     layout() {
       if (this.$route.path.startsWith('/admin')) {
         return adminLayout;

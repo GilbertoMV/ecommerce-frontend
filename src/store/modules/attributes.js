@@ -1,15 +1,20 @@
-import { fetchSizes, fetchColors } from '../../utils/apiUtils'; 
 import apiClient from '../auth-vuex';
 
 const state = {
     attributes: [], // Almacenará todos los atributos (tallas y colores)
     filteredAttributes: [], // Estado de la carga: 'loading', 'success', 'error'
+    totalAttributes: 0,
+    currentPage: 1,
+    totalPages: 0
 };
 
 const mutations = {
-    SET_ATTRIBUTES(state, attributes) {
-        state.attributes = attributes; // Establece los atributos en el estado
+    SET_ATTRIBUTES(state, {attributes, totalAttributes, currentPage, totalPages}) {
+        state.attributes = attributes;
         state.filteredAttributes = attributes;
+        state.totalAttributes = totalAttributes;
+        state.totalPages = totalPages;
+        state.currentPage = currentPage;
     },
     SET_FILTERED_ATTRIBUTES(state, filteredAttributes) {
         state.filteredAttributes = filteredAttributes; 
@@ -29,25 +34,30 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAttributes({ commit }) {
+    async fetchAttributes({ commit }, { page = 1, limit = 7}) {
         try {
-            const sizes = await fetchSizes();
-            const colors = await fetchColors();
+            const sizes = await apiClient.get(`/sizes?page=${page}&limit=${limit}`);
+            const colors = await apiClient.get(`/colors?page=${page}&limit=${limit}`);
 
             const attributes = [
-                ...colors.map(color => ({
+                ...colors.data.colors.map(color => ({
                     id_color: color.id_color || null, // Asegúrate de que siempre haya un valor
                     nombre: color.nombre,
                     type: 'color'
                 })),
-                ...sizes.map(size => ({
+                ...sizes.data.sizes.map(size => ({
                     id_talla: size.id_talla || null, // Asegúrate de que siempre haya un valor
                     nombre: size.nombre,
                     type: 'size'
                 }))
             ];
-
-            commit('SET_ATTRIBUTES', attributes);
+            const totalAttributes = sizes.data.totalSizes + colors.data.totalColors 
+            commit('SET_ATTRIBUTES', {
+                attributes: attributes,
+                totalAttributes: totalAttributes,
+                totalPages: sizes.data.totalPages,
+                currentPage: sizes.data.currentPage
+            });
         } catch (error) {
             console.error(error);
         }
@@ -79,7 +89,10 @@ const actions = {
 
 const getters = {
     allAttributes: state => state.attributes, // Devuelve todos los atributos
-    filteredAttributes: state => state.filteredAttributes // Devuelve el estado de carga
+    filteredAttributes: state => state.filteredAttributes, // Devuelve el estado de carga
+    currentPage: state => state.currentPage,
+    totalPages: state => state.totalPages,
+    totalAttributes: state => state.totalAttributes
 };
 
 export default {

@@ -51,7 +51,13 @@
                         </p>
                     </li>
                 </ul>
-
+            </div>
+            <div class="pagination">
+                <button class="pagination__button" @click="goToPage(currentPage - 1)"
+                    :disabled="currentPage === 1">Last</button>
+                <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="pagination__button" @click="goToPage(currentPage + 1)"
+                    :disabled="currentPage === totalPages">Next</button>
             </div>
         </div>
     </div>
@@ -77,7 +83,7 @@ export default {
         errorIcon
     },
     computed: {
-        ...mapGetters('attributes', ['filteredAttributes']),
+        ...mapGetters('attributes', ['filteredAttributes', 'currentPage', 'totalPages', 'totalAttributes']),
     },
     data() {
         return {
@@ -94,7 +100,7 @@ export default {
         ...mapActions('attributes', ['fetchAttributes', 'filterAttributes', 'deleteAttribute']),
         searchAttributes(searchTerm) {
             if (searchTerm.trim() === '') {
-                this.fetchAttributes();
+                this.fetchAttributes({ page: this.currentPage, limit: 7 });
             } else {
                 this.filterAttributes(searchTerm);
             }
@@ -145,12 +151,18 @@ export default {
                     });
                 }
             }
+        },
+        async goToPage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.categoriesState = 'loading';
+                await this.fetchCategories({ page });
+                this.categoriesState = 'success';
+            }
         }
-
     },
     async created() {
         this.attributesState = 'loading'
-        this.fetchAttributes()
+        this.fetchAttributes({ page: 1 })
             .then(() => {
                 this.attributesState = 'success';
             })
@@ -158,7 +170,6 @@ export default {
                 console.error(error)
                 this.attributesState = 'error'
             })
-
     }
 }
 </script>
@@ -215,7 +226,8 @@ export default {
     width: 25%;
 }
 
-.crud__button {
+.crud__button,
+.pagination__button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -231,7 +243,8 @@ export default {
     text-decoration: none;
 }
 
-.crud__button:hover {
+.crud__button:hover,
+.pagination__button:hover {
     background-color: var(--text-color-hover-buttons);
 }
 
@@ -261,8 +274,8 @@ export default {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     width: 95%;
+    min-height: 55rem;
 }
 
 .table__row {
@@ -348,5 +361,26 @@ export default {
 .form__log svg {
     width: 5rem;
     height: 5rem;
+}
+
+.pagination {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pagination__button {
+    font-size: var(--font-size-smallest);
+    margin-right: 0rem;
+    padding: 1rem;
+}
+
+.pagination__text {
+    font-family: var(--font-size-medium);
+    color: var(--text-color-body)
 }
 </style>

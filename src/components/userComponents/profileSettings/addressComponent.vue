@@ -69,7 +69,7 @@ export default {
         editIcon
     },
     computed: {
-        ...mapGetters(['idUser'])
+        ...mapGetters('session', ['idUser'])
     },
     data() {
         return {
@@ -105,7 +105,7 @@ export default {
             }
         },
         async fetchUserAddress() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
+            this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
             try {
                 const response = await apiClient(`/address/me/${this.idUser}`);
                 this.addresses = response.data;
@@ -122,7 +122,7 @@ export default {
                     timerProgressBar: true,
                 });
             } finally {
-                this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+                this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al inicio
             }
         },
         editAddress() {

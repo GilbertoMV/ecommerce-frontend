@@ -1,26 +1,25 @@
-import {jwtDecode} from 'jwt-decode'; // Importación sin las llaves
+import {jwtDecode} from 'jwt-decode';
 
 export function validation() {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   
-  // Verificar si hay un token
   if (token) {
     try {
-      const decodedToken = jwtDecode(token); // Decodificar token
+      const decodedToken = jwtDecode(token);
       
       if (decodedToken && decodedToken.cuenta) {
-        return decodedToken.cuenta; // Retornar el tipo de cuenta si existe
+        return decodedToken.cuenta;
       } else {
         console.error("El token no contiene la propiedad accountType");
-        return null; // Retorna null si no existe accountType
+        return null; 
       }
       
     } catch (error) {
-      console.error("Error al decodificar el token:", error); // Si el token es inválido o no se puede decodificar
+      console.error("Error al decodificar el token:", error);
       return null;
     }
   } else {
-    console.error("No se encontró un token en localStorage");
-    return null; // No hay token en el localStorage
+    console.error("No se encontró un token en sessionStorage");
+    return null;
   }
 }

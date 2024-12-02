@@ -104,7 +104,7 @@ const router = new Router({
 ]
 })
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   //requiresGuest = se require que no haya un token para poder acceder
   //requiresSeller = se requiere que sea vendedor para poder acceder
   //requiresClient = se require que sea cliente registrado para poder acceder

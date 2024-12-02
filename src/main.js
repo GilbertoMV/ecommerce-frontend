@@ -8,9 +8,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.config.productionTip = false
+
 Vue.use(Vuelidate)
 
-store.dispatch('initializeStore').then(() => {
+store.dispatch('session/initializeStore').then(() => {
   new Vue({
     router,
     store,
