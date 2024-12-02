@@ -96,9 +96,8 @@ export default {
     },
     methods: {
         getCategoriesNames() {
-            const categoriesData = JSON.parse(localStorage.getItem('categoryData') || '[]')
-            this.categories = categoriesData.map(category => category.nombre)
-            console.log(this.categories)
+            const categoriesData = JSON.parse(localStorage.getItem('categoriesData') || '[]')
+            this.categories = categoriesData.data.map(category => category.nombre)
         }
     },
     created() {
