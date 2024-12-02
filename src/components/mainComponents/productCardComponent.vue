@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* Contenedor principal de la tarjeta */
 .product {
     display: flex;
@@ -82,7 +82,7 @@ export default {
 }
 
 .product__description {
-    font-family: var(--font-size-small);
+    font-size: var(--font-size-small);
     color: var(--text-color-body);
     display: -webkit-box;
     line-clamp: 3;

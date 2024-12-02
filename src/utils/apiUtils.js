@@ -1,4 +1,10 @@
 import apiClient from '../store/auth-vuex.js';
+//CONSTANTES DE STORAGE
+const EXPIRATION_TIME = 24 * 60 * 60 * 1000;
+const CATEGORIES_KEY = 'categoriesData';
+
+
+//UTILS PARA CLIENTE
 
 export async function fetchUserData() {
   const userData = sessionStorage.getItem('userData');
@@ -13,15 +19,11 @@ export async function fetchUserData() {
   return response.data;
 }
 
+//UTILS PARA ADMINISTRADOR
+
 export async function fetchAllUsersData() {
   const response = await apiClient.get('/users')
   return response.data;
-}
-
-export async function fetchCategoryData() {
-  const response = await apiClient.get("/categories");
-  // localStorage.setItem('categoryData', JSON.stringify(response.data.categories)); 
-  return response.data.categories;
 }
 
 export async function fetchCategoryById(categoryId) {
@@ -33,9 +35,33 @@ export async function fetchCategoryById(categoryId) {
   return response.data;
 }
 
+//UTILS COMPARTIDAS CLIENTE/ADMINISTRADOR
+export async function fetchCategoryData() {
+  const storedData = JSON.parse(localStorage.getItem(CATEGORIES_KEY));
+  const now = new Date().getTime();
+
+  if (storedData && (now - storedData.lastUpdated < EXPIRATION_TIME)) {
+    return storedData.data;
+  }
+
+  try {
+    const response = await apiClient.get("/categories");
+    const categories = response.data.categories;
+
+    localStorage.setItem(CATEGORIES_KEY, JSON.stringify({
+      data: categories,
+      lastUpdated: now
+    }));
+
+    return categories;
+  } catch (error) {
+    console.error("Error al obtener las categorías:", error);
+    throw error;
+  }
+}
+
 
 export async function fetchSizes(sizeId='') {
-  // Hacer la petición a la API para obtener las sizes
   if(sizeId==='') {
     const response = await apiClient.get('/sizes');
     return response.data.sizes;
