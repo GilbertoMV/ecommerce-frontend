@@ -63,7 +63,7 @@ const router = new Router({
     {path: '/best-sellers', name: 'bestSellersPage', component: bestSellersPage, meta: {title: 'Best Sellers'}},
     {path: '/new-items', name: 'newItemPages', component: newItemsPage, meta: {title: 'New Items'}},
     {path: '/more-ecofriendly', name: 'moreEcofriendlyPage', component: moreEcofriendlyPage, meta: {title: 'More Eco-Friendly'}},
-    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresAuth: true, requiresComprador:true, title: 'Shopping Car'}},
+    {path: '/shopping-car',name: 'shoppingCarPage',component: shoppingCarPage, meta: {requiresAuth: false, requiresComprador:false, title: 'Shopping Cart'}}, //cambiar a true
     {path: '/favorites', name: 'favoritesComponent', component: favoritesComponent, meta: {requiresAuth: true, requiresComprador:true, title: 'Favorites productos'}},
     {path: '/rewards-shop', name: 'rewardsShopComponent', component: rewardsShopComponent, meta:{title: 'Rewards Shop'}}, //todos lo pueden ver pero solo compradores usar
     {path: '/config-address', name: 'configAddressPage', component: configAddressPage, meta: {title: 'Address', requiresAuth: true, requiresComprador:true}},
@@ -78,7 +78,7 @@ const router = new Router({
         {path: 'privacy', name: 'privacyComponent', component: privacyComponent, meta: {title: 'Privacy Settings'} },
         {path: 'support', name: 'supportComponent', component: supportComponent, meta: {title: 'Support and Help'}},
     ]},
-    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: false, requiresSeller:false}, //cambiar a true
+    {path: '/admin', redirect: '/admin/dashboard', name: 'adminProfilePage', component: adminProfilePage, meta:{title:'Dashboard', requiresAuth: true, requiresSeller: true}, //cambiar a true
       children: [
         {path: 'dashboard', name: 'dashboardComponent', component: dashboardComponent, meta: {title: 'Dashboard'}},
         //USERS

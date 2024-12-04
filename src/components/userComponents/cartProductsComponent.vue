@@ -1,5 +1,5 @@
 <template>
-    <section class="listProduct">
+    <div class="listProduct">
         <article v-for="(product, index) in productList" :key="index" class="product">
             <figure class="product__image">
                 <img :src="product.image" :alt="product.title">
@@ -15,9 +15,8 @@
                 </section>
                 <footer class="product__actions">
                     <p class="product__price">${{ product.price }} MXN</p>
-                    <button class="product__button">
-                        <shoppingCarIcon /> Add to car
-                    </button>
+                    <!-- el mac del componenente depende del stock del producto-->
+                    <counterComponent :initialCount="1" :min="1" :max="10" @update:count="onCountUpdate" />
                 </footer>
             </div>
         </article>
@@ -30,31 +29,36 @@
             <button class="pagination__button" @click="goToPage(currentPage + 1)"
                 :disabled="currentPage === totalPages">Next</button>
         </div> -->
-    </section>
+    </div>
 </template>
 <script>
-import shoppingCarIcon from '../icons/shoppingcarIcon.vue';
-
+import counterComponent from '../mainComponents/counterComponent.vue';
 export default {
     name: 'listProductComponent',
     components: {
-        shoppingCarIcon,
+        counterComponent
     },
     data() {
         return {
             productList: [
                 { image: 'https://http2.mlstatic.com/D_Q_NP_873193-MLU70690340718_072023-P.webp', title: 'Bicicleta de dontaña', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '12', rewardsPoints: '0', price: '100' },
-                { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_911090-MLU73905272150_012024-P.webp', title: 'Tableta Xiaomi 13" pulgadas full HD', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_931210-MLM76823570771_062024-P.webp', title: 'Camiseta Polo azul con blanco', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_903515-MLM79307306680_092024-P.webp', title: 'Guantes de latex para cocina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_861977-MLU76901588090_062024-P.webp', title: 'Laptop lenovo 20" para estudiantes', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_612726-MLU77023115255_062024-P.webp', title: 'Colchon matrimonial con resorte', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_688190-MLU75151642343_032024-P.webp', title: 'Crema para la piel nutrogena', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-            ]
+                // { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_911090-MLU73905272150_012024-P.webp', title: 'Tableta Xiaomi 13" pulgadas full HD', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_931210-MLM76823570771_062024-P.webp', title: 'Camiseta Polo azul con blanco', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_903515-MLM79307306680_092024-P.webp', title: 'Guantes de latex para cocina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_861977-MLU76901588090_062024-P.webp', title: 'Laptop lenovo 20" para estudiantes', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_612726-MLU77023115255_062024-P.webp', title: 'Colchon matrimonial con resorte', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_688190-MLU75151642343_032024-P.webp', title: 'Crema para la piel nutrogena', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
+            ],
+            selectedCount: 1
         }
+    },
+    methods: {
+        onCountUpdate(newCount) {
+            this.selectedCount = newCount;
+        },
     }
 }
 </script>
@@ -65,7 +69,7 @@ export default {
     align-items: center;
     width: 100%;
     height: auto;
-    min-height: 80vh;
+    min-height: 18rem;
     border-radius: 1.5rem;
     background-color: var(--primary-background-color);
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
@@ -78,7 +82,6 @@ export default {
     min-height: 18rem;
     border-bottom: .1rem solid var(--separators-color);
     padding: 1rem 0rem;
-    cursor: pointer;
 }
 
 .product:last-of-type {

@@ -186,8 +186,18 @@ h1 {
   width: 80%;
 }
 
+.resume {
+  width: 30%;
+}
 
-.filters__title {
+.listProducts {
+  width: 70%;
+}
+
+
+.filters__title,
+.listProducts__title,
+.resume__title {
   font-size: var(--font-size-big);
   color: var(--text-color-title);
   margin-bottom: 1.5rem;
