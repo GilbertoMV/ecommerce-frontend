@@ -61,10 +61,14 @@ export default {
     cursor: pointer;
     padding: 0 1rem;
     font-size: var(--font-size-medium);
+    color: var(--text-color-body);
 }
 
 .value {
     margin: 0 1rem;
     font-size: var(--font-size-medium);
+    color: var(--text-color-body);
+    width: 1rem;
+    text-align: center;
 }
 </style>

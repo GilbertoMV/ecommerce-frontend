@@ -574,9 +574,12 @@ h1 {
     display: none;
   }
 
-  .listMain {
+  .listMain,
+  .listProducts,
+  .resume {
     width: 100%;
   }
+
 }
 
 @media (width <=390px) {
@@ -587,5 +590,14 @@ h1 {
 
   .loadComponent {
     width: 85%;
+  }
+
+  .listProducts__title,
+  .resume__title {
+    font-size: var(--font-size-medium);
+  }
+
+  .principal {
+    gap: 2rem;
   }
 }

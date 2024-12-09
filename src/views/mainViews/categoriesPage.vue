@@ -17,8 +17,7 @@
 <script>
 import bannerCategory from '../../components/categoriesComponents/bannerCategoryComponent.vue'
 import filtersComponent from '../../components/mainComponents/filtersComponent.vue';
-import listProducts from '../../components/mainComponents/productListComponent.vue';
-export default {
+import listProducts from '../../components/mainComponents/productListComponent.vue'; export default {
     name: 'CategoriesPage',
     components: {
         bannerCategory,

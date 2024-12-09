@@ -48,7 +48,7 @@
                         <p>{{ product.descripcion }}</p>
                         <p>${{ product.precio }}</p>
                         <p>{{ product.existencias }}</p>
-                        <p>{{ product.huella_carbono }}kgCO₂e</p>
+                        <p>{{ product.huella_carbono }}</p>
                         <p class="table__icons">
                             <!-- <router-link class="table__icon"
                                 :to="{ name: 'editCategoryComponent', params: { categoryId: category.id_categoria } }">
@@ -325,13 +325,13 @@ export default {
 .table__row p:nth-child(2),
 .table__head li:nth-child(2) {
     /*CATEGORY*/
-    width: 5%;
+    width: 10%;
 }
 
 .table__row p:nth-child(3),
 .table__head li:nth-child(3) {
     /*NAME*/
-    width: 25%;
+    width: 20%;
 }
 
 .table__row p:nth-child(4) {
