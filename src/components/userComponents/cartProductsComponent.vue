@@ -1,5 +1,8 @@
 <template>
     <section class="listProduct">
+        <div class="emptyCart" v-if="productList.length === 0">
+            <h3 class="emptyCart__title">Empty cart</h3>
+        </div>
         <article v-for="(product, index) in productList" :key="index" class="product">
             <figure class="product__image">
                 <img :src="product.image" :alt="product.title">
@@ -44,6 +47,9 @@ export default {
                 { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
                 { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
                 { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
+                // { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_911090-MLU73905272150_012024-P.webp', title: 'Tableta Xiaomi 13" pulgadas full HD', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_931210-MLM76823570771_062024-P.webp', title: 'Camiseta Polo azul con blanco', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_903515-MLM79307306680_092024-P.webp', title: 'Guantes de latex para cocina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
@@ -84,6 +90,14 @@ export default {
     cursor: pointer;
 }
 
+.emptyCart {
+    display: flex;
+    height: 18rem;
+    min-height: 18rem;
+    justify-content: center;
+    align-items: center;
+}
+
 .product:last-of-type {
     border: none;
 }
@@ -110,7 +124,8 @@ export default {
     gap: 1rem;
 }
 
-.product__title {
+.product__title,
+.emptyCart__title {
     font-size: var(--font-size-bigest);
     font-weight: 500;
     color: var(--text-color-title);
@@ -213,7 +228,7 @@ export default {
 
     .product {
         height: 15rem;
-        padding: 0;
+        padding: 1rem;
     }
 
     .product__info {
@@ -233,7 +248,9 @@ export default {
         min-width: 10rem;
     }
 
-    .product__title {
+
+    .product__title,
+    .emptyCart__title {
         font-size: var(--font-size-small);
     }
 

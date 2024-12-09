@@ -88,4 +88,28 @@ export default {
 .buttonPayment {
     width: 90%;
 }
+@media (width <=390px) {
+
+    .quantity__subtitle,
+    .delivery__subtitle,
+    .total__subtitle {
+        font-size: var(--font-size-medium);
+    }
+
+    .quantity p,
+    .delivery p,
+    .quantity__subtitle,
+    .delivery__subtitle {
+        font-size: var(--font-size-small);
+    }
+
+    .total p {
+        font-size: var(--font-size-big);
+
+    }
+
+    .code {
+        font-size: var(--font-size-smallest);
+    }
+}
 </style>

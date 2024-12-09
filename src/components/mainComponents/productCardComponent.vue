@@ -211,12 +211,16 @@ export default {
         height: 16rem;
     }
 
+    .product__description {
+        font-size: var(--font-size-smallest);
+    }
+
     .product__info {
-        padding: 0 1rem;
+        padding: .5rem 1rem;
     }
 
     .product__title {
-        font-size: var(--font-size-smallest);
+        font-size: var(--font-size-small);
     }
 
     .carbonFootprint {
