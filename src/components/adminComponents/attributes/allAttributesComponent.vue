@@ -154,9 +154,9 @@ export default {
         },
         async goToPage(page) {
             if (page > 0 && page <= this.totalPages) {
-                this.categoriesState = 'loading';
-                await this.fetchCategories({ page });
-                this.categoriesState = 'success';
+                this.attributesState = 'loading';
+                await this.fetchAttributes({ page });
+                this.attributesState = 'success';
             }
         }
     },

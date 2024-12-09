@@ -7,6 +7,7 @@ import usersData from './modules/users';
 import categories from './modules/categories';
 import attributes from './modules/attributes';
 import products from './modules/products';
+import cart from './modules/cart';
 
 Vue.use(Vuex);
 
@@ -19,5 +20,6 @@ export default new Vuex.Store({
     categories,
     attributes,
     products,
+    cart
   }
 });

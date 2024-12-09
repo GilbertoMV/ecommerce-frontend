@@ -170,7 +170,7 @@ export default {
                     this.clearForm()
                     setTimeout(() => {
                         this.$router.push('/admin/all-attributes');
-                    }, 3000);
+                    }, 1000);
                 } else {
                     if (this.formData.type === 'color') {
                         this.attributeState = 'loading'

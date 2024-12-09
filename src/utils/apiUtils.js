@@ -67,7 +67,7 @@ export async function fetchCategoryData() {
 
 export async function fetchSizes(sizeId='') {
   if(sizeId==='') {
-    const response = await apiClient.get('/sizes');
+    const response = await apiClient.get('/sizes?limit=100');
     return response.data.sizes;
   }else {
     const response = await apiClient.get(`/sizes/${sizeId}`);
@@ -78,7 +78,7 @@ export async function fetchSizes(sizeId='') {
 export async function fetchColors(colorId='') {
   // Hacer la petición a la API para obtener los colores
   if(colorId==='') {
-    const response = await apiClient.get('/colors');
+    const response = await apiClient.get('/colors?limit=100');
     return response.data.colors;
   }else {
     const response = await apiClient.get(`/colors/${colorId}`);
