@@ -2,21 +2,22 @@
     <section class="productSection">
         <header class="productSection__header">
             <h3 class="productSection__title"> {{ title }}</h3>
-            <router-link :to="{ name: 'categoryPage', params: { categoryId: link } }">Ver todo</router-link>
+            <router-link :to="{ name: 'categoryPage', params: { categoryId: categoryId } }">Ver todo</router-link>
         </header>
         <div class="productSection__slider">
             <div class="products">
-                <productCardComponent />
-                <productCardComponent />
-                <productCardComponent />
-                <productCardComponent />
-                <productCardComponent />
+                <div v-for="(product, index) in productsCategory" :key="index">
+                    <productCardComponent :id="product.id_producto.toString()" :name="product.nombre"
+                        :description="product.descripcion" :cf="product.huella_carbono.toString()"
+                        :rwp="product.puntos_recompensa.toString()" :price="product.precio.toString()" />
+                </div>
             </div>
         </div>
     </section>
 </template>
 <script>
 import productCardComponent from '../mainComponents/productCardComponent.vue';
+import { fetchProductsByCategories } from '../../utils/apiUtils';
 
 export default {
     name: "productSection",
@@ -28,9 +29,22 @@ export default {
             type: String,
             required: true
         },
-        link: {
+        categoryId: {
             type: String,
             required: true
+        }
+    },
+    data() {
+        return {
+            productsCategory: []
+        }
+    },
+    async created() {
+        try {
+            const idCategory = this.categoryId;
+            this.productsCategory = await fetchProductsByCategories(idCategory);
+        } catch (error) {
+            console.error(error)
         }
     }
 }

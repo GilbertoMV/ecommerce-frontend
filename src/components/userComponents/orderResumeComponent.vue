@@ -88,7 +88,6 @@ export default {
 .buttonPayment {
     width: 90%;
 }
-
 @media (width <=390px) {
 
     .quantity__subtitle,

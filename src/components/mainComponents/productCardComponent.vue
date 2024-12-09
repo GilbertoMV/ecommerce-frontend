@@ -6,18 +6,17 @@
         </figure>
         <div class="product__info">
             <header>
-                <h4 class="product__title">Silla de Oficina</h4>
+                <h4 class="product__title">{{ name }}</h4>
             </header>
-            <section class="product__description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-                consequuntur eius id cum totam. Debitis repellendus harum </section>
+            <section class="product__description"> {{ description }} </section>
             <section class="product__data">
-                <p class="carbonFootprint">120 CO₂e</p>
-                <p class="rewardsPoints">100 pts</p>
+                <p class="carbonFootprint">{{ cf }} CO₂e</p>
+                <p class="rewardsPoints">{{ rwp }}pts</p>
             </section>
             <footer class="product__actions">
-                <p class="product__price">$1,200</p>
+                <p class="product__price">{{ price }}</p>
                 <button class="product__button">
-                    <shoppingCarIcon /> Add to car
+                    <shoppingCarIcon /> Add to cart
                 </button>
             </footer>
         </div>
@@ -30,6 +29,32 @@ export default {
     name: 'productCardComponent',
     components: {
         shoppingCarIcon
+    },
+    props: {
+        id: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true
+        },
+        cf: {
+            type: String,
+            required: true
+        },
+        rwp: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: String,
+            required: true
+        },
     }
 }
 </script>

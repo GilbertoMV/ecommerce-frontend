@@ -19,6 +19,11 @@ export async function fetchUserData() {
   return response.data;
 }
 
+export async function fetchProductsByCategories(categoryId, limit) {
+  const response = await apiClient.get(`products/category/${categoryId}?limit=${limit}`);
+  return response.data;
+}
+
 //UTILS PARA ADMINISTRADOR
 
 export async function fetchAllUsersData() {
@@ -59,7 +64,6 @@ export async function fetchCategoryData() {
     throw error;
   }
 }
-
 
 export async function fetchSizes(sizeId='') {
   if(sizeId==='') {
