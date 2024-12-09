@@ -30,7 +30,7 @@
           </li>
           <li @click="removeMenu">
             <router-link to="/shopping-car" class="header__menu-item">
-              <shoppingcarIcon /> Shopping Car
+              <shoppingcarIcon /> Shopping Cart
             </router-link>
           </li>
           <!-- <li @click="removeMenu">
@@ -177,7 +177,7 @@
 
 
           <router-link v-if="accountType === '1'" to="/shopping-car" class="header__link">
-            <shoppingcarIcon />Shopping Car
+            <shoppingcarIcon />Shopping Cart
           </router-link>
           <!-- si es usuario vendedor -->
           <!-- <router-link v-if="accountType === '1'" to="/favorites" class="header__link">
@@ -194,7 +194,7 @@
         <div class="header__session-container">
           <router-link to="/shopping-car" class="header__link">
             <shoppingcarIcon />
-            <p class="header__handle-text">Shopping car</p>
+            <p class="header__handle-text">Shopping cart</p>
           </router-link>
           <!-- <router-link to="/favorites" class="header__link">
             <favoritesIcon />

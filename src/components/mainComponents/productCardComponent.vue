@@ -65,7 +65,6 @@ export default {
 /* Información del producto */
 .product__info {
     padding: 1.5rem;
-    padding-top: 0;
     display: flex;
     flex-direction: column;
     gap: .7rem;
@@ -101,7 +100,7 @@ export default {
 .carbonFootprint {
     font-size: var(--font-size-small);
     color: var(--primary-color);
-    border: dotted .1rem var(--primary-color);
+    border: solid .1rem var(--primary-color);
     padding: .7rem 1rem;
     border-radius: .5rem;
     /* Color para la huella de carbono */
@@ -187,12 +186,16 @@ export default {
         height: 16rem;
     }
 
+    .product__description {
+        font-size: var(--font-size-smallest);
+    }
+
     .product__info {
-        padding: 0 1rem;
+        padding: .5rem 1rem;
     }
 
     .product__title {
-        font-size: var(--font-size-smallest);
+        font-size: var(--font-size-small);
     }
 
     .carbonFootprint {

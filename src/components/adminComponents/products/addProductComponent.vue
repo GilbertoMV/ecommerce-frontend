@@ -493,7 +493,7 @@ export default {
         helperComponent
     },
     computed: {
-        ...mapGetters(['idUser'])
+        ...mapGetters('session', ['idUser'])
     },
     data() {
         return {
@@ -656,7 +656,6 @@ export default {
                 }
 
                 if (respuesta) {
-                    console.log('Respuesta obtenida:', respuesta);
                     this.calculateState = 'success';
                     this.formData.carbon_footprint = Number(respuesta);
                     this.formData.rewards_points = this.rewards_pointsCalculate(respuesta)
