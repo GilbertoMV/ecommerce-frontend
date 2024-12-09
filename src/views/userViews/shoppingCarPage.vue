@@ -13,6 +13,7 @@
     </main>
 </template>
 <script>
+
 import cartProducts from "../../components/userComponents/cartProductsComponent.vue"
 import orderResume from "../../components/userComponents/orderResumeComponent.vue";
 export default {

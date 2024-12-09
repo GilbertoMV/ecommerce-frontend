@@ -122,7 +122,7 @@ export default {
             }
         },
         async signInFacebook() {
-            const response = await apiClient.post('/facebook')
+            const response = await apiClient.get('/facebook')
             console.log(response)
         }
     }

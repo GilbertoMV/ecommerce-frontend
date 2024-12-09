@@ -1,5 +1,5 @@
 <template>
-    <div class="listProduct">
+    <section class="listProduct">
         <article v-for="(product, index) in productList" :key="index" class="product">
             <figure class="product__image">
                 <img :src="product.image" :alt="product.title">
@@ -15,7 +15,6 @@
                 </section>
                 <footer class="product__actions">
                     <p class="product__price">${{ product.price }} MXN</p>
-                    <!-- el mac del componenente depende del stock del producto-->
                     <counterComponent :initialCount="1" :min="1" :max="10" @update:count="onCountUpdate" />
                 </footer>
             </div>
@@ -29,7 +28,7 @@
             <button class="pagination__button" @click="goToPage(currentPage + 1)"
                 :disabled="currentPage === totalPages">Next</button>
         </div> -->
-    </div>
+    </section>
 </template>
 <script>
 import counterComponent from '../mainComponents/counterComponent.vue';
@@ -41,10 +40,10 @@ export default {
     data() {
         return {
             productList: [
-                { image: 'https://http2.mlstatic.com/D_Q_NP_873193-MLU70690340718_072023-P.webp', title: 'Bicicleta de dontaña', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '12', rewardsPoints: '0', price: '100' },
-                // { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
-                // { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
-                // { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
+                // { image: 'https://http2.mlstatic.com/D_Q_NP_873193-MLU70690340718_072023-P.webp', title: 'Bicicleta de dontajsdalsjdaksjdlkjfksjflksjfaña', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '12', rewardsPoints: '0', price: '100' },
+                { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
+                { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
+                { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_911090-MLU73905272150_012024-P.webp', title: 'Tableta Xiaomi 13" pulgadas full HD', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_931210-MLM76823570771_062024-P.webp', title: 'Camiseta Polo azul con blanco', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
                 // { image: 'https://http2.mlstatic.com/D_Q_NP_903515-MLM79307306680_092024-P.webp', title: 'Guantes de latex para cocina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
@@ -77,11 +76,12 @@ export default {
 
 .product {
     display: flex;
-    width: 100%;
     height: 18rem;
     min-height: 18rem;
     border-bottom: .1rem solid var(--separators-color);
-    padding: 1rem 0rem;
+    padding: 1.5rem;
+    gap: 1rem;
+    cursor: pointer;
 }
 
 .product:last-of-type {
@@ -89,8 +89,8 @@ export default {
 }
 
 .product__image {
-    width: 30rem;
-    min-width: 30rem;
+    width: 25rem;
+    min-width: 25rem;
     height: 100%;
     overflow: hidden;
 }
@@ -103,10 +103,10 @@ export default {
 
 .product__info {
     width: 100%;
-    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
     gap: 1rem;
 }
 
@@ -114,12 +114,6 @@ export default {
     font-size: var(--font-size-bigest);
     font-weight: 500;
     color: var(--text-color-title);
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 
 .product__description {
@@ -141,7 +135,7 @@ export default {
 .carbonFootprint {
     font-size: var(--font-size-medium);
     color: var(--primary-color);
-    border: dotted .1rem var(--primary-color);
+    border: solid .1rem var(--primary-color);
     padding: .7rem 1rem;
     border-radius: .5rem;
     /* Color para la huella de carbono */
@@ -203,14 +197,44 @@ export default {
     color: var(--text-color-body)
 }
 
+@media (width <=768px) {
+    .product__image {
+        width: 18rem;
+        min-width: 18rem;
+    }
+}
+
 @media (width <=390px) {
+
+    .listProduct,
+    .product {
+        min-height: 15rem;
+    }
+
+    .product {
+        height: 15rem;
+        padding: 0;
+    }
+
+    .product__info {
+        gap: .5rem;
+    }
+
+    .product__description {
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
     .product__image {
         width: 10rem;
         min-width: 10rem;
     }
 
     .product__title {
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-small);
     }
 
     .product__description {

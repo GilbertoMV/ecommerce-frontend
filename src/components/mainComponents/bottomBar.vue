@@ -29,7 +29,6 @@
 </template>
 <script>
 import { fetchCategoryData } from '../../utils/apiUtils.js'
-import { mapGetters } from 'vuex';
 export default {
   name: 'NavBar',
   data() {
@@ -38,9 +37,6 @@ export default {
       hideMenuTimeout: null,
       categories: [],
     }
-  },
-  computed: {
-    ...mapGetters(['isDarkMode'])
   },
   methods: {
     showMenu() {
