@@ -21,7 +21,7 @@ export default {
         max: {
             type: Number,
             default: Infinity,
-        },
+        }
     },
     data() {
         return {

@@ -8,8 +8,9 @@
             <div class="products">
                 <div v-for="(product, index) in productsCategory" :key="index">
                     <productCardComponent :id="product.id_producto.toString()" :name="product.nombre"
-                        :description="product.descripcion" :cf="product.huella_carbono.toString()"
-                        :rwp="product.puntos_recompensa.toString()" :price="product.precio.toString()" />
+                        :url="product.imagenes[0]" :description="product.descripcion"
+                        :cf="product.huella_carbono.toString()" :rwp="product.puntos_recompensa.toString()"
+                        :price="product.precio.toString()" />
                 </div>
             </div>
         </div>
@@ -40,11 +41,14 @@ export default {
         }
     },
     async created() {
+        this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
         try {
             const idCategory = this.categoryId;
-            this.productsCategory = await fetchProductsByCategories(idCategory);
+            this.productsCategory = await fetchProductsByCategories(idCategory, 5);
         } catch (error) {
-            console.error(error)
+            console.error(error);
+        } finally {
+            this.$store.dispatch('loader/setLoading', false);  // Activar loader al inicio
         }
     }
 }

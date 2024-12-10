@@ -505,7 +505,7 @@ export default {
             colorsState: '',
             sizesState: '',
             calculateState: '',
-            handleForms: true,
+            handleForms: false,
 
             //ARREGLOS DE DATOS
             categories: [], //Array de las categorias
@@ -893,7 +893,7 @@ export default {
         }
     },
     async created() {
-        this.$store.dispatch('setLoading', true);  // Activar loader al inicio
+        this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
         try {
             this.categories = await fetchCategoryData();
             this.sizesOptions = await fetchSizes();
@@ -901,7 +901,7 @@ export default {
         } catch (error) {
             console.error(error)
         } finally {
-            this.$store.dispatch('setLoading', false);  // Desactivar loader al inicio
+            this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al inicio
         }
 
     }

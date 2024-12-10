@@ -24,9 +24,9 @@
     border-radius: 1.5rem;
     background-color: var(--primary-background-color);
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
-    width: 30rem;
-    height: 30rem;
-    max-height: 30rem;
+    width: 25rem;
+    height: 25rem;
+    max-height: 25rem;
 }
 
 @media (width <=768px) {

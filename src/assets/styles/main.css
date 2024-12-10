@@ -194,6 +194,16 @@ h1 {
   width: 70%;
 }
 
+.listProduct {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-height: 18rem;
+  border-radius: 1.5rem;
+  background-color: var(--primary-background-color);
+  box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
+}
 
 .filters__title,
 .listProducts__title,
@@ -532,7 +542,9 @@ h1 {
 
 /* FIN DE LOS ESTILOS PARA ADMIN */
 
-
+.temporal {
+  width: 100%;
+}
 
 .popup-content h2 {
   font-size: var(--font-size-big);
@@ -583,6 +595,9 @@ h1 {
 }
 
 @media (width <=390px) {
+  .listProduct {
+    min-height: 15rem;
+  }
 
   .userProfile {
     margin-top: 5rem;

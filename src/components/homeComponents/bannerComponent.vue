@@ -12,10 +12,10 @@ export default {
     data() {
         return {
             banners: [
-                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1731509643/lgcg68avjvwgjvj3clxj.webp", alt: "Banner Koala 1" },
-                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1731510710/lz7pyt7lurfyuodp4bip.webp", alt: "Banner Koala 2" },
-                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1731509642/svzxgkatanphdfwmcl1h.webp", alt: "Banner Koala 3" },
-                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1731509641/zavcwtsgdetevrjqhx75.webp", alt: "Banner Koala 4" },
+                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1733796326/dahhsnex6zibcw78gvlm.webp", alt: "Banner Koala 1" },
+                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1733796326/cpuxiahtghud6gsikh3a.webp", alt: "Banner Koala 2" },
+                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1733796326/slrxojxjdbjhb0xly1tf.webp", alt: "Banner Koala 3" },
+                { image: "https://res.cloudinary.com/koalamarket/image/upload/v1733796326/nioxhst8ywmwzl20bnkk.webp", alt: "Banner Koala 4" },
             ],
             currentIndex: 0,
         };
@@ -62,6 +62,7 @@ export default {
     position: relative;
     width: 100%;
     flex-shrink: 0;
+    height: 50rem;
 }
 
 .banner img {
@@ -78,5 +79,11 @@ export default {
     right: 0;
     height: 35%;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--secondary-background-color) 100%);
+}
+
+@media (width <=768px) {
+    .banner {
+        height: initial;
+    }
 }
 </style>

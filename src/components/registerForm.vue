@@ -166,7 +166,7 @@ export default {
     },
     methods: {
         async signUp() {
-            this.$store.dispatch('setLoading', true);  // Activar loader al inicio
+            this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
             try {
                 this.$v.$touch();
                 if (this.$v.$invalid) {

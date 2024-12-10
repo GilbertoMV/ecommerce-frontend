@@ -1,78 +1,86 @@
 <template>
-    <section class="listProduct">
-        <article v-for="(product, index) in productList" :key="index" class="product">
-            <figure class="product__image">
-                <img :src="product.image" :alt="product.title">
-            </figure>
-            <div class="product__info">
-                <header>
-                    <h4 class="product__title">{{ product.title }}</h4>
-                </header>
-                <section class="product__description">{{ product.description }} </section>
-                <section class="product__data">
-                    <p class="carbonFootprint">{{ product.carbonFootprint }} CO₂e</p>
-                    <p class="rewardsPoints">{{ product.rewardsPoints }} Rewards Points</p>
-                </section>
-                <footer class="product__actions">
-                    <p class="product__price">${{ product.price }} MXN</p>
-                    <button class="product__button">
-                        <shoppingCarIcon /> Add to car
-                    </button>
-                </footer>
-            </div>
-        </article>
+    <article class="product">
+        <figure class="product__image">
+            <img :src="url" :alt="name">
+        </figure>
+        <div class="product__info">
+            <header>
+                <h4 class="product__title">{{ name }}</h4>
+            </header>
+            <section class="product__description">{{ description }} </section>
+            <section class="product__data">
+                <p class="carbonFootprint">{{ cf }} CO₂e</p>
+                <p class="rewardsPoints">{{ rwp }} Rewards Points</p>
+            </section>
+            <footer class="product__actions">
+                <p class="product__price">${{ price }} MXN</p>
+                <button class="product__button" @click="handleAddToCart">
+                    <shoppingCarIcon /> Add to cart
+                </button>
+            </footer>
+        </div>
+    </article>
 
-        <!-- Paginacion proxima a traer -->
-        <div class="pagination">
+    <!-- Paginacion proxima a traer -->
+    <!-- <div class="pagination">
             <button class="pagination__button" @click="goToPage(currentPage - 1)"
                 :disabled="currentPage === 1">Last</button>
             <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
             <button class="pagination__button" @click="goToPage(currentPage + 1)"
                 :disabled="currentPage === totalPages">Next</button>
-        </div>
-    </section>
+        </div> -->
 </template>
 <script>
 import shoppingCarIcon from '../icons/shoppingcarIcon.vue';
+import { addToCart } from '../../utils/apiUtils.js'
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'listProductComponent',
     components: {
         shoppingCarIcon,
     },
-    data() {
-        return {
-            productList: [
-                { image: 'https://http2.mlstatic.com/D_Q_NP_873193-MLU70690340718_072023-P.webp', title: 'Bicicleta de dontajsdalsjdaksjdlkjfksjflksjfaña', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '12', rewardsPoints: '0', price: '100' },
-
-                // { image: 'https://http2.mlstatic.com/D_Q_NP_873193-MLU70690340718_072023-P.webp', title: 'Bicicleta de dontaña', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '12', rewardsPoints: '0', price: '100' },
-                { image: 'https://officemax.vtexassets.com/arquivos/ids/1349020/63127_1.jpg?v=638158826290600000', title: 'Silla de oficina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '10', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_630630-MLM71588078978_092023-P.webp', title: 'CeraVe crema', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '28', rewardsPoints: '80', price: '120' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_731289-MLU79048599058_092024-P.webp', title: 'Pantalla de 45" samsung OLED', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '50', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_911090-MLU73905272150_012024-P.webp', title: 'Tableta Xiaomi 13" pulgadas full HD', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_931210-MLM76823570771_062024-P.webp', title: 'Camiseta Polo azul con blanco', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_903515-MLM79307306680_092024-P.webp', title: 'Guantes de latex para cocina', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_861977-MLU76901588090_062024-P.webp', title: 'Laptop lenovo 20" para estudiantes', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_612726-MLU77023115255_062024-P.webp', title: 'Colchon matrimonial con resorte', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-                { image: 'https://http2.mlstatic.com/D_Q_NP_688190-MLU75151642343_032024-P.webp', title: 'Crema para la piel nutrogena', description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisciconsequuntur eius id cum totam. Debitis repellendus harum Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci', carbonFootprint: '120', rewardsPoints: '100', price: '1,200' },
-            ]
+    props: {
+        id: {
+            type: String,
+            required: true
+        },
+        url: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true
+        },
+        cf: {
+            type: String,
+            required: true
+        },
+        rwp: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: String,
+            required: true
+        },
+    },
+    computed: {
+        ...mapGetters('session', ['idUser'])
+    },
+    methods: {
+        handleAddToCart() {
+            addToCart(this.id, this.idUser, this.price);
         }
     }
 }
 </script>
 <style scoped>
-.listProduct {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    min-height: 80vh;
-    border-radius: 1.5rem;
-    background-color: var(--primary-background-color);
-    box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
-}
-
 .product {
     display: flex;
     height: 18rem;

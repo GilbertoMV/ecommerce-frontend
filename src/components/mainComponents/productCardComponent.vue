@@ -1,8 +1,7 @@
 <template>
     <article class="product">
         <figure class="product__image">
-            <img src="https://ae-pic-a1.aliexpress-media.com/kf/A38d822fda41f40f588fdf4ba330270c4T.jpg_.webp"
-                alt="Silla de Oficina">
+            <img :src="url" :alt="name">
         </figure>
         <div class="product__info">
             <header>
@@ -14,8 +13,8 @@
                 <p class="rewardsPoints">{{ rwp }}pts</p>
             </section>
             <footer class="product__actions">
-                <p class="product__price">{{ price }}</p>
-                <button class="product__button">
+                <p class="product__price">${{ price }}</p>
+                <button class="product__button" @click="handleAddToCart">
                     <shoppingCarIcon /> Add to cart
                 </button>
             </footer>
@@ -25,6 +24,9 @@
 </template>
 <script>
 import shoppingCarIcon from '../icons/shoppingcarIcon.vue'
+import { addToCart } from '../../utils/apiUtils.js'
+import { mapGetters } from 'vuex';
+
 export default {
     name: 'productCardComponent',
     components: {
@@ -32,6 +34,10 @@ export default {
     },
     props: {
         id: {
+            type: String,
+            required: true
+        },
+        url: {
             type: String,
             required: true
         },
@@ -55,6 +61,14 @@ export default {
             type: String,
             required: true
         },
+    },
+    computed: {
+        ...mapGetters('session', ['idUser'])
+    },
+    methods: {
+        handleAddToCart() {
+            addToCart(this.id, this.idUser, this.price);
+        }
     }
 }
 </script>
@@ -146,7 +160,7 @@ export default {
 }
 
 .product__price {
-    font-size: var(--font-size-big);
+    font-size: var(--font-size-medium);
     color: var(--text-color-title);
 }
 
@@ -155,7 +169,7 @@ export default {
     color: var(--white-color);
     border: none;
     border-radius: .7rem;
-    padding: 1rem;
+    padding: .7rem;
     cursor: pointer;
     font-size: var(--font-size-small);
     display: flex;

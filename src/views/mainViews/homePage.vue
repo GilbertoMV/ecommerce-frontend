@@ -31,7 +31,14 @@ export default {
     }
   },
   async created() {
-    this.categories = await fetchCategoryData();
+    try {
+      this.$store.dispatch('loader/setLoading', true);  // Desactivar loader al final, independientemente del resultado
+      this.categories = await fetchCategoryData();
+    } catch (error) {
+      console.log(error)
+    } finally {
+      this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al final, independientemente del resultado
+    }
   }
 };
 </script>
