@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://ecommerce-backend-production-e736.up.railway.app',
   headers: {
     'Content-Type': 'application/json'
   }
