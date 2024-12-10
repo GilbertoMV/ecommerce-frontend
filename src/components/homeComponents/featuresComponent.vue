@@ -1,13 +1,36 @@
 <template>
     <div class="cards-container">
-        <!-- Aquí puedes añadir tus tarjetas u otros elementos -->
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
+        <div v-for="(product, index) in products" :key="index">
+            <productCardComponent :id="product.id_producto.toString()" :name="product.nombre" :url="product.imagenes[0]"
+                :description="product.descripcion" :cf="product.huella_carbono.toString()"
+                :rwp="product.puntos_recompensa.toString()" :price="product.precio.toString()" />
+        </div>
     </div>
 </template>
 <script>
+import { fetchProductsByCategories } from '../../utils/apiUtils';
+import productCardComponent from '../mainComponents/productCardComponent.vue';
+export default {
+    name: 'featuresComponent',
+    components: {
+        productCardComponent
+    },
+    data() {
+        return {
+            products: [],
+        }
+    },
+    async created() {
+        this.$store.dispatch('loader/setLoading', true)
+        try {
+            this.products = await fetchProductsByCategories(6, 3);
+        } catch (error) {
+            console.log(error)
+        } finally {
+            this.$store.dispatch('loader/setLoading', false)
+        }
+    }
+}
 </script>
 <style scoped>
 .cards-container {
