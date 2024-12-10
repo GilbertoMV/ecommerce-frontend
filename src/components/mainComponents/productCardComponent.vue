@@ -202,11 +202,17 @@ export default {
     }
 
     .product__actions {
+        flex-direction: column;
         justify-content: center;
+        gap: .5rem;
     }
 
     .product__button {
-        display: none;
+        font-size: var(--font-size-smallest);
+        padding: .3rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .carbonFootprint {

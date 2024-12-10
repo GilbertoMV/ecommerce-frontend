@@ -729,6 +729,7 @@ export default {
                 }
                 this.handleForms = true
                 this.clearForm();
+                this.$router.push('admin/product-catalog');
                 Swal.fire({
                     icon: "success",
                     text: "Product successfully published",
