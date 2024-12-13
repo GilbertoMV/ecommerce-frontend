@@ -6,7 +6,7 @@
                 <h3 class="emptyCart__title">Empty cart</h3>
             </div>
             <div v-else class="listProduct">
-                <article v-for="(product, index) in productList" :key="index" class="product">
+                <article v-for="(product, index) in productList" :key="product.id_detalle" class="product">
                     <figure class="product__image">
                         <img :src="product.imagen" :alt="product.nombre">
                     </figure>
@@ -14,8 +14,7 @@
                         <header>
                             <h4 class="product__title">{{ product.nombre }}</h4>
                         </header>
-                        <section class="product__description">{{
-                            product.descripcion }} </section>
+                        <section class="product__description">{{ product.descripcion }}</section>
                         <section class="product__data">
                             <p class="carbonFootprint">{{ product.huella_carbono }} CO₂e</p>
                             <p class="rewardsPoints">{{ product.puntos_recompensas }} Rewards Points</p>
@@ -26,7 +25,6 @@
                                 <counterComponent :initialCount="product.cantidad" :min="1" :max="10"
                                     @update:count="newCount => onCountUpdate(newCount, index)" />
                                 <button class="btnDelete" @click="removeProduct(product.id_detalle)">
-
                                     <trashIcon />
                                 </button>
                             </div>
@@ -34,14 +32,6 @@
                     </div>
                 </article>
             </div>
-            <!-- Paginacion proxima a traer -->
-            <!-- <div class="pagination">
-            <button class="pagination__button" @click="goToPage(currentPage - 1)"
-                :disabled="currentPage === 1">Last</button>
-            <span class="pagination__text">Page {{ currentPage }} of {{ totalPages }}</span>
-            <button class="pagination__button" @click="goToPage(currentPage + 1)"
-                :disabled="currentPage === totalPages">Next</button>
-        </div> -->
         </section>
         <aside class="resume">
             <h2 class="resume__title">Order Resume:</h2>
@@ -81,18 +71,17 @@ export default {
     },
     data() {
         return {
-            productList: [], // Lista completa con detalles de productos
+            productList: [],
             selectedCount: 1
         }
     },
     computed: {
-        ...mapGetters('session', ['idUser']), // Obteniendo el ID del usuario desde Vuex
+        ...mapGetters('session', ['idUser']),
         cartTotal() {
-            // Verifica que los valores sean números válidos
             return this.productList.reduce((total, product) => {
-                const precioTotal = Number(product.precio_total) || 0; // Convierte a número o usa 0 como valor por defecto
+                const precioTotal = Number(product.precio_total) || 0;
                 return total + precioTotal;
-            }, 0); // Inicia el total en 0
+            }, 0);
         }
     },
     methods: {
@@ -100,7 +89,7 @@ export default {
             try {
                 const response = await apiClient.get(`carts/me/${this.idUser}`);
                 const cartId = response.data[0]?.id_carrito;
-                if (!cartId) throw new Error('Cart ID no encontrado');
+                if (!cartId) throw new Error('El ID del carrito no fue encontrado');
                 return cartId;
             } catch (error) {
                 console.error('Error al obtener el ID del carrito:', error.message);
@@ -111,18 +100,17 @@ export default {
             try {
                 const cartId = await this.fetchCarId();
                 const response = await apiClient.get(`/carts/cart/${cartId}/details`);
-                return response.data; // Devuelve el array con los detalles del carrito
+                return response.data;
             } catch (error) {
                 console.error('Error al obtener los detalles del carrito:', error.message);
                 return [];
             }
         },
         onCountUpdate(newCount, productIndex) {
-            // Actualiza la cantidad y recalcula el precio del producto
             const product = this.productList[productIndex];
             if (product) {
-                product.cantidad = newCount; // Actualiza la cantidad
-                product.precio_total = product.precio_unitario * newCount; // Recalcula el precio total
+                product.cantidad = newCount;
+                product.precio_total = product.precio_unitario * newCount;
             }
         },
         async removeProduct(detailId) {

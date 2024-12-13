@@ -4,7 +4,7 @@
     </main>
 </template>
 <script>
-import orderResume from "../../components/userComponents/orderResumeComponent.vue";
+const orderResume = () => import('../../components/userComponents/orderResumeComponent.vue')
 export default {
     name: 'shoppingCar',
     components: {

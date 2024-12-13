@@ -18,10 +18,14 @@ const actions = {
         }, 500);
     }
 }
+const getters = {
+    isLoading: (state) => state.loading,
+}
 
 export default {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 }

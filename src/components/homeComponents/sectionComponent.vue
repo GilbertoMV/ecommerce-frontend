@@ -6,7 +6,7 @@
         </header>
         <div class="productSection__slider">
             <div class="products">
-                <div v-for="(product, index) in productsCategory" :key="index">
+                <div v-for="product in productsCategory" :key="product.id_producto">
                     <productCardComponent :id="product.id_producto.toString()" :name="product.nombre"
                         :url="product.imagenes[0]" :description="product.descripcion"
                         :cf="product.huella_carbono.toString()" :rwp="product.puntos_recompensa.toString()"
@@ -41,14 +41,11 @@ export default {
         }
     },
     async created() {
-        this.$store.dispatch('loader/setLoading', true);  // Activar loader al inicio
         try {
             const idCategory = this.categoryId;
             this.productsCategory = await fetchProductsByCategories(idCategory, 5);
         } catch (error) {
             console.error(error);
-        } finally {
-            this.$store.dispatch('loader/setLoading', false);  // Activar loader al inicio
         }
     }
 }

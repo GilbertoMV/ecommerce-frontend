@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>More Eco Friendly</h1>
+    <h1>More Eco-Friendly</h1>
   </main>
 </template>
 

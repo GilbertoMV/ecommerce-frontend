@@ -5,6 +5,9 @@
 </template>
 <script>
 export default {
-    name: 'outletPage'
+    name: 'outletPage',
+    created() {
+        this.$store.dispatch('loader/setLoading', true);
+    }
 }
 </script>
