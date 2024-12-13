@@ -505,7 +505,7 @@ export default {
             colorsState: '',
             sizesState: '',
             calculateState: '',
-            handleForms: false,
+            handleForms: true,
 
             //ARREGLOS DE DATOS
             categories: [], //Array de las categorias

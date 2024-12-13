@@ -34,13 +34,13 @@ export default {
         }
     },
     async created() {
-        this.$store.dispatch('loader/setLoading', true)
+        // this.$store.dispatch('loader/setLoading', true)
         try {
             this.products = await fetchProductsByCategories(6, 3);
         } catch (error) {
             console.log(error)
         } finally {
-            this.$store.dispatch('loader/setLoading', false)
+            // this.$store.dispatch('loader/setLoading', false)
         }
     }
 }

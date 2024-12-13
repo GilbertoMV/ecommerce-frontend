@@ -3,7 +3,6 @@
     <bannerComponent />
     <featuresComponent />
     <bannerMPComponent />
-    <!-- Una posible feature puede ser que por cada categoria existente, traiga dinamicamente los productos -->
     <div v-for="(category, index) in categories" :key="index">
       <productsSection :categoryId="category.id_categoria.toString()" :title="category.nombre" />
     </div>
@@ -31,13 +30,13 @@ export default {
     }
   },
   async created() {
+    this.$store.dispatch('loader/setLoading', true);
     try {
-      this.$store.dispatch('loader/setLoading', true);  // Desactivar loader al final, independientemente del resultado
       this.categories = await fetchCategoryData();
     } catch (error) {
       console.log(error)
     } finally {
-      this.$store.dispatch('loader/setLoading', false);  // Desactivar loader al final, independientemente del resultado
+      this.$store.dispatch('loader/setLoading', false);
     }
   }
 };

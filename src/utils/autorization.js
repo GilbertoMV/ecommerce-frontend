@@ -10,7 +10,7 @@ export function validation() {
       if (decodedToken && decodedToken.cuenta) {
         return decodedToken.cuenta;
       } else {
-        console.error("El token no contiene la propiedad accountType");
+        console.error("El token no contiene la propiedad tipo de cuenta");
         return null; 
       }
       
@@ -19,7 +19,7 @@ export function validation() {
       return null;
     }
   } else {
-    console.error("No se encontró un token en sessionStorage");
+    console.error("No se encontró el token");
     return null;
   }
 }
