@@ -23,6 +23,11 @@
                 </p>
             </div>
             <div class="accessibility__button">
+                <select class="form__select" v-model="selectedSize" @change="setFontSize(selectedSize)">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
             </div>
         </div>
 
@@ -32,6 +37,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 const toggleComponent = () => import('../../mainComponents/toggleComponent.vue');
 const darkmodeIcon = () => import('../../icons/darkmodeIcon.vue');
 const textsizeIcon = () => import('../../icons/textsizeIcon.vue');
@@ -43,8 +49,24 @@ export default {
         textsizeIcon
     },
     computed: {
-        ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email'])
+        ...mapGetters(['username', 'paternalLastName', 'maternalLastName', 'email']),
+        selectedSize: {
+            get() {
+                if (this.$store.state.fontSize.scale === 0.8) {
+                    return 'small';
+                } else if (this.$store.state.fontSize.scale === 1.2) {
+                    return 'large';
+                }
+                return 'medium';
+            },
+            set(value) {
+                this.setFontSize(value);
+            }
+        }
     },
+    methods: {
+        ...mapActions('fontSize', ['setFontSize'])
+    }
 }
 </script>
 

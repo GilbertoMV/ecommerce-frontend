@@ -1,6 +1,8 @@
 <template>
     <main>
-        <bannerCategory :name="category.nombre" :description="category.descripcion" :url="category.url_imagen" />
+        <bannerCategory :name="category ? category.nombre : 'Category Not Found'"
+            :description="category ? category.descripcion : 'Please refresh this page or try with other category'"
+            :url="category?.url_imagen" />
         <div class="principal">
             <aside class="listFilters">
                 <h2 class="filters__title">Search Filters:</h2>
@@ -8,7 +10,11 @@
             </aside>
             <section class="listMain">
                 <h3 class="filters__title">Results:</h3>
-                <section class="listProduct">
+                <section class="listProduct--log" v-if="products.length === 0">
+                    <alertIcon />
+                    <span>Not Products Found</span>
+                </section>
+                <section class="listProduct" v-else>
                     <div class="temporal" v-for="product in products" :key="product.id_producto">
                         <listProducts :id="product.id_producto.toString()" :name="product.nombre"
                             :url="product.imagenes[0]" :description="product.descripcion"
@@ -24,15 +30,17 @@
 <script>
 import bannerCategory from '../../components/categoriesComponents/bannerCategoryComponent.vue'
 import filtersComponent from '../../components/mainComponents/filtersComponent.vue';
-import { fetchProductsByCategories } from '../../utils/apiUtils.js'
 import listProducts from '../../components/mainComponents/productListComponent.vue';
+import { fetchProductsByCategories } from '../../utils/apiUtils.js';
+import alertIcon from '../../components/icons/alertIcon.vue'
 
 export default {
     name: 'CategoriesPage',
     components: {
         bannerCategory,
         filtersComponent,
-        listProducts
+        listProducts,
+        alertIcon
     },
     props: ['categoryId'],
     data() {
@@ -42,22 +50,27 @@ export default {
         };
     },
     watch: {
+        //escucha cambios en la ruta
         '$route.params.categoryId': async function (newVal) {
+            //si existe un cambio valido
             if (newVal) {
-                await this.fetchCategoryDetails(newVal);  // Esperamos que la categoría se cargue
-                await this.fetchProducts();  // Llamamos a los productos después de cargar la categoría
+                //primero obtiene los detalles de la categoria
+                await this.fetchCategoryDetails(newVal);
+                //despues con esos datos hace el fetch de los productos
+                await this.fetchProducts();
             }
         },
     },
     created() {
         if (this.categoryId) {
-            this.fetchCategoryDetails(this.categoryId); // Usamos categoryId para buscar la categoría al crear el componente
+            this.fetchCategoryDetails(this.categoryId);
         } else {
             console.error('No category ID found');
         }
     },
+    //evita que el componente se destruya, solo actualiza los datos con los nuevos parametros
     beforeRouteUpdate(to, from, next) {
-        this.fetchCategoryDetails(to.params.categoryId); // Recargamos la categoría cuando la ruta cambia
+        this.fetchCategoryDetails(to.params.categoryId);
         next();
     },
     methods: {
@@ -68,10 +81,9 @@ export default {
                 const category = categoriesData.data.find(category => category.id_categoria.toString() === id.toString());
                 if (category) {
                     this.category = category;
-                    // Una vez cargada la categoría, llamamos a fetchProducts
                     await this.fetchProducts();
                 } else {
-                    throw new Error('Categoría no encontrada');
+                    console.error('Category not found')
                 }
             } catch (error) {
                 console.error(error);

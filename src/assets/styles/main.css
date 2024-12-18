@@ -194,7 +194,8 @@ h1 {
   width: 70%;
 }
 
-.listProduct {
+.listProduct,
+.listProduct--log {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -203,6 +204,22 @@ h1 {
   border-radius: 1.5rem;
   background-color: var(--primary-background-color);
   box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
+}
+
+.listProduct--log {
+  justify-content: center;
+  align-items: center;
+}
+
+.listProduct--log svg {
+  width: 8rem;
+  height: 8rem;
+  color: var(--help-color);
+}
+
+.listProduct--log span {
+  font-size: var(--font-size-medium);
+  color: var(--help-color);
 }
 
 .filters__title,

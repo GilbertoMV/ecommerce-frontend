@@ -13,7 +13,7 @@ export default {
         ...mapGetters(['isDarkMode'])
     },
     methods: {
-        ...mapActions(['toggleDarkMode'])
+        ...mapActions('theme', ['toggleDarkMode']),
     }
 }
 </script>
