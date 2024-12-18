@@ -10,7 +10,7 @@
                     <productCardComponent :id="product.id_producto.toString()" :name="product.nombre"
                         :url="product.imagenes[0]" :description="product.descripcion"
                         :cf="product.huella_carbono.toString()" :rwp="product.puntos_recompensa.toString()"
-                        :price="product.precio.toString()" />
+                        :price="product.precio" />
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@ export default {
             required: true
         },
         categoryId: {
-            type: String,
+            type: Number,
             required: true
         }
     },
@@ -43,7 +43,7 @@ export default {
     async created() {
         try {
             const idCategory = this.categoryId;
-            this.productsCategory = await fetchProductsByCategories(idCategory, 5);
+            this.productsCategory = await fetchProductsByCategories(idCategory, 6);
         } catch (error) {
             console.error(error);
         }
@@ -54,7 +54,7 @@ export default {
 .productSection {
     display: flex;
     flex-direction: column;
-    width: 70vw;
+    width: 65vw;
     max-width: 150rem;
     border-radius: 1.5rem;
     background-color: var(--primary-background-color);
@@ -71,12 +71,15 @@ export default {
 .products {
     display: flex;
     justify-content: space-between;
-    width: calc(70vw - 4rem);
+    width: calc(65vw - 4rem);
     max-width: calc(150rem - 4rem);
-    overflow-x: hidden;
     gap: 1rem;
-    padding: 0rem 2rem 2rem;
-
+    padding: 0rem 2rem 0rem;
+    height: 31rem;
+    min-height: 31rem;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .productSection__header {
@@ -84,7 +87,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 2rem;
+    margin: 1.5rem;
     margin-bottom: .5rem;
 }
 
@@ -93,14 +96,26 @@ export default {
     font-size: var(--font-size-small);
 }
 
+@media (width < 1800px) {
+    .productSection {
+        width: 80vw;
+    }
+
+    .products {
+
+        width: calc(80vw - 4rem);
+    }
+}
+
 @media (width <=768px) {
     .productSection {
         width: 90vw;
         margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .productSection__slider {
-        padding: 0rem 1.5rem 1.5rem 1.5rem;
+        padding: 0rem 1.5rem 0rem 1.5rem;
         width: calc(90vw - 3rem);
         overflow-x: hidden;
     }
@@ -110,15 +125,15 @@ export default {
     }
 
     .productSection__header {
-        margin: 1.5rem;
+        margin: 1rem;
     }
 
     .products {
         width: 100%;
-        overflow-x: scroll;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
         padding: 1rem 0rem;
+        min-height: 21rem;
+        height: 21rem;
+        max-height: 21rem;
     }
 
     .products::-webkit-scrollbar {
@@ -133,14 +148,17 @@ export default {
         font-size: var(--font-size-smallest);
     }
 
-    .productSection__header {
-        margin: 1rem;
-    }
-
     .productSection__slider {
-        padding: 0rem 1rem 1rem 1rem;
+        padding: 0rem 1rem 0rem 1rem;
         width: calc(90vw - 2rem);
         overflow-x: hidden;
+    }
+
+    .products {
+        padding: 0rem;
+        min-height: 20rem;
+        height: 20rem;
+        max-height: 20rem;
     }
 }
 </style>

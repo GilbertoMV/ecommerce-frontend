@@ -26,7 +26,6 @@ import bannerCategory from '../../components/categoriesComponents/bannerCategory
 import filtersComponent from '../../components/mainComponents/filtersComponent.vue';
 import { fetchProductsByCategories } from '../../utils/apiUtils.js'
 import listProducts from '../../components/mainComponents/productListComponent.vue';
-import Swal from 'sweetalert2';
 
 export default {
     name: 'CategoriesPage',
@@ -43,23 +42,38 @@ export default {
         };
     },
     watch: {
-        '$route.params.categoryId'(newVal) {
-            this.fetchCategoryDetails(newVal);
+        '$route.params.categoryId': async function (newVal) {
+            if (newVal) {
+                await this.fetchCategoryDetails(newVal);  // Esperamos que la categoría se cargue
+                await this.fetchProducts();  // Llamamos a los productos después de cargar la categoría
+            }
+        },
+    },
+    created() {
+        if (this.categoryId) {
+            this.fetchCategoryDetails(this.categoryId); // Usamos categoryId para buscar la categoría al crear el componente
+        } else {
+            console.error('No category ID found');
         }
+    },
+    beforeRouteUpdate(to, from, next) {
+        this.fetchCategoryDetails(to.params.categoryId); // Recargamos la categoría cuando la ruta cambia
+        next();
     },
     methods: {
         async fetchCategoryDetails(id) {
             try {
                 this.$store.dispatch('loader/setLoading', true);
                 const categoriesData = JSON.parse(localStorage.getItem('categoriesData') || '[]');
-                const category = categoriesData.data.find(category => category.id_categoria === id);
+                const category = categoriesData.data.find(category => category.id_categoria.toString() === id.toString());
                 if (category) {
                     this.category = category;
+                    // Una vez cargada la categoría, llamamos a fetchProducts
+                    await this.fetchProducts();
                 } else {
                     throw new Error('Categoría no encontrada');
                 }
             } catch (error) {
-                Swal("Error", "Hubo un problema al cargar los detalles de la categoría", "error");
                 console.error(error);
             } finally {
                 this.$store.dispatch('loader/setLoading', false);
@@ -67,29 +81,16 @@ export default {
         },
         async fetchProducts() {
             if (!this.category) {
+                console.error("Category not found when fetching products");
                 return;
             }
-
             try {
-                this.$store.dispatch('loader/setLoading', true);
-                const id_category = Number(this.categoryId);
+                const id_category = Number(this.category.id_categoria);
                 this.products = await fetchProductsByCategories(id_category, 5);
             } catch (error) {
-                Swal("Error", "Hubo un problema al cargar los productos", "error");
                 console.error(error);
-            } finally {
-                this.$store.dispatch('loader/setLoading', false);
             }
         }
-    },
-    async created() {
-        await this.fetchCategoryDetails(this.categoryId);
-        await this.fetchProducts();
-    },
-    beforeRouteUpdate(to, from, next) {
-        this.fetchCategoryDetails(to.params.categoryId);
-        this.fetchProducts();
-        next();
     }
 }
 </script>

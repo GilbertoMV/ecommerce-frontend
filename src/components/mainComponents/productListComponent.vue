@@ -206,8 +206,8 @@ export default {
 
 @media (width <=768px) {
     .product__image {
-        width: 18rem;
-        min-width: 18rem;
+        width: 12rem;
+        min-width: 12rem;
     }
 }
 

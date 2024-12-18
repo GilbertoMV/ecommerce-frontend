@@ -1,18 +1,17 @@
 <template>
   <main>
     <bannerComponent />
-    <featuresComponent />
+    <bestProducts />
     <bannerMPComponent />
     <div v-for="(category, index) in categories" :key="index">
-      <productsSection :categoryId="category.id_categoria.toString()" :title="category.nombre" />
+      <productsSection :categoryId="category.id_categoria" :title="category.nombre" />
     </div>
-
   </main>
 </template>
 
 <script>
 import bannerComponent from '../../components/homeComponents/bannerComponent.vue';
-import featuresComponent from '../../components/homeComponents/featuresComponent.vue';
+import bestProducts from '../../components/homeComponents/bestProductsComponent.vue';
 import bannerMPComponent from '../../components/homeComponents/bannerMPComponent.vue';
 import productsSection from '../../components/homeComponents/sectionComponent.vue';
 import { fetchCategoryData } from '../../utils/apiUtils';
@@ -20,7 +19,7 @@ export default {
   name: "HomePage",
   components: {
     bannerComponent,
-    featuresComponent,
+    bestProducts,
     bannerMPComponent,
     productsSection,
   },

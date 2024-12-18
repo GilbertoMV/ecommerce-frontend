@@ -48,7 +48,6 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
-    max-width: 200rem;
 }
 
 .image-container {
@@ -62,7 +61,8 @@ export default {
     position: relative;
     width: 100%;
     flex-shrink: 0;
-    height: 50rem;
+    height: auto;
+    max-height: 50rem;
 }
 
 .banner img {
