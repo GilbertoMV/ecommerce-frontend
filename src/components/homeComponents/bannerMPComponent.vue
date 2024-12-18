@@ -9,8 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70vw;
-    height: 8rem;
+    width: 65vw;
+    height: 7rem;
     background-color: var(--primary-background-color);
     border-radius: 1.5rem;
     box-shadow: 0px 4px 24px 2px var(--box-shadow-color);
@@ -21,6 +21,12 @@
 .bannerMP img {
     width: auto;
     height: 70%;
+}
+
+@media (width < 1800px) {
+    .bannerMP {
+        width: 80vw;
+    }
 }
 
 @media (width <=768px) {
