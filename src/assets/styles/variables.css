@@ -61,7 +61,7 @@
     --required-color: #ff000085;
     --separators-color: #373737;
     --error-color: #c10f0f;
-    --box-shadow-color: rgba(61, 61, 61, 0.05);
+    /* --box-shadow-color: rgba(61, 61, 61, 0.05); */
     --border-color: #ebead63a;
     --option-hover-color: #36462628;
     --row-option-hover-color: #9b9a9a35;

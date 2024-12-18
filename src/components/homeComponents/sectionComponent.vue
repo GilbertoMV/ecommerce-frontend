@@ -75,8 +75,9 @@ export default {
     max-width: calc(150rem - 4rem);
     gap: 1rem;
     padding: 0rem 2rem 0rem;
-    height: 31rem;
-    min-height: 31rem;
+    height: auto;
+    min-height: 29rem;
+    max-height: 33rem;
     overflow-x: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;

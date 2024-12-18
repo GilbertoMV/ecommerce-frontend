@@ -4,6 +4,7 @@
       <div class="header__logo-container">
         <router-link to="/">
           <img src="@/assets/images/logo.webp" alt="logo" class="header__logo">
+          <!-- KOALA <span>E-Market</span> -->
         </router-link>
       </div>
       <searchComponent />
@@ -360,6 +361,7 @@ export default {
   margin: 0 auto;
   height: 100%;
 }
+
 
 .header__menu {
   -webkit-tap-highlight-color: transparent;
